@@ -1,0 +1,46 @@
+[
+  {
+    "content_requests": null,
+    "status_code": 200,
+    "landing_url": "https://www.nytimes.com",
+    "annotations": { "test": { "labels": ["Paywall"] } }
+  },
+  {
+    "content_requests": null,
+    "status_code": 200,
+    "landing_url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+    "annotations": { "test": { "labels": ["Paywall", "Login"] } }
+  },
+  {
+    "content_requests": null,
+    "status_code": 200,
+    "landing_url": "https://en.wikipedia.org/wiki/Machine_learning",
+    "annotations": {
+      "test": { "labels": ["Paywall", "Login", "Cookie consent"] }
+    }
+  },
+  {
+    "content_requests": null,
+    "status_code": 200,
+    "landing_url": "https://en.wikipedia.org/wiki/Artificial_intelligence",
+    "annotations": { "test": { "labels": ["Login", "Cookie consent"] } }
+  },
+  {
+    "content_requests": null,
+    "status_code": 200,
+    "landing_url": "https://en.wikipedia.org/wiki/Data_science",
+    "annotations": { "test": { "labels": ["None"] } }
+  },
+  {
+    "content_requests": null,
+    "status_code": 200,
+    "landing_url": "https://en.wikipedia.org/wiki/Neural_network",
+    "annotations": { "test": { "labels": ["Paywall"] } }
+  },
+  {
+    "content_requests": null,
+    "status_code": 200,
+    "landing_url": "https://en.wikipedia.org/wiki/Natural_language_processing",
+    "annotations": { "test": { "labels": ["Login"] } }
+  }
+]
