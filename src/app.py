@@ -8,10 +8,10 @@ import streamlit as st
 from utils.database import *
 from utils.files import *
 
-#================================= CONFIG ================================
+# ================================= CONFIG ================================
 
 st.set_page_config(
-    page_title="Webpage Annotations", 
+    page_title="Webpage Annotations",
     layout="wide",
     page_icon="📄",
     initial_sidebar_state="expanded",
@@ -20,19 +20,19 @@ st.set_page_config(
     #      'Report a bug': "https://www.extremelycoolapp.com/bug",
     #      'About': "# This is a header. This is an *extremely* cool app!"
     #  }
-    )
+)
 
-#================================= DATABASE ================================
+# ================================= DATABASE ================================
 
 fs, db = getConnection(use_dotenv=True)
 
-#================================= CONSTANTS ================================
+# ================================= CONSTANTS ================================
 
 LABELS = ['None', 'Login', 'Paywall', 'Cookie consent']
 TASKS = read_json_file("example_data.json")
-STATE = st.session_state 
+STATE = st.session_state
 
-#================================= INIT STATE ===============================
+# ================================= INIT STATE ===============================
 
 # Extract query parameters
 params = st.experimental_get_query_params()
@@ -53,12 +53,12 @@ if 'task_id' not in st.session_state:
 
 # Get tasks
 if 'tasks' not in st.session_state:
-    #if not STATE.task_object_id:
-    #with st.spinner('Loding tasks...'):
-        #tasks = fetchTasks(db, 1, "PROCESSED-STATIC", 100, 
-        #        {"_id": 1, "landing_url": 1, "content_requests": 1, "status_code": 1, "annotations": 1})
-    STATE.tasks = TASKS 
-    #else:
+    # if not STATE.task_object_id:
+    with st.spinner('Loding tasks...'):
+        tasks = fetchTasks(db, 1, "PROCESSED-STATIC", 100,
+                           {"_id": 1, "landing_url": 1, "content_requests": 1, "status_code": 1, "annotations": 1})
+    STATE.tasks = tasks
+    # else:
     #    ...
     #print(len(TASKS), end="\n\n")
 
@@ -67,58 +67,105 @@ tasks = STATE.tasks
 task = STATE.tasks[STATE.task_id]
 annotator_id = STATE.annotator_id
 task_url = STATE.tasks[STATE.task_id]['landing_url']
-task_labels_current = task.get('annotations', {}).get(annotator_id, {}).get('labels', [])
+task_labels_current = task.get('annotations', {}).get(
+    annotator_id, {}).get('labels', [])
 
-#================================= FUNCTIONS ===============================
+# ================================= FUNCTIONS ===============================
 
-# Function to set user ID
+
 def set_user_id():
-    user_id = STATE.input_user_id    
-    st.experimental_set_query_params(annotator_id=user_id)
+    """
+    Set the user ID and update the annotator ID in the STATE object.
+
+    This function retrieves the user ID from the STATE object and sets it as the annotator ID.
+    It also updates the query parameters with the annotator ID using st.experimental_set_query_params().
+
+    """
+    user_id = STATE.input_user_id
     STATE.annotator_id = user_id
+    st.experimental_set_query_params(annotator_id=user_id)
 
-# Function to display webpage in iframe
+
 def display_webpage(iframe_content, task):
+    """
+    Display the webpage content in an iframe based on the task information.
 
-    #print(task.get('_id', None))
-    url = task.get('landing_url', None)
-    file_id = task.get('content_requests', None)
+    This function takes the iframe_content and task information as input.
+    If the task has a valid file_id, it retrieves the page content from the database/file system and displays it in the iframe.
+    Otherwise, it constructs an iframe with the landing_url from the task and displays it.
+
+    Args:
+        iframe_content (object): The object to display the webpage content.
+        task (dict): The task containing the webpage information.
+
+    """
+    url = task.get('landing_url')
+    file_id = task.get('content_requests')
+
     if file_id:
         info = getPageContentInfo(db, file_id)
         content = getPageContent(fs, file_id)
         iframe_content = components.html(content, height=2048, scrolling=True)
     else:
-        iframe_content.write(f'<iframe src="{url}" width="100%" height="1024px" style="border:none;"></iframe>', unsafe_allow_html=True)
+        iframe_content.write(
+            f'<iframe src="{url}" width="100%" height="1024px" style="border:none;"></iframe>', unsafe_allow_html=True)
 
-# Function to classify webpage based on tag selection
-def save_annotations(task, annotator_id ,annotations):
-    # Store tags in database (or file)
-    # ...
-    task_obj_id = task.get('_id', None)
 
-    if task_obj_id:
-        updateTask(db, task_obj_id, annotator_id, annotations)
+def save_annotations(task, annotator_id, annotations):
+    """
+    Save the annotations for a given task and display a confirmation message.
 
-    # Display confirmation message
-    #st.write(f'Webpage tagged as "{", ".join(tags)}"')
-    st.success(f'Annotation saved! Webpage tagged as "{", ".join(annotations.get("labels", []))}"')
+    This function saves the annotations for a specific task in a database or file.
+    It then displays a confirmation message with the tags that were saved.
+
+    Args:
+        task (dict): The task to save the annotations for.
+        annotator_id (str): The ID of the annotator.
+        annotations (dict): The annotations to be saved.
+
+    """
+    task_obj_id = task.get('_id')
+
+    # TODO: Commented out for testing purposes
+    # if task_obj_id:
+    #    updateTask(db, task_obj_id, annotator_id, annotations)
+
+    tag_labels = ', '.join(annotations.get("labels", []))
+    st.success(f'Annotation saved! Webpage tagged as "{tag_labels}"')
+
 
 def go_to_next_task():
-    print("Next task")
-    STATE.tasks[STATE.task_id]["annotations"][STATE.annotator_id] = {"labels": STATE.selected_tags}
-    STATE.task_id += 1
+    """
+    Update the task annotations for the current task and move to the next task.
+
+    This function updates the annotations for the current task based on the selected tags in the STATE object.
+    It catches and handles potential errors such as KeyError and TypeError that may occur during the update.
+    After successfully updating the annotations, it increments the task ID in the STATE object to move to the next task.
+    """
+
+    try:
+        task = STATE.tasks[STATE.task_id]
+        annotations = task.setdefault("annotations", {})
+        annotations[STATE.annotator_id] = {
+            "labels": STATE.selected_tags
+        }
+    except (KeyError, TypeError) as e:
+        print("An error occurred while updating the task annotations:", e)
+    else:
+        STATE.task_id += 1
+
 
 def go_to_prev_task():
-    print("Prev task")
-    STATE.tasks[STATE.task_id]["annotations"][STATE.annotator_id] = {"labels": STATE.selected_tags}
+    STATE.tasks[STATE.task_id]["annotations"][STATE.annotator_id] = {
+        "labels": STATE.selected_tags}
     STATE.task_id -= 1
 
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 #                            Layout
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 
 
-#================================= SETUP SCREEN ===============================
+# ================================= SETUP SCREEN ===============================
 
 # Ask for annotator ID if not provided
 if not STATE.annotator_id:
@@ -136,7 +183,7 @@ if not STATE.annotator_id:
             else:
                 st.warning("Please enter a User ID.")
 
-#================================= MAIN SCREEN ===============================
+# ================================= MAIN SCREEN ===============================
 
 else:
 
@@ -144,38 +191,44 @@ else:
     tab_names = ["Snapshot", "Current", "More Info", "All Tasks"]
     tab_snapshot, tab_current, tab_info, tab_list = st.tabs(tab_names)
 
-    ####### TAB: Display webpage snapshot 
+    # TAB: Display webpage snapshot
     with tab_snapshot:
         container = st.container()
-        container.warning("Please be aware that webpage snapshots may appear distorted.")
+        container.warning(
+            "Please be aware that webpage snapshots may appear distorted.")
         container.iframe_content = st.empty()
         display_webpage(container.iframe_content, task)
 
-    ####### TAB: Display current version of webpage 
+    # TAB: Display current version of webpage
     with tab_current:
-        st.warning('If the webpage is not loading properly, please open it in a new tab to ensure proper functionality.')
-        st.write(f'<iframe src="{task_url}" width="100%" height="1024px" style="border:none;"></iframe>', unsafe_allow_html=True)
+        st.warning(
+            'If the webpage is not loading properly, please open it in a new tab to ensure proper functionality.')
+        st.write(
+            f'<iframe src="{task_url}" width="100%" height="1024px" style="border:none;"></iframe>', unsafe_allow_html=True)
 
-    ####### TAB: Display more info about webpage
+    # TAB: Display more info about webpage
     with tab_info:
         st.write(task)
-        #infost.write()
+        # infost.write()
 
-    ####### TAB: Display list of all tasks
+    # TAB: Display list of all tasks
     with tab_list:
         st.write(tasks)
 
-    ####### Sidebar
-    with st.sidebar: 
+    # Sidebar
+    with st.sidebar:
         st.title('Webpage Annotations')
         st.sidebar.text_input('Webpage URL:', task_url)
-        st.sidebar.multiselect('Select tags:', LABELS, default=task_labels_current, key='selected_tags')
+        st.sidebar.multiselect('Select tags:', LABELS,
+                               default=task_labels_current, key='selected_tags')
 
         # Navigation buttons
         with st.sidebar.container():
             col1, col2 = st.columns(2)
-            col1.button('Previous', use_container_width=True, on_click=go_to_prev_task)
-            col2.button('Next', use_container_width=True, on_click=go_to_next_task)
+            col1.button('Previous', use_container_width=True,
+                        on_click=go_to_prev_task)
+            col2.button('Next', use_container_width=True,
+                        on_click=go_to_next_task)
 
             st.sidebar.warning(
                 """
@@ -187,6 +240,3 @@ else:
                 Thank you for your help with this annotation task!'
                 """
             )
-
-
-
