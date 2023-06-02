@@ -2,7 +2,7 @@
 #                            Database Operation Helpers
 # ===========================================================================
 
-#from typing import List
+# from typing import List
 from dotenv import load_dotenv
 from bson import ObjectId
 import pymongo as pm
@@ -36,7 +36,7 @@ def getConnection(
 
 def fetchTasks(db, batch_id: int, status: str, limit: int = 0, fields: dict = {}):
     """Returns a batch of scraping tasks"""
-    
+
     # Add status code to fields
     fields["status_code"] = 1
     query = {"$and": []}
@@ -55,9 +55,10 @@ def fetchTasks(db, batch_id: int, status: str, limit: int = 0, fields: dict = {}
 
     return list(tasks)
 
+
 def fetchTask(db, id: str, fields: dict = {}):
     """Returns a single scraping tasks"""
-    
+
     # Sorting requires a lot of memory
     query = {"_id": id}
     task = db.pages.content.find_one(query, fields)
@@ -67,18 +68,21 @@ def fetchTask(db, id: str, fields: dict = {}):
 
 def updateTask(db, id: str, annotator_id, values: dict = {}):
     """Updates scraping task in database"""
+    ...
 
-    filter = {"_id": ObjectId(id)}
-    values = {
-        '$set': {
-            "annotated": True,
-            'annotations': {
-                annotator_id: values,
-            }
-        }
-    }
-    r = db.pages.content.update_one(filter, values)
-    return r
+    # TODO: Commented out for testing purposes
+
+    # filter = {"_id": ObjectId(id)}
+    # values = {
+    #     '$set': {
+    #         "annotated": True,
+    #         'annotations': {
+    #             annotator_id: values,
+    #         }
+    #     }
+    # }
+    # r = db.pages.content.update_one(filter, values)
+    # return r
 
 # --------------------------------- Files --------------------------------
 
