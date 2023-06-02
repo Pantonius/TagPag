@@ -60,7 +60,7 @@ if 'tasks' not in st.session_state:
     STATE.tasks = tasks
     # else:
     #    ...
-    #print(len(TASKS), end="\n\n")
+    # print(len(TASKS), end="\n\n")
 
 # Shorthand variables
 tasks = STATE.tasks
@@ -156,9 +156,16 @@ def go_to_next_task():
 
 
 def go_to_prev_task():
-    STATE.tasks[STATE.task_id]["annotations"][STATE.annotator_id] = {
-        "labels": STATE.selected_tags}
-    STATE.task_id -= 1
+    try:
+        task = STATE.tasks[STATE.task_id]
+        annotations = task.setdefault("annotations", {})
+        annotations[STATE.annotator_id] = {
+            "labels": STATE.selected_tags
+        }
+    except (KeyError, TypeError) as e:
+        print("An error occurred while updating the task annotations:", e)
+    else:
+        STATE.task_id -= 1
 
 # ---------------------------------------------------------------------------
 #                            Layout
@@ -237,6 +244,6 @@ else:
                 on a webpage in the list to display it in the iframe. Make sure to
                 select a tag for each webpage before moving on to the next one.
                 You can always go back and edit the tags if you need to.
-                Thank you for your help with this annotation task!'
+                Thank you for your help with this annotation task!
                 """
             )
