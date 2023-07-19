@@ -8,8 +8,15 @@ import streamlit as st
 from utils.database import *
 from utils.files import *
 from components.welcome import WelcomePage
+from dotenv import load_dotenv
+import ast
+import os
 
 # ================================= CONFIG ================================
+
+load_dotenv()
+
+# database_name = os.getenv("DATABASE_NAME")
 
 st.set_page_config(
     page_title="Webpage Annotations",
@@ -32,7 +39,6 @@ fs, db = getConnection(use_dotenv=True)
 LABELS = ['None', 'Login', 'Paywall', 'Cookie consent']
 TASKS = read_json_file("example_data.json")
 STATE = st.session_state
-
 # ================================= INIT STATE ===============================
 
 # Extract query parameters
@@ -55,10 +61,20 @@ if 'task_id' not in st.session_state:
 # Get tasks
 if 'tasks' not in st.session_state:
     with st.spinner('Loding tasks...'):
-        query = {"batch_id": 1, "status": "PROCESSED-STATIC", "limit": 100}
-        fields = {"_id": 1, "landing_url": 1, "target_url": 1,
-                  "content_requests": 1, "annotations": 1}
-        STATE.tasks = fetchTasks(db, **query, fields=fields)
+
+        # Load environment variables
+        query = ast.literal_eval(os.getenv("QUERY"))
+        fields = ast.literal_eval(os.getenv("FIELDS"))
+        limit = ast.literal_eval(os.getenv("LIMIT"))
+        sampling = ast.literal_eval(os.getenv("SAMPLING"))
+
+        try:
+            STATE.tasks = fetchTasks(db, query, fields, limit, sampling)
+        except Exception as e:
+            st.error(f"{str(e)}")
+            st.write("Query:")
+            st.write(query)
+            exit()
 
 
 # Shorthand variables
@@ -120,6 +136,15 @@ def go_to_prev_task():
     update_annotations()
     STATE.task_id -= 1
 
+
+def select_annotation(class_name):
+    """Select an annotation for the current task."""
+    if class_name not in STATE.selected_tags:
+        STATE.selected_tags.append(class_name)
+    update_annotations()
+    STATE.task_id += 1
+
+
 # ---------------------------------------------------------------------------
 #                            Layout
 # ---------------------------------------------------------------------------
@@ -128,7 +153,7 @@ def go_to_prev_task():
 # ================================= SETUP SCREEN ===============================
 
 # Ask for annotator ID if not provided
-if not STATE.annotator_id:
+if not STATE.annotator_id or not STATE.tasks:
 
     WelcomePage(st).show()
 
@@ -180,6 +205,15 @@ else:
         st.sidebar.multiselect(
             'Select tags:', LABELS, key='selected_tags', on_change=update_annotations)
 
+        st.button('Login', use_container_width=True,
+                  on_click=select_annotation, args=("Login",))
+        st.button('Paywall', use_container_width=True,
+                  on_click=select_annotation, args=("Paywall",))
+        st.button('Cookie Consent', use_container_width=True,
+                  on_click=select_annotation, args=("Cookie consent",))
+        st.button('None', use_container_width=True,
+                  on_click=select_annotation, args=("None",))
+
         # Navigation buttons
         with st.sidebar.container():
             col1, col2 = st.columns(2)
@@ -189,7 +223,7 @@ else:
                         disabled=STATE.selected_tags == [],
                         on_click=go_to_next_task)
 
-            st.sidebar.warning(
+            st.warning(
                 """
                 Please navigate through the list of untagged webpages below and
                 classify them using the tag selector. To get started, simply click
