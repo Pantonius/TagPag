@@ -6,6 +6,7 @@
 from dotenv import load_dotenv
 from bson import ObjectId
 import pymongo as pm
+import random
 import gridfs
 import os
 
@@ -34,26 +35,34 @@ def getConnection(
 # --------------------------------- Documents --------------------------------
 
 
-def fetchTasks(db, batch_id: int, status: str, limit: int = 0, fields: dict = {}):
+def fetchTasks(db, query={}, fields: dict = {}, limit: int = 0, sampling: bool = True):
     """Returns a batch of scraping tasks"""
 
-    # Add status code to fields
-    fields["status_code"] = 1
-    query = {"$and": []}
+    tasks = []
 
-    if batch_id and status:
-        query["$and"] = [{"status": status}, {"batch_id": batch_id}]
-    elif status:
-        # Consider all batches if no batch ID specified
-        query["$and"] = [{"status": status}]
-    elif batch_id:
-        # Consider all status if no status specified
-        query["$and"] = [{"batch_id": batch_id}]
+    # Set default fields
+    default_fields = ["_id", "landing_url", "target_url",
+                      "content_requests", "annotations"]
+    for field in default_fields:
+        fields[field] = 1
 
-    # Sorting requires a lot of memory
-    tasks = db.pages.content.find(query, fields).limit(limit)
+    try:
+        if not sampling:
+            tasks = list(db.pages.content.find(query, fields).limit(limit))
+        else:
+            n_total = db.pages.content.count_documents(query)
+            n = min(limit, n_total)
+            random_indexes = random.sample(range(n_total), n)
+            tasks = [db.pages.content.find(query, fields).limit(
+                n).skip(index)[0] for index in random_indexes]
 
-    return list(tasks)
+        if not tasks:
+            raise ValueError("No tasks matching the query were found.")
+
+    except Exception as e:
+        raise RuntimeError(f"Failed to fetch tasks: {str(e)}")
+
+    return tasks
 
 
 def fetchTask(db, id: str, fields: dict = {}):
