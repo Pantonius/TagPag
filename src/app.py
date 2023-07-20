@@ -233,3 +233,49 @@ else:
                 Thank you for your help with this annotation task!
                 """
             )
+
+components.html(
+    """
+<script>
+var doc = window.parent.document;
+var buttons = doc.querySelectorAll('button > div > p');
+
+function clickButton(label) {
+    buttons.forEach((pElement) => {
+        if (pElement.innerText.includes(label)) {
+            const buttonElement = pElement.closest("button");
+            console.log(buttonElement);
+            buttonElement.click();
+        }
+    });
+
+}
+
+doc.addEventListener('keydown', function(e) {
+    console.log(e.keyCode); 
+    switch (e.keyCode) {
+        case 49: // (49 = 1)
+            clickButton('Login');
+            break;
+        case 50: // (50 = 2)
+            clickButton('Paywall');
+            break;
+        case 51: // (51 = 3)
+            clickButton('Cookie Consent');
+            break;
+        case 52: // (52 = 4)
+            clickButton('None');
+            break;
+        case 37: // (37 = left arrow)
+            clickButton('Previous');
+            break;
+        case 39: // (39 = right arrow)
+            clickButton('Next');
+            break;
+    }
+});
+</script>
+""",
+    height=0,
+    width=0,
+)
