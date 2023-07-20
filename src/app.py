@@ -7,6 +7,7 @@ import streamlit.components.v1 as components
 import streamlit as st
 from utils.database import *
 from utils.files import *
+from utils.content import *
 from components.welcome import WelcomePage
 from dotenv import load_dotenv
 import ast
@@ -93,12 +94,23 @@ def display_webpage(iframe_content, task):
     file_id = task.get('content_requests')
 
     if file_id:
-        info = getPageContentInfo(db, file_id)
         content = getPageContent(fs, file_id)
         iframe_content = components.html(content, height=2048, scrolling=True)
     else:
         iframe_content.write(
             f'<iframe src="{url}" width="100%" height="1024px" style="border:none;"></iframe>', unsafe_allow_html=True)
+
+
+def display_content():
+    """ Display the webpage text content."""
+
+    file_id = task.get('content_requests')
+    info = getPageContentInfo(db, file_id)
+    content = getPageContent(fs, file_id)
+    text = extractText(content)
+
+    st.write(info)
+    st.write(text)
 
 
 def save_annotations(task, annotator_id, annotations):
@@ -161,33 +173,36 @@ if not STATE.annotator_id or not STATE.tasks:
 
 else:
 
-    # # Tabs
-    # tab_names = ["Snapshot", "Current", "More Info", "All Tasks"]
-    # tab_snapshot, tab_current, tab_info, tab_list = st.tabs(tab_names)
-
-    # # TAB: Display webpage snapshot
-    # with tab_snapshot:
-    #     container = st.container()
-    #     container.warning(
-    #         "Please be aware that webpage snapshots may appear distorted.")
-    #     container.iframe_content = st.empty()
-    #     display_webpage(container.iframe_content, task)
-
-    # # TAB: Display current version of webpage
-    # with tab_current:
-    #     st.warning(
-    #         'If the webpage is not loading properly, please open it in a new tab to ensure proper functionality.')
-    #     st.write(
-    #         f'<iframe src="{task_url}" width="100%" height="1024px" style="border:none;"></iframe>', unsafe_allow_html=True)
-
     # Tabs
-    tab_names = ["More Info", "All Tasks"]
-    tab_info, tab_list = st.tabs(tab_names)
+    tab_names = ["Snapshot", "Current", "Extracted", "Task", "All Tasks"]
+    tab_snapshot, tab_current, tab_txt,  tab_info, tab_list = st.tabs(
+        tab_names)
+
+    # TAB: Display webpage snapshot
+    with tab_snapshot:
+        container = st.container()
+        container.warning(
+            "Please be aware that webpage snapshots may appear distorted.")
+        container.iframe_content = st.empty()
+        display_webpage(container.iframe_content, task)
+
+    # TAB: Display current version of webpage
+    with tab_current:
+        st.warning(
+            'If the webpage is not loading properly, please open it in a new tab to ensure proper functionality.')
+        st.write(
+            f'<iframe src="{task_url}" width="100%" height="1024px" style="border:none;"></iframe>', unsafe_allow_html=True)
+
+    # # Tabs
+    # tab_names = ["More Info", "All Tasks"]
+    # tab_info, tab_list = st.tabs(tab_names)
 
     # TAB: Display more info about webpage
     with tab_info:
         st.write(task)
-        # infost.write()
+
+    with tab_txt:
+        display_content()
 
     # TAB: Display list of all tasks
     with tab_list:
