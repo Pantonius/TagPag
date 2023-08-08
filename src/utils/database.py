@@ -31,12 +31,40 @@ def getConnection(
 
     return fs, db
 
+# --------------------------------- Helpers --------------------------------
+
+
+def merge_results(result1, result2):
+    merged_result = {}
+
+    for doc in result1:
+        merged_result[doc['_id']] = doc
+
+    for doc in result2:
+        if doc['_id'] in merged_result:
+            merged_result[doc['_id']].update(doc)
+        else:
+            merged_result[doc['_id']] = doc
+
+    return list(merged_result.values())
+
 
 # --------------------------------- Documents --------------------------------
+
+def countAnnotations(db):
+    """Returns count of annotations"""
+
+    if "pages.annotations" in db.list_collection_names():
+        return db.pages.annotations.count_documents({})
+
+    return 0
 
 
 def fetchTasks(db, query={}, fields: dict = {}, limit: int = 0, sampling: bool = True):
     """Returns a batch of scraping tasks"""
+
+    num_ids = limit * 100
+    num_selected = limit
 
     tasks = []
 
@@ -49,12 +77,40 @@ def fetchTasks(db, query={}, fields: dict = {}, limit: int = 0, sampling: bool =
     try:
         if not sampling:
             tasks = list(db.pages.content.find(query, fields).limit(limit))
+            selected_object_ids = [task["_id"] for task in tasks]
+
+            # Query for annotations using the selected ObjectIDs
+            annotations = list(db.pages.annotations.find(
+                {'_id': {'$in': selected_object_ids}}))
+
+            # print("Annotations", annotations[0])
+            merge_results(tasks, annotations)
+
         else:
+            # Generate a random skip offset
             n_total = db.pages.content.count_documents(query)
-            n = min(limit, n_total)
-            random_indexes = random.sample(range(n_total), n)
-            tasks = [db.pages.content.find(query, fields).limit(
-                n).skip(index)[0] for index in random_indexes]
+            max_skip = max(0, n_total - num_ids)
+            random_skip = random.randint(0, max_skip)
+
+            # Get ObjectIDs with the random skip
+            random_documents = db.pages.content.find(
+                query, {"_id": 1}).skip(random_skip).limit(num_ids)
+            random_object_ids = [doc['_id'] for doc in random_documents]
+
+            # Randomly select 100 ObjectIDs from the list
+            selected_object_ids = random.sample(
+                random_object_ids, num_selected)
+
+            # Query documents using the selected ObjectIDs
+            tasks = list(db.pages.content.find(
+                {'_id': {'$in': selected_object_ids}}, fields))
+
+            # Query for annotations using the selected ObjectIDs
+            annotations = list(db.pages.annotations.find(
+                {'_id': {'$in': selected_object_ids}}))
+
+            # print("Annotations", annotations[0])
+            merge_results(tasks, annotations)
 
         if not tasks:
             raise ValueError("No tasks matching the query were found.")
@@ -78,6 +134,12 @@ def fetchTask(db, id: str, fields: dict = {}):
 def updateTask(db, id: str, annotator_id, values: dict = {}):
     """Updates scraping task in database"""
     ...
+
+    document_id = ObjectId(id)
+
+    # Update or insert the document with the new property
+    result = db.pages.annotations.update_one(
+        {'_id': document_id}, {'$set': {f'annotations.{annotator_id}': values.get(annotator_id)}}, upsert=True)
 
     # TODO: Commented out for testing purposes
 

@@ -24,9 +24,11 @@ class WelcomePage():
             # Display warning message if no user ID is provided
             self.st.error(
                 'No user ID detected. Please enter a user ID below.', icon="🚨")
-            user_id = self.st.text_input("User ID", key='input_user_id')
+            user_id = self.st.text_input(
+                "Annotator Name:", help="Your Name", key='input_user_id')
+
             submit_button = self.st.form_submit_button(
-                "Submit", on_click=self.set_user_id)
+                "Load Tasks", on_click=self.set_user_id)
 
             # Handle form submission
             if submit_button:
