@@ -1,0 +1,136 @@
+[
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee687')",
+    "content_requests": "63e6b37cff4d3167df6af3cb",
+    "status_code": 200,
+    "landing_url": "https://idsdec.net/api/start/interview/93afbaf6076f5ba23215ba570e109426e633ee29",
+    "annotations": {
+      "test": {
+        "labels": ["Login"]
+      }
+    }
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee68f')",
+    "content_requests": "63e6b37bff4d3167df6af371",
+    "status_code": 200,
+    "landing_url": "https://www.t-online.de/",
+    "annotations": {
+      "test": {
+        "labels": ["None", "Login", "Paywall", "Cookie consent"]
+      }
+    }
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee694')",
+    "content_requests": "63e6b37bff4d3167df6af379",
+    "status_code": 200,
+    "landing_url": "https://www.t-online.de/?top#f=INBOX&m=14788888321095410&method=showReadmail",
+    "annotations": {
+      "test": {
+        "annotator_id": "test",
+        "labels": ["None", "Login", "Paywall", "Cookie consent"]
+      }
+    }
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee695')",
+    "content_requests": "63e6b37bff4d3167df6af3c3",
+    "status_code": 200,
+    "landing_url": "https://www.t-online.de/?top#f=INBOX"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee696')",
+    "content_requests": "63e6b37bff4d3167df6af38e",
+    "status_code": 200,
+    "landing_url": "https://www.t-online.de/?top#f=INBOX&m=14788888321095110&method=showReadmail"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee698')",
+    "content_requests": "63e6b37bff4d3167df6af3bb",
+    "status_code": 200,
+    "landing_url": "https://www.t-online.de/?top#f=INBOX&m=14788888321095610&method=showReadmail"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee699')",
+    "content_requests": "63e6b37bff4d3167df6af388",
+    "status_code": 200,
+    "landing_url": "https://www.t-online.de/?top#f=INBOX&m=14788888321095510&method=showReadmail"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee69b')",
+    "content_requests": "63e6b37bff4d3167df6af392",
+    "status_code": 200,
+    "landing_url": "https://www.t-online.de/?top#f=INBOX&m=14788888321094410&method=showReadmail"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee69d')",
+    "content_requests": "63e6b37bff4d3167df6af3a3",
+    "status_code": 200,
+    "landing_url": "https://www.t-online.de/?top#f=INBOX&m=14788888321094210&method=showReadmail"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee6a0')",
+    "content_requests": "63e6b37bff4d3167df6af3a1",
+    "status_code": 200,
+    "landing_url": "https://www.t-online.de/?top#f=INBOX&m=14788888321073710&method=showReadmail"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee6a3')",
+    "content_requests": "63e6b37bff4d3167df6af3a6",
+    "status_code": 200,
+    "landing_url": "https://www.t-online.de/?top#f=INBOX&m=14788888321073310&method=showReadmail"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee6a4')",
+    "content_requests": "63e6b37bff4d3167df6af365",
+    "status_code": 200,
+    "landing_url": "https://www.wgv.de/kundenportal/"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee6a6')",
+    "content_requests": "63e6b37bff4d3167df6af367",
+    "status_code": 200,
+    "landing_url": "https://www.wgv.de/ueber-uns/"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee6a7')",
+    "content_requests": "63e6b37bff4d3167df6af3b9",
+    "status_code": 200,
+    "landing_url": "https://www.wgv.de/app/pks2020/menu"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee6a8')",
+    "content_requests": "63e6b37bff4d3167df6af363",
+    "status_code": 200,
+    "landing_url": "https://www.wgv.de/app/pks2020/postfach"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee6a9')",
+    "content_requests": "63e6b37bff4d3167df6af364",
+    "status_code": 200,
+    "landing_url": "https://www.wgv.de/app/pks2020/partner",
+    "annotations": {
+      "test": {
+        "labels": []
+      }
+    }
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee6aa')",
+    "content_requests": "63e6b37bff4d3167df6af366",
+    "status_code": 200,
+    "landing_url": "https://www.wgv.de/"
+  },
+  {
+    "_id": "ObjectId('63e6b1425b2943de553ee6b0')",
+    "content_requests": "63e6b37bff4d3167df6af36a",
+    "status_code": 200,
+    "landing_url": "https://www.youtube.com/?hl=de&gl=DE",
+    "annotations": {
+      "test": {
+        "labels": []
+      }
+    }
+  }
+]
