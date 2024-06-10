@@ -1,34 +1,63 @@
-from bs4 import BeautifulSoup
 from selectolax.parser import HTMLParser
+from trafilatura import extract
 
-def extractText(html_document: str):
-    """Extracts the actual text from an HTML document"""
+from utils.local import *
 
-    # soup = BeautifulSoup(html_document, features="html.parser")
+SELECTOLAX_DIR = 'data/selectolax'
+TRAFILATURA_DIR = 'data/trafilatura'
 
-    # # Kill all script and style elements
-    # for script in soup(["script", "style"]):
-    #     script.extract()  # Rip it out
+def extractText(id: str):
+    """Extracts the actual text from an HTML document associated with a task (selectolax)"""
 
-    # # Get text
-    # text = soup.get_text()
-    # # Break into lines and remove leading and trailing space on each
-    # # lines = (line.strip() for line in text.splitlines())
-    # # Break multi-headlines into a line each
-    # # chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-    # # Drop blank lines
-    # # text = "\n".join(chunk for chunk in chunks if chunk)
+    # First check if there already is a parsed version in the selectolax directory
+    try:
+        with open(f'{SELECTOLAX_DIR}/{id}.txt', 'r') as f:
+            return f.read()
+    except FileNotFoundError:
+        # get page content
+        html_document = getPageContent(id)
 
-    tree = HTMLParser(html_document)
+        if html_document is None:
+            return None
+        
+        tree = HTMLParser(html_document)
 
-    if tree.body is None:
-        return None
+        if tree.body is None:
+            return None
 
-    for tag in tree.css('script'):
-        tag.decompose()
-    for tag in tree.css('style'):
-        tag.decompose()
+        for tag in tree.css('script'):
+            tag.decompose()
+        for tag in tree.css('style'):
+            tag.decompose()
 
-    text = tree.body.text(separator='\n')
+        text = tree.body.text(separator='\n')
 
-    return text
+        # Save the parsed version
+        with open(f'{SELECTOLAX_DIR}/{id}.txt', 'w') as f:
+            f.write(text)
+        
+        return text
+
+def extractTextTrafilatura(id: str):
+    """Extracts the actual text from an HTML document associated with a task (trafilatura)"""
+
+    # First check if there already is a parsed version in the trafilatura directory
+    try:
+        with open(f'{TRAFILATURA_DIR}/{id}.txt', 'r') as f:
+            return f.read()
+    except FileNotFoundError:
+        html_document = getPageContent(id)
+        
+        if html_document is None:
+            return None
+        
+        text = extract(html_document)
+
+        if text is None:
+            return None
+
+        # Save the parsed version
+        with open(f'{TRAFILATURA_DIR}/{id}.txt', 'w') as f:
+            f.write(text)
+        
+        return text

@@ -7,7 +7,7 @@ from streamlit_extras.stylable_container import stylable_container
 from streamlit_extras.keyboard_text import key, load_key_css
 from components.welcome import WelcomePage
 from dotenv import load_dotenv
-from utils.database import *
+from utils.local import *
 from utils.files import *
 from utils.content import *
 
@@ -56,16 +56,13 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# ================================= DATABASE ================================
-
-fs, db = getConnection(use_dotenv=True)
-
 # ================================= CONSTANTS ================================
 
 LABELS = ['None', 'Hollow-Page', 'Listing-Page',
           'Article', "Paywall", "Login", "Cookie-Consent"]
 TASKS = read_json_file("example_data.json")
 STATE = st.session_state
+
 # ================================= INIT STATE ===============================
 
 # Extract query parameters
@@ -121,9 +118,9 @@ if 'tasks' not in st.session_state:
     with st.spinner('Loding tasks...'):
 
         try:
-            STATE.tasks = fetchTasks(
-                db, STATE.query, STATE.fields, STATE.limit, STATE.sampling)
-            STATE.annotation_count = countAnnotations(db)
+            # STATE.query, STATE.fields, STATE.limit, STATE.sampling
+            STATE.tasks = loadTasks()
+            STATE.annotation_count = countAnnotations()
             # print(STATE.annotation_count)
 
         except Exception as e:
@@ -142,14 +139,13 @@ target_url = STATE.tasks[STATE.task_id]['target_url']
 
 # ================================= FUNCTIONS ===============================
 
-
 def display_webpage(iframe_content, task):
     """ Display the webpage content in an iframe."""
     url = task.get('landing_url')
-    file_id = task.get('content_requests')
+    file_id = task.get('_id')
 
     if file_id:
-        content = getPageContent(fs, file_id)
+        content = getPageContent(file_id)
         iframe_content = components.html(content, height=2048, scrolling=True)
     else:
         iframe_content.write(
@@ -159,14 +155,25 @@ def display_webpage(iframe_content, task):
 def display_content():
     """ Display the webpage text content."""
 
-    file_id = task.get('content_requests')
-    # info = getPageContentInfo(db, file_id)
-    content = getPageContent(fs, file_id)
-    text = extractText(content)
+    file_id = task.get('_id')
 
-    # st.write(info)
-    if not text.strip():
+    text = extractText(file_id)
+
+    if not text:
         st.warning("Couldn't extract any text! :worried:")
+    
+    st.write(text)
+
+def display_cleaned_content():
+    """ Display the cleaned webpage text content (trafilatura)."""
+
+    file_id = task.get('_id')
+
+    text = extractTextTrafilatura(file_id)
+
+    if not text:
+        st.warning("Couldn't extract any text! :worried:")
+    
     st.write(text)
 
 
@@ -176,7 +183,7 @@ def save_annotations(task, annotator_id, annotations):
     task_obj_id = task.get('_id')
 
     if not STATE.toggle_demo_modus:
-        updateTask(db, task_obj_id, annotator_id, annotations)
+        updateTask(task_obj_id, annotator_id, annotations)
 
 
 def update_annotations():
@@ -228,11 +235,9 @@ def select_annotation(class_name):
 #                            Layout
 # ---------------------------------------------------------------------------
 
-
 # ================================= SETUP SCREEN ===============================
 # Ask for annotator ID if not provided
 if not STATE.annotator_id or not STATE.tasks:
-
     WelcomePage(st).show()
 
 # ================================= MAIN SCREEN ===============================
@@ -247,8 +252,8 @@ else:
             "You reached the end of the list! To load a new batch of webpages, please refresh the page.", icon="🚨")
 
     # Tabs
-    tab_names = ["Extracted Text", "Webpage Snapshot", "Task", "All Tasks"]
-    tab_txt, tab_snapshot,  tab_info, tab_list = st.tabs(
+    tab_names = ["Raw Text", "Cleaned Text", "Webpage Snapshot", "Task", "All Tasks"]
+    tab_txt, tab_clean_txt, tab_snapshot, tab_info, tab_list = st.tabs(
         tab_names)
 
     # # Tabs
@@ -270,8 +275,24 @@ else:
             with st.spinner('Wait for it...'):
                 with st.container():
                     display_content()
-
-        # TAB: Display webpage snapshot
+    
+    with tab_clean_txt:
+        with stylable_container(
+            key="container_with_border",
+            css_styles="""
+                {
+                    border: 1px solid rgba(49, 51, 63, 0.2);
+                    border-radius: 0.5rem;
+                    padding: calc(1em - 1px);
+                    overflow: hidden;
+                }
+                """,
+        ):
+            with st.spinner('Wait for it...'):
+                with st.container():
+                    display_cleaned_content()
+    
+    # TAB: Display webpage snapshot
     with tab_snapshot:
         container = st.container()
         container.warning(
@@ -327,7 +348,6 @@ else:
                 col1.button(':blue[Previous]', use_container_width=True,
                             on_click=go_to_prev_task)
                 col2.button(':blue[Next]', use_container_width=True,
-                            disabled=STATE.selected_tags == [],
                             on_click=go_to_next_task)
 
                 st.select_slider("Task:", options=range(
