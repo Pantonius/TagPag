@@ -1,12 +1,1 @@
-[
-    {
-        "annotator_id": "Anton",
-        "comment": "Blah",
-        "labels": ["Login", "Paywall"]
-    },
-    {
-        "annotator_id": "Roberto",
-        "comment": "Blah Blah",
-        "labels": ["Article", "Login"]
-    }
-]
+{"annotator_id":{"1":"Roberto","0":"Anton"},"comment":{"1":"Blah Blah","0":"Blah"},"labels":{"1":["Article","Login"],"0":["Login","Paywall"]}}

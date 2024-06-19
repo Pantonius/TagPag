@@ -72,6 +72,27 @@ def updateTask(task_id: str, annotator_id: str, new_annotations: dict):
     # Save the annotations
     annotations.to_json(f"{ANNOTATIONS_DIR}/{task_id}.json")
 
+def downloadAnnotations():
+    """
+    Download the annotations for all tasks
+    """
+    annotations = []
+
+    for file in os.listdir(ANNOTATIONS_DIR):
+        task_id = file.split('.')[0]
+        task_annotations = loadAnnotations(task_id)
+
+        if task_annotations is None:
+            continue
+        
+        task_annotations['task_id'] = task_id
+        
+        annotations.append(task_annotations)
+    
+    # to csv
+    annotations = pd.concat(annotations)
+    return annotations.to_csv(index=False)\
+
 def getPageContent(id: str):
     """
     Get the content of the page with the given id

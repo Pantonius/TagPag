@@ -294,6 +294,9 @@ else:
     # Sidebar
     with st.sidebar:
         st.title(':pencil2: Webpage Annotations')
+
+        st.download_button("Download Annotations", downloadAnnotations(), "annotations.csv", mime="text/csv", key="download_annotations")
+
         st.warning(
             """
             Please navigate through the list of untagged webpages and
@@ -339,6 +342,8 @@ else:
                 st.select_slider("Task:", options=range(
                     0, len(STATE.tasks)), format_func=(lambda x: ""), key="task_id", label_visibility="collapsed", help="Progress")
 
+                st.markdown(f"Task {STATE.task_id + 1} out of {len(STATE.tasks)}")
+
         with stylable_container(
                 key="tag_selection",
                     css_styles="""
@@ -373,7 +378,7 @@ else:
                           on_click=select_annotation, args=("Listing-Page",))
                 st.button('Article', use_container_width=True,
                           on_click=select_annotation, args=("Article",))
-                st.multiselect( # TODO: Add saved labels
+                st.multiselect(
                     'Selected Tags:', LABELS, key='selected_tags', on_change=update_annotations)
 
         with st.expander("Keyboard Shortcuts"):
