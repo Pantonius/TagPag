@@ -1,0 +1,12 @@
+[
+    {
+        "annotator_id": "Anton",
+        "comment": "Blah",
+        "labels": ["Login", "Paywall"]
+    },
+    {
+        "annotator_id": "Roberto",
+        "comment": "Blah Blah",
+        "labels": ["Article", "Login"]
+    }
+]

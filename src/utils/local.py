@@ -1,7 +1,8 @@
+import os
 import pandas as pd
 
 TASKS_FILE = 'data/tasks.csv' # TODO: Move this to .env (mayhaps)
-ANNOTATIONS_FILE = 'data/annotations.csv' # TODO: Move this to .env (mayhaps)
+ANNOTATIONS_DIR = 'data/annotations' # TODO: Move this to .env (mayhaps)
 HTML_DIR = 'data/html' # TODO: Move this to .env (mayhaps)
 
 def init():
@@ -11,13 +12,6 @@ def init():
     # create the tasks file if it doesn't exist
     try:
         with open(TASKS_FILE, 'x') as f:
-            pass
-    except FileExistsError:
-        pass
-
-    # create the annotations file if it doesn't exist
-    try:
-        with open(ANNOTATIONS_FILE, 'x') as f:
             pass
     except FileExistsError:
         pass
@@ -33,36 +27,50 @@ def loadTasks():
 
     return tasks
 
-def loadAnnotations():
+def loadAnnotations(task_id: str):
     """
-    Load the annotations from the local storage
+    Load the annotations for the task with the given id
     """
-    annotations = pd.read_csv(ANNOTATIONS_FILE)
-
-    # turn into dict
-    annotations = annotations.to_dict(orient='records')
-
-    return annotations
-
-def countAnnotations():
+    try:
+        # Read the content of the page
+        path = f"{ANNOTATIONS_DIR}/{task_id}.json"
+        with open(path, "r") as f:
+            return pd.read_json(f)
+    except FileNotFoundError:
+        return None
+    
+def loadAnnotation(task_id: str, annotator_id: str):
     """
-    Count the number of annotations in the local storage
+    Load the annotation for the task with the given id and annotator id
     """
-    annotations = pd.read_csv(ANNOTATIONS_FILE)
+    annotations = loadAnnotations(task_id)
 
-    return len(annotations)
+    if annotations is not None:
+        return annotations[annotations['annotator_id'] == annotator_id].iloc[0]
+    else:
+        return None
 
 def updateTask(task_id: str, annotator_id: str, new_annotations: dict):
     """
     Update the annotation for the task with the given id
     """
-    annotations = pd.read_csv(ANNOTATIONS_FILE)
+    print(f"Updating task {task_id} with annotations {new_annotations}")
 
+    # Load the annotations
+    annotations = loadAnnotations(task_id)
+
+    # If the annotations file doesn't exist, create it
+    if annotations is None:
+        annotations = pd.DataFrame(columns=['annotator_id', 'comment', 'labels'])
+    
     # Update the annotations
-    annotations.loc[annotations["_id"] == task_id, ["annotations"]] = str({annotator_id: new_annotations})
+    annotations = annotations[annotations['annotator_id'] != annotator_id]
+    annotations = pd.concat([annotations, pd.DataFrame([{'annotator_id': annotator_id, **new_annotations}])])
+
+    # TODO: doesn't quite save it in the expected format -- also the new_annotations aren't really new
 
     # Save the annotations
-    annotations.to_csv(ANNOTATIONS_FILE, index=False)
+    annotations.to_json(f"{ANNOTATIONS_DIR}/{task_id}.json")
 
 def getPageContent(id: str):
     """

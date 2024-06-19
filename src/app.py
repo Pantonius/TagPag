@@ -6,7 +6,7 @@
 from streamlit_extras.stylable_container import stylable_container
 from streamlit_extras.keyboard_text import key, load_key_css
 from components.welcome import WelcomePage
-from dotenv import load_dotenv
+from utils.environment import load
 from utils.local import *
 from utils.files import *
 from utils.content import *
@@ -16,9 +16,11 @@ import streamlit as st
 import ast
 import os
 
-# ================================= CONFIG ================================
+# ===========================================================================
+#                               Config
+# ===========================================================================
 
-load_dotenv()
+load()
 
 # database_name = os.getenv("DATABASE_NAME")
 
@@ -52,7 +54,6 @@ st.markdown("""
         textarea {
             border: 1px solid rgba(49, 51, 63, 0.2) !important;
         }    
-
     </style>
     """, unsafe_allow_html=True)
 
@@ -68,10 +69,9 @@ STATE = st.session_state
 # Extract query parameters
 params = st.experimental_get_query_params()
 
-# Set annotator ID
+# Set annotator ID if ANNOTATOR is not set
 if 'annotator_id' not in st.session_state:
-    annotator_id = params.get('annotator_id', None)
-    STATE.annotator_id = annotator_id[0] if annotator_id else None
+    STATE.annotator_id = os.getenv("ANNOTATOR")
     print("Annotator ID:", STATE.annotator_id)
 
 # Set task mongodb object ID
@@ -81,9 +81,6 @@ if 'task_object_id' not in st.session_state:
 # Show first webpage by default
 if 'task_id' not in st.session_state:
     STATE.task_id = 0
-
-if 'toggle_demo_modus' not in st.session_state:
-    STATE.toggle_demo_modus = False
 
 if 'last_task_reached' not in st.session_state:
     STATE.last_task_reached = False
@@ -120,15 +117,12 @@ if 'tasks' not in st.session_state:
         try:
             # STATE.query, STATE.fields, STATE.limit, STATE.sampling
             STATE.tasks = loadTasks()
-            STATE.annotation_count = countAnnotations()
-            # print(STATE.annotation_count)
 
         except Exception as e:
             st.error(f"{str(e)}")
             st.write("Query:")
             st.write(STATE.query)
             exit()
-
 
 # Shorthand variables
 tasks = STATE.tasks
@@ -177,13 +171,12 @@ def display_cleaned_content():
     st.write(text)
 
 
-def save_annotations(task, annotator_id, annotations):
-    """Save the annotations in the database for a given task """
+def save_annotation(task, annotator_id, annotation):
+    """Save the annotations for a given task """
 
     task_obj_id = task.get('_id')
 
-    if not STATE.toggle_demo_modus:
-        updateTask(task_obj_id, annotator_id, annotations)
+    updateTask(task_obj_id, annotator_id, annotation)
 
 
 def update_annotations():
@@ -191,12 +184,9 @@ def update_annotations():
 
     try:
         task = STATE.tasks[STATE.task_id]
-        annotations = task.setdefault("annotations", {})
-        annotations[STATE.annotator_id] = {
-            "comment": STATE.annotator_comment,
-            "labels": STATE.selected_tags
-        }
-        save_annotations(task, STATE.annotator_id, annotations)
+        annotation = loadAnnotation(task.get('_id'), STATE.annotator_id)
+
+        save_annotation(task, STATE.annotator_id, annotation)
     except (KeyError, TypeError) as e:
         print("An error occurred while updating the task annotations:", e)
 
@@ -244,53 +234,49 @@ if not STATE.annotator_id or not STATE.tasks:
 
 else:
 
-    if STATE.toggle_demo_modus:
-        st.error("Demo modus is enabled. Annotations are not saved!", icon="🚨")
-
     if STATE.last_task_reached:
         st.error(
             "You reached the end of the list! To load a new batch of webpages, please refresh the page.", icon="🚨")
 
     # Tabs
-    tab_names = ["Raw Text", "Cleaned Text", "Webpage Snapshot", "Task", "All Tasks"]
-    tab_txt, tab_clean_txt, tab_snapshot, tab_info, tab_list = st.tabs(
+    tab_names = ["Text", "Webpage Snapshot", "Task"]
+    tab_txt, tab_snapshot, tab_info = st.tabs(
         tab_names)
 
-    # # Tabs
-    # tab_names = ["More Info", "All Tasks"]
-    # tab_info, tab_list = st.tabs(tab_names)
+    ## TAB: Text Splitscreen (Cleaned Text, Raw Text)
 
     with tab_txt:
-        with stylable_container(
-            key="container_with_border",
-            css_styles="""
-                {
-                    border: 1px solid rgba(49, 51, 63, 0.2);
-                    border-radius: 0.5rem;
-                    padding: calc(1em - 1px);
-                    overflow: hidden;
-                }
-                """,
-        ):
-            with st.spinner('Wait for it...'):
-                with st.container():
-                    display_content()
-    
-    with tab_clean_txt:
-        with stylable_container(
-            key="container_with_border",
-            css_styles="""
-                {
-                    border: 1px solid rgba(49, 51, 63, 0.2);
-                    border-radius: 0.5rem;
-                    padding: calc(1em - 1px);
-                    overflow: hidden;
-                }
-                """,
-        ):
-            with st.spinner('Wait for it...'):
-                with st.container():
+        with st.spinner('Wait for it...'):
+            cleaned_text, raw_text = st.columns(2)
+
+            with cleaned_text:
+                with stylable_container(
+                    key="container_with_border",
+                    css_styles="""
+                        {
+                            border: 1px solid rgba(49, 51, 63, 0.2);
+                            border-radius: 0.5rem;
+                            padding: calc(1em - 1px);
+                            overflow: hidden;
+                        }
+                        """,
+                ):
+                    st.header("Cleaned Text")
                     display_cleaned_content()
+            with raw_text:
+                with stylable_container(
+                    key="container_with_border2",
+                    css_styles="""
+                        {
+                            border: 1px solid rgba(49, 51, 63, 0.2);
+                            border-radius: 0.5rem;
+                            padding: calc(1em - 1px);
+                            overflow: hidden;
+                        }
+                        """,
+                ):
+                    st.header("Raw Text")
+                    display_content()
     
     # TAB: Display webpage snapshot
     with tab_snapshot:
@@ -304,10 +290,6 @@ else:
     # TAB: Display more info about webpage
     with tab_info:
         st.write(task)
-
-    # TAB: Display list of all tasks
-    with tab_list:
-        st.write(tasks)
 
     # Sidebar
     with st.sidebar:
@@ -341,22 +323,21 @@ else:
                 st.text_area('Target URL:', target_url)
                 # Navigation buttons
             with st.container():
-
                 col1, col2 = st.columns(2)
-                STATE.selected_tags = task.get('annotations', {}).get(
-                    annotator_id, {}).get('labels', [])
+
+                annotation = loadAnnotation(task.get('_id'), STATE.annotator_id)
+                if annotation is not None and 'labels' in annotation:
+                    STATE.selected_tags = annotation['labels']
+                else:
+                    STATE.selected_tags = []
+                
                 col1.button(':blue[Previous]', use_container_width=True,
                             on_click=go_to_prev_task)
                 col2.button(':blue[Next]', use_container_width=True,
-                            on_click=go_to_next_task)
+                            on_click=go_to_next_task, disabled=(STATE.selected_tags == []))
 
                 st.select_slider("Task:", options=range(
                     0, len(STATE.tasks)), format_func=(lambda x: ""), key="task_id", label_visibility="collapsed", help="Progress")
-
-                count = sum([1 for task in STATE.tasks if task.get(
-                    "annotations", {}).get(STATE.annotator_id, {})])
-                st.caption(
-                    f"Annotations: {STATE.annotation_count} before and {count} new")
 
         with stylable_container(
                 key="tag_selection",
@@ -372,8 +353,17 @@ else:
         ):
             with st.container():
 
-                STATE.current_comment = task.get('annotations', {}).get(
-                    annotator_id, {}).get('comment', "")
+                # get the current annotation
+                file_id = task.get('_id')
+                annotation = loadAnnotation(file_id, STATE.annotator_id)
+                
+                if annotation is not None:
+                    STATE.current_comment = annotation['comment']
+                    STATE.current_labels = annotation['labels']
+                else:
+                    STATE.current_comment = ""
+                    STATE.current_labels = []
+                
                 st.text_area('Comment:', value=STATE.current_comment,
                              key='annotator_comment',
                              on_change=update_annotations)
@@ -383,9 +373,7 @@ else:
                           on_click=select_annotation, args=("Listing-Page",))
                 st.button('Article', use_container_width=True,
                           on_click=select_annotation, args=("Article",))
-                # st.button('None', use_container_width=True,
-                #          on_click=select_annotation, args=("None",))
-                st.multiselect(
+                st.multiselect( # TODO: Add saved labels
                     'Selected Tags:', LABELS, key='selected_tags', on_change=update_annotations)
 
         with st.expander("Keyboard Shortcuts"):
@@ -403,10 +391,6 @@ else:
                         " Listing Page", unsafe_allow_html=True)
             st.markdown(key("3", write=False) +
                         " Aricle", unsafe_allow_html=True)
-
-        with st.expander("More Options"):
-            st.checkbox("Demo Modus", value=False,
-                        key="toggle_demo_modus", help="If activated, annotations won't be saved.", label_visibility="visible")
 
 
 components.html(
