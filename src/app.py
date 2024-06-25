@@ -185,6 +185,12 @@ def update_annotations():
     try:
         task = STATE.tasks[STATE.task_id]
         annotation = loadAnnotation(task.get('_id'), STATE.annotator_id)
+        
+        # add the selected tags to the annotation
+        annotation['labels'] = STATE.selected_tags
+
+        # add the comment to the annotation
+        annotation['comment'] = STATE.current_comment
 
         save_annotation(task, STATE.annotator_id, annotation)
     except (KeyError, TypeError) as e:
@@ -254,6 +260,7 @@ else:
                     key="container_with_border",
                     css_styles="""
                         {
+                            box-sizing: border-box;
                             border: 1px solid rgba(49, 51, 63, 0.2);
                             border-radius: 0.5rem;
                             padding: calc(1em - 1px);
