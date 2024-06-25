@@ -260,10 +260,21 @@ else:
     if STATE.last_task_reached:
         st.error(
             "You reached the end of the list! To load a new batch of webpages, please refresh the page.", icon="🚨")
+        
 
-    with stylable_container(key="url_info", css_styles="{margin-top: -3rem;} a {word-break: break-all;} .stMarkdown { margin-top: -1rem;}"):
-        st.info(task_url)
-        st.markdown(f'[Open link]({task_url}) | [Open archive.org link](https://web.archive.org/web/{task_url})')
+    with stylable_container(key="url_info", css_styles="""{
+ margin-top: -3rem;
+ box-sizing: border-box;
+ border: 1px solid rgba(49, 51, 63, 0.2);
+ border-radius: 0.5rem;
+#  padding: calc(1em - 1px);
+ overflow: hidden; 
+} 
+a:first-of-type {word-break: break-all} 
+.stMarkdown {padding: 0em 1em 1em 1em; line-height: 1.2;}
+"""):
+        # st.info(task_url)
+        st.markdown(f'**Webpage URL**: [{(task_url if len(task_url) < 500 else task_url[:500] + "..." )}]({task_url}) <br /> <br /> **[Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**', unsafe_allow_html=True)
 
     # Tabs
     tab_names = ["Text", "Webpage Snapshot", "Task"]
