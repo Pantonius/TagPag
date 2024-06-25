@@ -227,11 +227,13 @@ def select_annotation(class_name):
     if class_name not in STATE.selected_tags:
         STATE.selected_tags.append(class_name)
     update_annotations()
-    if STATE.task_id < len(STATE.tasks) - 1:
-        STATE.last_task_reached = False
-        STATE.task_id += 1
-    else:
-        STATE.last_task_reached = True
+
+    if STATE.auto_advance:
+        if STATE.task_id < len(STATE.tasks) - 1:
+            STATE.last_task_reached = False
+            STATE.task_id += 1
+        else:
+            STATE.last_task_reached = True
 
 
 # ---------------------------------------------------------------------------
@@ -384,6 +386,7 @@ else:
                     STATE.current_comment = ""
                     STATE.current_labels = []
                 
+                st.checkbox("Auto-advance", key="auto_advance", value=True,  help="Automatically advance to the next task after selecting a tag.")
 
                 st.button('Hollow Page', use_container_width=True,
                           on_click=select_annotation, args=("Hollow-Page",))
