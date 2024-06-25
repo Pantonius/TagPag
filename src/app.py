@@ -435,7 +435,7 @@ components.html(
 # Define your custom CSS
 custom_css = """
 <style>
-header {
+header, footer {
   visibility: hidden;
 }
 .main .block-container {
