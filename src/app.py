@@ -251,13 +251,9 @@ else:
         st.error(
             "You reached the end of the list! To load a new batch of webpages, please refresh the page.", icon="🚨")
 
-
-    # with st.container():
-    #     st.text_area('Webpage URL:', task_url,
-    #                     help="Landing URL of the scraped webpage")
-    #     st.write(
-    #         f"<div style='text-align: center;'><p> <a href='{task_url}' target='_blank' rel='noopener noreferrer'>Open</a> or <a href='https://web.archive.org/web/{task_url}' target='_blank' rel='noopener noreferrer'>Open (archived)</a></p></div>", unsafe_allow_html=True)
-
+    with stylable_container(key="url_info", css_styles="{margin-top: -3rem;} a {word-break: break-all;} .stMarkdown { margin-top: -1rem;}"):
+        st.info(task_url)
+        st.markdown(f'[Open link]({task_url}) | [Open archive.org link](https://web.archive.org/web/{task_url})')
 
     # Tabs
     tab_names = ["Text", "Webpage Snapshot", "Task"]
@@ -317,15 +313,6 @@ else:
     with st.sidebar:
         st.title(':pencil2: Webpage Annotations')
 
-        st.download_button("Download Annotations", downloadAnnotations(), "annotations.csv", mime="text/csv", key="download_annotations")
-
-        st.warning(
-            """
-            Please navigate through the list of untagged webpages and
-            classify them using the buttons bellow. Thanks!
-            """
-        )
-
         with stylable_container(
                 key="current_page_info",
                     css_styles="""
@@ -338,16 +325,8 @@ else:
                         }
                         """,
         ):
-            with st.container():
-                st.text_area('Webpage URL:', task_url,
-                             help="Landing URL of the scraped webpage")
-                # st.write(
-                #     f"<div style='text-align: center;'><p> <a href='{task_url}' target='_blank' rel='noopener noreferrer'>Open</a> or <a href='https://web.archive.org/web/{task_url}' target='_blank' rel='noopener noreferrer'>Open (archived)</a></p></div>", unsafe_allow_html=True)
-                # st.markdown(f'Event page: [Open]({task_url})')
 
-            with st.expander("More about this Webpage"):
-                st.text_area('Target URL:', target_url)
-            
+
             # Navigation buttons
             with st.container():
                 col1, col2 = st.columns(2)
@@ -363,10 +342,26 @@ else:
                 col2.button(':blue[Next]', use_container_width=True,
                             on_click=go_to_next_task, disabled=(STATE.selected_tags == []))
 
-                st.select_slider("Task:", options=range(
-                    0, len(STATE.tasks)), format_func=(lambda x: ""), key="task_id", label_visibility="collapsed", help="Progress")
+                # Create a beta container to hold components in a horizontal layout
+                row1_col1, row1_col2, row1_col3 = st.columns([1, 3, 1])
+
+                # Components in the first row
+                with row1_col1:
+                    st.button('&lt;')
+
+
+                with row1_col2:
+                    st.select_slider("Task:", options=range(
+                        0, len(STATE.tasks)), format_func=(lambda x: ""), key="task_id", label_visibility="collapsed", help="Progress")
+                    
+                                
+                with row1_col3:
+                    st.button('&gt;')
 
                 st.markdown(f"Task {STATE.task_id + 1} out of {len(STATE.tasks)}")
+
+
+                st.download_button( "Download Annotations", downloadAnnotations(), "annotations.csv", mime="text/csv", key="download_annotations", use_container_width=True)
 
         with stylable_container(
                 key="tag_selection",
@@ -393,9 +388,7 @@ else:
                     STATE.current_comment = ""
                     STATE.current_labels = []
                 
-                st.text_area('Comment:', value=STATE.current_comment,
-                             key='annotator_comment',
-                             on_change=update_annotations)
+
                 st.button('Hollow Page', use_container_width=True,
                           on_click=select_annotation, args=("Hollow-Page",))
                 st.button('Listing Page', use_container_width=True,
@@ -404,6 +397,10 @@ else:
                           on_click=select_annotation, args=("Article",))
                 st.multiselect(
                     'Selected Tags:', LABELS, key='selected_tags', on_change=update_annotations)
+                
+                st.text_area('Comment:', value=STATE.current_comment,
+                             key='annotator_comment',
+                             on_change=update_annotations)
 
         with st.expander("Keyboard Shortcuts"):
 
@@ -467,3 +464,18 @@ components.html(
     height=0,
     width=0,
 )
+
+
+
+# Define your custom CSS
+custom_css = """
+<style>
+header {
+visibility: hidden;
+}
+
+</style>
+"""
+
+# Inject the CSS into the Streamlit app
+st.markdown(custom_css, unsafe_allow_html=True)
