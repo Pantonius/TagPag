@@ -38,24 +38,6 @@ st.set_page_config(
 
 load_key_css()
 
-# Remove whitespace from the top of the page and sidebar
-st.markdown("""
-    <style>
-        .main .block-container {
-            padding-top: 1rem;
-            padding-bottom: 0rem;
-            padding-left: 5rem;
-            padding-right: 5rem;
-        }
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div > div {
-            padding-top: 1em !important;
-        }
-
-        textarea {
-            border: 1px solid rgba(49, 51, 63, 0.2) !important;
-        }    
-    </style>
-    """, unsafe_allow_html=True)
 
 # ================================= CONSTANTS ================================
 
@@ -63,6 +45,31 @@ LABELS = ['None', 'Hollow-Page', 'Listing-Page',
           'Article', "Paywall", "Login", "Cookie-Consent"]
 TASKS = read_json_file("example_data.json")
 STATE = st.session_state
+
+css_white_container = """ {
+ border: 1px solid rgba(49, 51, 63, 0.2);
+ border-radius: 0.5rem;
+ padding: calc(1em - 1px);
+ box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+ background-color: #ffffff !important;
+}"""
+
+css_text_container = """
+{
+ box-sizing: border-box;
+ border: 1px solid rgba(49, 51, 63, 0.2);
+ border-radius: 0.5rem;
+ padding: calc(1em - 1px);
+ overflow: hidden;   
+}
+#tabs-bui1-tabpanel-0 p {
+ line-height: 1.25;
+ padding-right: 2em;
+}
+#tabs-bui1-tabpanel-0 h2 {
+ margin-bottom: 1em;
+}
+"""
 
 # ================================= INIT STATE ===============================
 
@@ -269,32 +276,13 @@ else:
         with st.spinner('Wait for it...'):
             cleaned_text, raw_text = st.columns(2)
 
-            css_style = """
-                        {
-                            box-sizing: border-box;
-                            border: 1px solid rgba(49, 51, 63, 0.2);
-                            border-radius: 0.5rem;
-                            padding: calc(1em - 1px);
-                            overflow: hidden;
-                            
-                        }
-                        #tabs-bui1-tabpanel-0 p {
-                            line-height: 1.25;
-                            padding-right: 2em;
-                        }
-                        """
+
             with cleaned_text:
-                with stylable_container(
-                    key="container_with_border",
-                    css_styles=css_style,
-                ):
+                with stylable_container(key="container_with_border", css_styles=css_text_container):
                     st.header("Cleaned Text")
                     display_cleaned_content()
             with raw_text:
-                with stylable_container(
-                    key="container_with_border2",
-                    css_styles=css_style
-                ):
+                with stylable_container(key="container_with_border2", css_styles=css_text_container):
                     st.header("Raw Text")
                     display_content()
     
@@ -315,18 +303,7 @@ else:
     with st.sidebar:
         st.title(':pencil2: Webpage Annotations')
 
-        with stylable_container(
-                key="current_page_info",
-                    css_styles="""
-                        {
-                            border: 1px solid rgba(49, 51, 63, 0.2);
-                            border-radius: 0.5rem;
-                            padding: calc(1em - 1px);
-                            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
-                            background-color: #ffffff !important;
-                        }
-                        """,
-        ):
+        with stylable_container(key="current_page_info", css_styles=css_white_container):
 
 
             # Navigation buttons
@@ -361,18 +338,7 @@ else:
 
                 st.download_button( "Download Annotations", downloadAnnotations(), "annotations.csv", mime="text/csv", key="download_annotations", use_container_width=True)
 
-        with stylable_container(
-                key="tag_selection",
-                    css_styles="""
-                        {
-                            border: 1px solid rgba(49, 51, 63, 0.2);
-                            border-radius: 0.5rem;
-                            padding: calc(1em - 1px);
-                            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
-                            background-color: #ffffff !important;
-                        }
-                        """,
-        ):
+        with stylable_container(key="tag_selection", css_styles=css_white_container):
             with st.container():
 
                 # get the current annotation
@@ -415,7 +381,7 @@ else:
             st.markdown(key("2", write=False) +
                         " Listing Page", unsafe_allow_html=True)
             st.markdown(key("3", write=False) +
-                        " Aricle", unsafe_allow_html=True)
+                        " Article", unsafe_allow_html=True)
 
 
 components.html(
@@ -451,10 +417,10 @@ components.html(
                 clickButton('None');
                 break;
             case 37: // (37 = left arrow)
-                clickButton('Previous');
+                clickButton('<');
                 break;
             case 39: // (39 = right arrow)
-                clickButton('Next');
+                clickButton('>');
                 break;
         }
     });
@@ -470,9 +436,14 @@ components.html(
 custom_css = """
 <style>
 header {
-visibility: hidden;
+  visibility: hidden;
 }
-
+.main .block-container {
+  padding: 2rem 2rem 0rem 2rem;
+}
+#root > div:nth-child(1) > div.withScreencast > div > div > div > section > div > div {
+  padding-top: 1em !important;
+}
 </style>
 """
 
