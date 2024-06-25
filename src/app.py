@@ -185,6 +185,13 @@ def update_annotations():
     try:
         task = STATE.tasks[STATE.task_id]
         annotation = loadAnnotation(task.get('_id'), STATE.annotator_id)
+
+        if annotation is None:
+            annotation = {
+                'annotator_id': STATE.annotator_id,
+                'labels': [],
+                'comment': ""
+            }
         
         # add the selected tags to the annotation
         annotation['labels'] = STATE.selected_tags
