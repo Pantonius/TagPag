@@ -238,6 +238,14 @@ else:
         st.error(
             "You reached the end of the list! To load a new batch of webpages, please refresh the page.", icon="🚨")
 
+
+    # with st.container():
+    #     st.text_area('Webpage URL:', task_url,
+    #                     help="Landing URL of the scraped webpage")
+    #     st.write(
+    #         f"<div style='text-align: center;'><p> <a href='{task_url}' target='_blank' rel='noopener noreferrer'>Open</a> or <a href='https://web.archive.org/web/{task_url}' target='_blank' rel='noopener noreferrer'>Open (archived)</a></p></div>", unsafe_allow_html=True)
+
+
     # Tabs
     tab_names = ["Text", "Webpage Snapshot", "Task"]
     tab_txt, tab_snapshot, tab_info = st.tabs(
@@ -319,12 +327,14 @@ else:
             with st.container():
                 st.text_area('Webpage URL:', task_url,
                              help="Landing URL of the scraped webpage")
-                st.write(
-                    f"<div style='text-align: center;'><p> <a href='{task_url}' target='_blank' rel='noopener noreferrer'>Open</a> or <a href='https://web.archive.org/web/{task_url}' target='_blank' rel='noopener noreferrer'>Open (archived)</a></p></div>", unsafe_allow_html=True)
+                # st.write(
+                #     f"<div style='text-align: center;'><p> <a href='{task_url}' target='_blank' rel='noopener noreferrer'>Open</a> or <a href='https://web.archive.org/web/{task_url}' target='_blank' rel='noopener noreferrer'>Open (archived)</a></p></div>", unsafe_allow_html=True)
+                # st.markdown(f'Event page: [Open]({task_url})')
 
             with st.expander("More about this Webpage"):
                 st.text_area('Target URL:', target_url)
-                # Navigation buttons
+            
+            # Navigation buttons
             with st.container():
                 col1, col2 = st.columns(2)
 
