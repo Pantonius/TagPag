@@ -245,6 +245,7 @@ if not STATE.annotator_id or not STATE.tasks:
 
 # ================================= MAIN SCREEN ===============================
 
+
 else:
 
     if STATE.last_task_reached:
@@ -266,32 +267,31 @@ else:
         with st.spinner('Wait for it...'):
             cleaned_text, raw_text = st.columns(2)
 
-            with cleaned_text:
-                with stylable_container(
-                    key="container_with_border",
-                    css_styles="""
+            css_style = """
                         {
                             box-sizing: border-box;
                             border: 1px solid rgba(49, 51, 63, 0.2);
                             border-radius: 0.5rem;
                             padding: calc(1em - 1px);
                             overflow: hidden;
+                            
                         }
-                        """,
+                        #tabs-bui1-tabpanel-0 p {
+                            line-height: 1.25;
+                            padding-right: 2em;
+                        }
+                        """
+            with cleaned_text:
+                with stylable_container(
+                    key="container_with_border",
+                    css_styles=css_style,
                 ):
                     st.header("Cleaned Text")
                     display_cleaned_content()
             with raw_text:
                 with stylable_container(
                     key="container_with_border2",
-                    css_styles="""
-                        {
-                            border: 1px solid rgba(49, 51, 63, 0.2);
-                            border-radius: 0.5rem;
-                            padding: calc(1em - 1px);
-                            overflow: hidden;
-                        }
-                        """,
+                    css_styles=css_style
                 ):
                     st.header("Raw Text")
                     display_content()
@@ -329,17 +329,13 @@ else:
 
             # Navigation buttons
             with st.container():
-                col1, col2 = st.columns(2)
-
                 annotation = loadAnnotation(task.get('_id'), STATE.annotator_id)
                 if annotation is not None and 'labels' in annotation:
                     STATE.selected_tags = annotation['labels']
                 else:
                     STATE.selected_tags = []
                 
-                col1.button(':blue[Previous]', use_container_width=True,
-                            on_click=go_to_prev_task)
-                col2.button(':blue[Next]', use_container_width=True,
+                st.button(':blue[Find next incomplete task]', use_container_width=True,
                             on_click=go_to_next_task, disabled=(STATE.selected_tags == []))
 
                 # Create a beta container to hold components in a horizontal layout
@@ -347,7 +343,7 @@ else:
 
                 # Components in the first row
                 with row1_col1:
-                    st.button('&lt;')
+                    st.button('&lt;', on_click=go_to_prev_task)
 
 
                 with row1_col2:
@@ -356,7 +352,7 @@ else:
                     
                                 
                 with row1_col3:
-                    st.button('&gt;')
+                    st.button('&gt;', on_click=go_to_next_task)
 
                 st.markdown(f"Task {STATE.task_id + 1} out of {len(STATE.tasks)}")
 
