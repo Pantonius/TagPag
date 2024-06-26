@@ -3,7 +3,6 @@
 #                            Web Interface
 # ===========================================================================
 
-from streamlit_extras.stylable_container import stylable_container
 from streamlit_extras.keyboard_text import key, load_key_css
 from components.welcome import WelcomePage
 from utils.environment import load
@@ -47,7 +46,6 @@ params = st.query_params
 # Set annotator ID if ANNOTATOR is not set
 if 'annotator_id' not in st.session_state:
     STATE.annotator_id = os.getenv("ANNOTATOR")
-    print("Annotator ID:", STATE.annotator_id)
 
 # Set task mongodb object ID
 if 'task_object_id' not in st.session_state:
@@ -171,6 +169,8 @@ def update_annotations():
         # add the selected tags to the annotation
         annotation['labels'] = STATE.selected_tags
 
+        print(STATE.selected_tags)
+
         # add the comment to the annotation
         annotation['comment'] = STATE.current_comment
 
@@ -201,6 +201,9 @@ def select_annotation(class_name):
     """Select an annotation for the current task."""
     if class_name not in STATE.selected_tags:
         STATE.selected_tags.append(class_name)
+    else:
+        STATE.selected_tags.remove(class_name)
+    
     update_annotations()
 
     if STATE.auto_advance:
@@ -268,7 +271,6 @@ else:
     with st.sidebar:
         st.title(':pencil2: Webpage Annotations')
 
-
         annotation = loadAnnotation(task.get('_id'), STATE.annotator_id)
         if annotation is not None and 'labels' in annotation:
             STATE.selected_tags = annotation['labels']
@@ -309,12 +311,12 @@ else:
         
         st.checkbox("Auto-advance", key="auto_advance", value=False,  help="Automatically advance to the next task after selecting a tag.")
 
-        st.button('1: Hollow Page', use_container_width=True,
-                    on_click=select_annotation, args=("Hollow-Page",))
-        st.button('2: Listing Page', use_container_width=True,
-                    on_click=select_annotation, args=("Listing-Page",))
-        st.button('3: Article', use_container_width=True,
-                    on_click=select_annotation, args=("Article",))
+        st.toggle('1: Hollow Page',
+                    on_change=select_annotation, args=("Hollow-Page",), value=("Hollow-Page" in STATE.selected_tags))
+        st.toggle('2: Listing Page',
+                    on_change=select_annotation, args=("Listing-Page",), value=("Listing-Page" in STATE.selected_tags))
+        st.toggle('3: Article',
+                    on_change=select_annotation, args=("Article",), value=("Article" in STATE.selected_tags))
         st.multiselect(
             'Selected Tags:', LABELS, key='selected_tags', on_change=update_annotations)
         
