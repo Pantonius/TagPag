@@ -144,7 +144,7 @@ def extract_url_infos(exploded_url):
     return results
 
 
-def explode_url(url: str, scheme: str = "http://") -> dict:
+def explode_url(url: str) -> dict:
     """Returns decomposed URL as dictionary"""
 
     # ------------------- Decompose URL -------------------
@@ -181,7 +181,7 @@ def explode_url(url: str, scheme: str = "http://") -> dict:
     # https://docs.python.org/3/library/urllib.parse.html
     # Following the syntax specifications in RFC 1808, urlparse recognizes a netloc only if it is properly 
     # introduced by ‘//’. Otherwise the input is presumed to be a relative URL and thus to start with a path component.
-    ext = urlparse(scheme + url)
+    ext = urlparse(url)
     results["netloc"] = ext.netloc
     results["hostname"] = ext.hostname
     results["path"] = ext.path
@@ -191,5 +191,8 @@ def explode_url(url: str, scheme: str = "http://") -> dict:
 
     # parse the parameters of the query string, \x00 causes troubles with mongodb, it represents a null byte
     results["query_dict"] = {k.replace('\x00', 'NULLHEX'): ' '.join(i.strip() for i in v) for k, v in parse_qs(results["query"]).items()}
+
+    # extract the search terms
+    results["search_terms"] = extract_search_terms(results["query_dict"])
 
     return results
