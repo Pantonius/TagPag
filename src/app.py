@@ -50,10 +50,6 @@ if 'annotator_id' not in st.session_state:
     STATE.annotator_id = os.getenv("ANNOTATOR")
     print("Annotator ID:", STATE.annotator_id)
 
-# Set task mongodb object ID
-if 'task_object_id' not in st.session_state:
-    STATE.task_object_id = "63e6b1425b2943de553ee687"
-
 # Show first webpage by default
 if 'task_id' not in st.session_state:
     STATE.task_id = 0
@@ -105,7 +101,7 @@ tasks = STATE.tasks
 task = STATE.tasks[STATE.task_id]
 annotator_id = STATE.annotator_id
 task_url = STATE.tasks[STATE.task_id]['landing_url']
-target_url = STATE.tasks[STATE.task_id]['target_url']
+exploded_url = explode_url(task_url)
 
 # ================================= FUNCTIONS ===============================
 
@@ -211,6 +207,8 @@ def select_annotation(class_name):
         else:
             STATE.last_task_reached = True
 
+def truncate_string(string, n=100):
+    return string if len(string) < n else string[:n] + '...'
 
 # ---------------------------------------------------------------------------
 #                            Layout
@@ -227,10 +225,17 @@ else:
     if STATE.last_task_reached:
         st.error(
             "You reached the end of the list! To load a new batch of webpages, please refresh the page.", icon="🚨")
-        
 
-    with st.container():
-        st.info(f'**Webpage URL**: [{(task_url if len(task_url) < 500 else task_url[:500] + "..." )}]({task_url})  \n **:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**')
+    # Create a beta container to hold components in a horizontal layout
+    row1_col1, row1_col2, = st.columns([1, 2]) 
+
+    with row1_col1:
+
+        _fqdn = f"**Domain**: {truncate_string(exploded_url['fqdn'])}"
+        _path = f"  \n**Path**: {truncate_string(exploded_url['path'])}"
+        _search_terms = f"  \n**Search terms**: {truncate_string(exploded_url['search_terms'])}" if exploded_url['search_terms'] != "" else ""
+
+        st.info(f'{_fqdn}{_path}{_search_terms}  \n **:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**')
 
     # Tabs
     tab_names = ["Text", "Webpage Snapshot", "URL Anatomy", "Task"]
@@ -265,7 +270,7 @@ else:
     with tab_url:
         with st.container():
             st.header("URL Anatomy")
-            st.write(explode_url(task_url))
+            st.write(exploded_url)
 
     # TAB: Display more info about webpage
     with tab_info:
