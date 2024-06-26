@@ -10,6 +10,7 @@ from utils.environment import load
 from utils.local import *
 from utils.files import *
 from utils.content import *
+from utils.url_parser import explode_url
 
 import streamlit.components.v1 as components
 import streamlit as st
@@ -232,8 +233,8 @@ else:
         st.info(f'**Webpage URL**: [{(task_url if len(task_url) < 500 else task_url[:500] + "..." )}]({task_url})  \n **:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**')
 
     # Tabs
-    tab_names = ["Text", "Webpage Snapshot", "Task"]
-    tab_txt, tab_snapshot, tab_info = st.tabs(
+    tab_names = ["Text", "Webpage Snapshot", "URL Anatomy", "Task"]
+    tab_txt, tab_snapshot, tab_url, tab_info = st.tabs(
         tab_names)
 
     ## TAB: Text Splitscreen (Cleaned Text, Raw Text)
@@ -259,6 +260,12 @@ else:
         container.iframe_content = st.empty()
         if st.button("Show Snapshot"):
             display_webpage(container.iframe_content, task)
+
+    # TAB: Display URL Anatomy
+    with tab_url:
+        with st.container():
+            st.header("URL Anatomy")
+            st.write(explode_url(task_url))
 
     # TAB: Display more info about webpage
     with tab_info:
