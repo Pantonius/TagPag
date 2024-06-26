@@ -291,8 +291,6 @@ else:
         with row1_col3:
             st.button('&gt;', on_click=go_to_next_task)
 
-
-
         st.button(':blue[Find next incomplete task]', use_container_width=True,
                     on_click=go_to_next_task, disabled=(STATE.selected_tags == []))
 
@@ -309,13 +307,13 @@ else:
             STATE.current_comment = ""
             STATE.current_labels = []
         
-        st.checkbox("Auto-advance", key="auto_advance", value=True,  help="Automatically advance to the next task after selecting a tag.")
+        st.checkbox("Auto-advance", key="auto_advance", value=False,  help="Automatically advance to the next task after selecting a tag.")
 
-        st.button('Hollow Page', use_container_width=True,
+        st.button('1: Hollow Page', use_container_width=True,
                     on_click=select_annotation, args=("Hollow-Page",))
-        st.button('Listing Page', use_container_width=True,
+        st.button('2: Listing Page', use_container_width=True,
                     on_click=select_annotation, args=("Listing-Page",))
-        st.button('Article', use_container_width=True,
+        st.button('3: Article', use_container_width=True,
                     on_click=select_annotation, args=("Article",))
         st.multiselect(
             'Selected Tags:', LABELS, key='selected_tags', on_change=update_annotations)
@@ -350,7 +348,9 @@ components.html(
 
     function clickButton(label) {
         buttons.forEach((pElement) => {
-            if (pElement.innerText.includes(label)) {
+            console.log(label)
+            console.log(pElement.innerText)
+            if (pElement.innerText.startsWith(label)) {
                 const buttonElement = pElement.closest("button");
                 console.log(buttonElement);
                 buttonElement.click();
@@ -360,20 +360,15 @@ components.html(
     }
 
     doc.addEventListener('keydown', function(e) {
-        console.log(e.keyCode); 
+    
+        // Check if the key code is between 49 (key '1') and 59 (key ':')
+        if (e.keyCode >= 49 && e.keyCode <= 59) {
+            // Calculate the corresponding button string
+            const keyChar = String.fromCharCode(e.keyCode);
+            clickButton(`${keyChar}:`);
+        }
+
         switch (e.keyCode) {
-            case 49: // (49 = 1)
-                clickButton('Hollow Page');
-                break;
-            case 50: // (50 = 2)
-                clickButton('Listing Page');
-                break;
-            case 51: // (51 = 3)
-                clickButton('Article');
-                break;
-            case 52: // (52 = 4)
-                clickButton('None');
-                break;
             case 37: // (37 = left arrow)
                 clickButton('<');
                 break;
