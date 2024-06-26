@@ -22,18 +22,11 @@ import os
 
 load()
 
-# database_name = os.getenv("DATABASE_NAME")
-
 st.set_page_config(
     page_title="Webpage Annotations",
     layout="wide",
     page_icon="📄",
     initial_sidebar_state="expanded",
-    # menu_items={
-    #      'Get Help': 'https://www.extremelycoolapp.com/help',
-    #      'Report a bug': "https://www.extremelycoolapp.com/bug",
-    #      'About': "# This is a header. This is an *extremely* cool app!"
-    #  }
 )
 
 load_key_css()
@@ -46,35 +39,10 @@ LABELS = ['None', 'Hollow-Page', 'Listing-Page',
 TASKS = read_json_file("example_data.json")
 STATE = st.session_state
 
-css_white_container = """ {
- border: 1px solid rgba(49, 51, 63, 0.2);
- border-radius: 0.5rem;
- padding: calc(1em - 1px);
- box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
- background-color: #ffffff !important;
-}"""
-
-css_text_container = """
-{
- box-sizing: border-box;
- border: 1px solid rgba(49, 51, 63, 0.2);
- border-radius: 0.5rem;
- padding: calc(1em - 1px);
- overflow: hidden;   
-}
-#tabs-bui1-tabpanel-0 p {
- line-height: 1.25;
- padding-right: 2em;
-}
-#tabs-bui1-tabpanel-0 h2 {
- margin-bottom: 1em;
-}
-"""
-
 # ================================= INIT STATE ===============================
 
 # Extract query parameters
-params = st.experimental_get_query_params()
+params = st.query_params
 
 # Set annotator ID if ANNOTATOR is not set
 if 'annotator_id' not in st.session_state:
@@ -253,8 +221,6 @@ if not STATE.annotator_id or not STATE.tasks:
     WelcomePage(st).show()
 
 # ================================= MAIN SCREEN ===============================
-
-
 else:
 
     if STATE.last_task_reached:
@@ -262,19 +228,8 @@ else:
             "You reached the end of the list! To load a new batch of webpages, please refresh the page.", icon="🚨")
         
 
-    with stylable_container(key="url_info", css_styles="""{
- margin-top: -3rem;
- box-sizing: border-box;
- border: 1px solid rgba(49, 51, 63, 0.2);
- border-radius: 0.5rem;
-#  padding: calc(1em - 1px);
- overflow: hidden; 
-} 
-a:first-of-type {word-break: break-all} 
-.stMarkdown {padding: 0em 1em 1em 1em; line-height: 1.2;background-color: rgb(240, 242, 246);}
-"""):
-        # st.info(task_url)
-        st.markdown(f'**Webpage URL**: [{(task_url if len(task_url) < 500 else task_url[:500] + "..." )}]({task_url}) <br /> <br /> **[Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**', unsafe_allow_html=True)
+    with st.container():
+        st.info(f'**Webpage URL**: [{(task_url if len(task_url) < 500 else task_url[:500] + "..." )}]({task_url})  \n **:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**')
 
     # Tabs
     tab_names = ["Text", "Webpage Snapshot", "Task"]
@@ -282,18 +237,17 @@ a:first-of-type {word-break: break-all}
         tab_names)
 
     ## TAB: Text Splitscreen (Cleaned Text, Raw Text)
-
     with tab_txt:
         with st.spinner('Wait for it...'):
             cleaned_text, raw_text = st.columns(2)
 
 
             with cleaned_text:
-                with stylable_container(key="container_with_border", css_styles=css_text_container):
+                with st.container():
                     st.header("Cleaned Text")
                     display_cleaned_content()
             with raw_text:
-                with stylable_container(key="container_with_border2", css_styles=css_text_container):
+                with st.container():
                     st.header("Raw Text")
                     display_content()
     
@@ -314,70 +268,62 @@ a:first-of-type {word-break: break-all}
     with st.sidebar:
         st.title(':pencil2: Webpage Annotations')
 
-        with stylable_container(key="current_page_info", css_styles=css_white_container):
+
+        annotation = loadAnnotation(task.get('_id'), STATE.annotator_id)
+        if annotation is not None and 'labels' in annotation:
+            STATE.selected_tags = annotation['labels']
+        else:
+            STATE.selected_tags = []
+        
+        st.markdown(f"<div style='text-align: center'>(Task {STATE.task_id + 1} out of {len(STATE.tasks)})</div>", unsafe_allow_html=True)
+
+        # Create a beta container to hold components in a horizontal layout
+        row1_col1, row1_col2, row1_col3 = st.columns([1, 3, 1])
+
+        # Components in the first row
+        with row1_col1:
+            st.button('&lt;', on_click=go_to_prev_task)
+
+        with row1_col2:
+            st.select_slider("Task:", options=range(
+                0, len(STATE.tasks)), format_func=(lambda x: ""), key="task_id", label_visibility="collapsed", help="Progress")
+
+        with row1_col3:
+            st.button('&gt;', on_click=go_to_next_task)
 
 
-            # Navigation buttons
-            with st.container():
-                annotation = loadAnnotation(task.get('_id'), STATE.annotator_id)
-                if annotation is not None and 'labels' in annotation:
-                    STATE.selected_tags = annotation['labels']
-                else:
-                    STATE.selected_tags = []
-                
-                st.button(':blue[Find next incomplete task]', use_container_width=True,
-                            on_click=go_to_next_task, disabled=(STATE.selected_tags == []))
 
-                # Create a beta container to hold components in a horizontal layout
-                row1_col1, row1_col2, row1_col3 = st.columns([1, 3, 1])
+        st.button(':blue[Find next incomplete task]', use_container_width=True,
+                    on_click=go_to_next_task, disabled=(STATE.selected_tags == []))
 
-                # Components in the first row
-                with row1_col1:
-                    st.button('&lt;', on_click=go_to_prev_task)
+        st.divider()
 
+        # get the current annotation
+        file_id = task.get('_id')
+        annotation = loadAnnotation(file_id, STATE.annotator_id)
+        
+        if annotation is not None:
+            STATE.current_comment = annotation['comment']
+            STATE.current_labels = annotation['labels']
+        else:
+            STATE.current_comment = ""
+            STATE.current_labels = []
+        
+        st.checkbox("Auto-advance", key="auto_advance", value=True,  help="Automatically advance to the next task after selecting a tag.")
 
-                with row1_col2:
-                    st.select_slider("Task:", options=range(
-                        0, len(STATE.tasks)), format_func=(lambda x: ""), key="task_id", label_visibility="collapsed", help="Progress")
-                    
-                                
-                with row1_col3:
-                    st.button('&gt;', on_click=go_to_next_task)
-
-                st.markdown(f"Task {STATE.task_id + 1} out of {len(STATE.tasks)}")
-
-
-                st.download_button( "Download Annotations", downloadAnnotations(), "annotations.csv", mime="text/csv", key="download_annotations", use_container_width=True)
-
-        with stylable_container(key="tag_selection", css_styles=css_white_container):
-            with st.container():
-
-                # get the current annotation
-                file_id = task.get('_id')
-                annotation = loadAnnotation(file_id, STATE.annotator_id)
-                
-                if annotation is not None:
-                    STATE.current_comment = annotation['comment']
-                    STATE.current_labels = annotation['labels']
-                else:
-                    STATE.current_comment = ""
-                    STATE.current_labels = []
-                
-                st.checkbox("Auto-advance", key="auto_advance", value=True,  help="Automatically advance to the next task after selecting a tag.")
-
-                st.button('Hollow Page', use_container_width=True,
-                          on_click=select_annotation, args=("Hollow-Page",))
-                st.button('Listing Page', use_container_width=True,
-                          on_click=select_annotation, args=("Listing-Page",))
-                st.button('Article', use_container_width=True,
-                          on_click=select_annotation, args=("Article",))
-                st.multiselect(
-                    'Selected Tags:', LABELS, key='selected_tags', on_change=update_annotations)
-                
-                st.text_area('Comment:', value=STATE.current_comment,
-                             key='annotator_comment',
-                             on_change=update_annotations)
-
+        st.button('Hollow Page', use_container_width=True,
+                    on_click=select_annotation, args=("Hollow-Page",))
+        st.button('Listing Page', use_container_width=True,
+                    on_click=select_annotation, args=("Listing-Page",))
+        st.button('Article', use_container_width=True,
+                    on_click=select_annotation, args=("Article",))
+        st.multiselect(
+            'Selected Tags:', LABELS, key='selected_tags', on_change=update_annotations)
+        
+        st.text_area('Comment:', value=STATE.current_comment,
+                        key='annotator_comment',
+                        on_change=update_annotations)
+    
         with st.expander("Keyboard Shortcuts"):
 
             st.markdown("_Navigation:_")
@@ -394,6 +340,7 @@ a:first-of-type {word-break: break-all}
             st.markdown(key("3", write=False) +
                         " Article", unsafe_allow_html=True)
 
+        st.download_button( "Download Annotations", downloadAnnotations(), "annotations.csv", mime="text/csv", key="download_annotations", use_container_width=True)
 
 components.html(
     """
@@ -446,14 +393,18 @@ components.html(
 # Define your custom CSS
 custom_css = """
 <style>
-header, footer {
+header, footer, [data-testid="stSidebarHeader"] {
   visibility: hidden;
+  display: none;
 }
 .main .block-container {
-  padding: 2rem 2rem 0rem 2rem;
+  padding: 0rem 2rem 0rem 2rem;
 }
 #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div > div {
-  padding-top: 1em !important;
+  padding-top: 0em !important;
+}
+.stAlert a {
+word-break: break-all;
 }
 </style>
 """
