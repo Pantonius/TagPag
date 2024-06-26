@@ -271,7 +271,7 @@ else:
  overflow: hidden; 
 } 
 a:first-of-type {word-break: break-all} 
-.stMarkdown {padding: 0em 1em 1em 1em; line-height: 1.2;}
+.stMarkdown {padding: 0em 1em 1em 1em; line-height: 1.2;background-color: rgb(240, 242, 246);}
 """):
         # st.info(task_url)
         st.markdown(f'**Webpage URL**: [{(task_url if len(task_url) < 500 else task_url[:500] + "..." )}]({task_url}) <br /> <br /> **[Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**', unsafe_allow_html=True)
