@@ -54,7 +54,6 @@ def updateTask(task_id: str, annotator_id: str, new_annotations: dict):
     """
     Update the annotation for the task with the given id
     """
-    print(f"Updating task {task_id} with annotations {new_annotations}")
 
     # Load the annotations
     annotations = loadAnnotations(task_id)
