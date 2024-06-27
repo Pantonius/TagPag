@@ -2,16 +2,12 @@
 custom_html="""
 <script>
 var doc = window.parent.document;
-var buttons = doc.querySelectorAll('button > div > p');
 
 function clickButton(label) {
+    var buttons = doc.querySelectorAll('label div > p');
     buttons.forEach((pElement) => {
-        console.log(label)
-        console.log(pElement.innerText)
         if (pElement.innerText.startsWith(label)) {
-            const buttonElement = pElement.closest("button");
-            console.log(buttonElement);
-            buttonElement.click();
+            pElement.closest("label").click();
         }
     });
 }
