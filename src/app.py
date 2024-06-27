@@ -127,8 +127,8 @@ def display_content():
 
     if not text:
         st.warning("Couldn't extract any text! :worried:")
-    
-    st.write(text)
+    else: 
+        st.write(text)
 
 def display_cleaned_content():
     """ Display the cleaned webpage text content (trafilatura)."""
@@ -139,8 +139,8 @@ def display_cleaned_content():
 
     if not text:
         st.warning("Couldn't extract any text! :worried:")
-    
-    st.write(text)
+    else:
+        st.write(text)
 
 
 def save_annotation(task, annotator_id, annotation):
@@ -237,6 +237,10 @@ else:
 
         st.info(f'{_fqdn}{_path}{_search_terms}  \n **:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**')
 
+    with row1_col2:
+        st.info(f'**Full URL**: [{(task_url if len(task_url) < 450 else task_url[:450] + "..." )}]({task_url})')
+
+
     # Tabs
     tab_names = ["Text", "Webpage Snapshot", "URL Anatomy", "Task"]
     tab_txt, tab_snapshot, tab_url, tab_info = st.tabs(
@@ -250,11 +254,11 @@ else:
 
             with cleaned_text:
                 with st.container():
-                    st.header("Cleaned Text")
+                    st.markdown("### Cleaned Text")
                     display_cleaned_content()
             with raw_text:
                 with st.container():
-                    st.header("Raw Text")
+                    st.markdown("### Raw Text")
                     display_content()
     
     # TAB: Display webpage snapshot
@@ -269,7 +273,6 @@ else:
     # TAB: Display URL Anatomy
     with tab_url:
         with st.container():
-            st.header("URL Anatomy")
             st.write(exploded_url)
 
     # TAB: Display more info about webpage
