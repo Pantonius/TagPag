@@ -193,6 +193,12 @@ def go_to_prev_task():
     if STATE.task_id > 0:
         STATE.task_id -= 1
 
+def go_to_task():
+    update_annotations()
+
+    # the -1 is because of the offset, the list starts at 0 not at 1
+    STATE.task_id = st.session_state.task_number_input - 1
+
 
 def select_annotation(class_name):
     """Select an annotation for the current task."""
@@ -294,19 +300,7 @@ else:
         
         st.markdown(f"<div style='text-align: center'>(Task {STATE.task_id + 1} out of {len(STATE.tasks)})</div>", unsafe_allow_html=True)
 
-        # Create a beta container to hold components in a horizontal layout
-        row1_col1, row1_col2, row1_col3 = st.columns([1, 3, 1])
-
-        # Components in the first row
-        with row1_col1:
-            st.button('&lt;', on_click=go_to_prev_task)
-
-        with row1_col2:
-            st.select_slider("Task:", options=range(
-                0, len(STATE.tasks)), format_func=(lambda x: ""), key="task_id", label_visibility="collapsed", help="Progress")
-
-        with row1_col3:
-            st.button('&gt;', on_click=go_to_next_task)
+        number = st.number_input(f"", value=STATE.task_id + 1, min_value=1, max_value=len(STATE.tasks), on_change=go_to_task, key="task_number_input", label_visibility='collapsed')
 
         st.button(':blue[Find next incomplete task]', use_container_width=True,
                     on_click=go_to_next_task, disabled=(STATE.selected_tags == []))
@@ -373,7 +367,6 @@ components.html(
                 buttonElement.click();
             }
         });
-
     }
 
     doc.addEventListener('keydown', function(e) {
@@ -387,10 +380,10 @@ components.html(
 
         switch (e.keyCode) {
             case 37: // (37 = left arrow)
-                clickButton('<');
+                doc.querySelector('.step-down').click();
                 break;
             case 39: // (39 = right arrow)
-                clickButton('>');
+                doc.querySelector('.step-up').click();
                 break;
         }
     });
