@@ -2,9 +2,18 @@ import os
 import json
 import pandas as pd
 
+
+from dotenv import load_dotenv
+from selectolax.parser import HTMLParser
+from trafilatura import extract
+
 TASKS_FILE = 'data/tasks.csv' # TODO: Move this to .env (mayhaps)
 ANNOTATIONS_DIR = 'data/annotations' # TODO: Move this to .env (mayhaps)
+SELECTOLAX_DIR = 'data/selectolax' # TODO: Move this to .env (mayhaps)
+TRAFILATURA_DIR = 'data/trafilatura' # TODO: Move this to .env (mayhaps)
 HTML_DIR = 'data/html' # TODO: Move this to .env (mayhaps)
+
+loaded = False
 
 def init():
     """
@@ -16,6 +25,16 @@ def init():
             pass
     except FileExistsError:
         pass
+
+def load_environment():
+    """
+    Load the environment
+    """
+    global loaded
+    if not loaded:
+        load_dotenv()
+        loaded = True
+
 
 def loadTasks():
     """
@@ -130,3 +149,59 @@ def read_json_file(file_path: str) -> dict:
         raise json.JSONDecodeError(f"Error: Failed to decode JSON in file '{file_path}'.")
     except Exception as e:
         raise Exception(f"Error: An error occurred while reading the JSON file: {str(e)}")
+
+def extractText(id: str):
+    """Extracts the actual text from an HTML document associated with a task (selectolax)"""
+
+    # First check if there already is a parsed version in the selectolax directory
+    try:
+        with open(f'{SELECTOLAX_DIR}/{id}.txt', 'r') as f:
+            return f.read()
+    except FileNotFoundError:
+        # get page content
+        html_document = getPageContent(id)
+
+        if html_document is None:
+            return None
+        
+        tree = HTMLParser(html_document)
+
+        if tree.body is None:
+            return None
+
+        for tag in tree.css('script'):
+            tag.decompose()
+        for tag in tree.css('style'):
+            tag.decompose()
+
+        text = tree.body.text(separator='\n')
+
+        # Save the parsed version
+        with open(f'{SELECTOLAX_DIR}/{id}.txt', 'w') as f:
+            f.write(text)
+        
+        return text
+
+def extractTextTrafilatura(id: str):
+    """Extracts the actual text from an HTML document associated with a task (trafilatura)"""
+
+    # First check if there already is a parsed version in the trafilatura directory
+    try:
+        with open(f'{TRAFILATURA_DIR}/{id}.txt', 'r') as f:
+            return f.read()
+    except FileNotFoundError:
+        html_document = getPageContent(id)
+        
+        if html_document is None:
+            return None
+        
+        text = extract(html_document)
+
+        if text is None:
+            return None
+
+        # Save the parsed version
+        with open(f'{TRAFILATURA_DIR}/{id}.txt', 'w') as f:
+            f.write(text)
+        
+        return text
