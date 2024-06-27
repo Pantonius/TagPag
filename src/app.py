@@ -263,11 +263,11 @@ else:
 
             with cleaned_text:
                 with st.container():
-                    st.markdown("### Cleaned Text")
+                    st.markdown("#### Cleaned")
                     display_cleaned_content()
             with raw_text:
                 with st.container():
-                    st.markdown("### Raw Text")
+                    st.markdown("#### Raw")
                     display_content()
     
     # TAB: Display webpage snapshot
