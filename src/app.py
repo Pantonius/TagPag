@@ -7,7 +7,6 @@ from streamlit_extras.keyboard_text import key, load_key_css
 from components.welcome import WelcomePage
 from utils.environment import load
 from utils.local import *
-from utils.files import *
 from utils.content import *
 from utils.url_parser import explode_url
 
