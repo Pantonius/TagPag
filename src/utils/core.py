@@ -70,7 +70,34 @@ def loadAnnotation(task_id: str, annotator_id: str):
     else:
         return None
 
-def updateTask(task_id: str, annotator_id: str, new_annotations: dict):
+
+def update_task_annotations(annotator, task, labels, comment):
+    """
+    Update task annotations
+    """
+    try:
+        annotation = loadAnnotation(task.get('_id'), annotator)
+
+        if annotation is None:
+            annotation = {
+                'annotator_id': annotator,
+                'labels': [],
+                'comment': ""
+            }
+        
+        # add the selected tags to the annotation
+        annotation['labels'] = labels
+
+        # add the comment to the annotation
+        annotation['comment'] = comment
+
+        save_annotation(task.get('_id'), annotator, annotation)
+
+    except (KeyError, TypeError) as e:
+        print("An error occurred while updating the task annotations:", e)
+
+
+def save_annotation(task_id: str, annotator_id: str, new_annotations: dict):
     """
     Update the annotation for the task with the given id
     """
