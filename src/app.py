@@ -7,15 +7,16 @@ from streamlit_extras.keyboard_text import key, load_key_css
 from components.welcome import WelcomePage
 from utils.core import *
 from utils.url_parser import explode_url
+from utils.frontend_scripts import custom_css, custom_html
 
 import streamlit.components.v1 as components
 import streamlit as st
 import ast
 import os
 
-# ===========================================================================
-#                               Config
-# ===========================================================================
+# ------------------------------------------------------------------------------
+#                                  Configuration
+# ------------------------------------------------------------------------------
 
 load_environment()
 
@@ -30,13 +31,15 @@ load_key_css()
 
 
 # ================================= CONSTANTS ================================
-
 LABELS = ['None', 'Hollow-Page', 'Listing-Page',
           'Article', "Paywall", "Login", "Cookie-Consent"]
 TASKS = read_json_file("example_data.json")
 STATE = st.session_state
 
-# ================================= INIT STATE ===============================
+
+# ------------------------------------------------------------------------------
+#                                 Set-up state
+# ------------------------------------------------------------------------------
 
 # Extract query parameters
 params = st.query_params
@@ -98,7 +101,12 @@ annotator_id = STATE.annotator_id
 task_url = STATE.tasks[STATE.task_id]['landing_url']
 exploded_url = explode_url(task_url)
 
-# ================================= FUNCTIONS ===============================
+
+
+# ------------------------------------------------------------------------------
+#                                    Functions
+# ------------------------------------------------------------------------------
+
 
 def display_webpage(iframe_content, task):
     """ Display the webpage content in an iframe."""
@@ -137,41 +145,10 @@ def display_cleaned_content():
     else:
         st.write(text)
 
-
-def save_annotation(task, annotator_id, annotation):
-    """Save the annotations for a given task """
-
-    task_obj_id = task.get('_id')
-
-    updateTask(task_obj_id, annotator_id, annotation)
-
-
 def update_annotations():
     """Update the annotations for the current task."""
 
-    try:
-        task = STATE.tasks[STATE.task_id]
-        annotation = loadAnnotation(task.get('_id'), STATE.annotator_id)
-
-        if annotation is None:
-            annotation = {
-                'annotator_id': STATE.annotator_id,
-                'labels': [],
-                'comment': ""
-            }
-        
-        # add the selected tags to the annotation
-        annotation['labels'] = STATE.selected_tags
-
-        print(STATE.selected_tags)
-
-        # add the comment to the annotation
-        annotation['comment'] = STATE.current_comment
-
-        save_annotation(task, STATE.annotator_id, annotation)
-    except (KeyError, TypeError) as e:
-        print("An error occurred while updating the task annotations:", e)
-
+    update_task_annotations(STATE.annotator_id, STATE.tasks[STATE.task_id], STATE.selected_tags, STATE.current_comment)
 
 def go_to_next_task():
     """Advance to the next task."""
@@ -216,9 +193,13 @@ def select_annotation(class_name):
 def truncate_string(string, n=100):
     return string if len(string) < n else string[:n] + '...'
 
-# ---------------------------------------------------------------------------
-#                            Layout
-# ---------------------------------------------------------------------------
+
+
+
+# ------------------------------------------------------------------------------
+#                                    Layout
+# ------------------------------------------------------------------------------
+
 
 # ================================= SETUP SCREEN ===============================
 # Ask for annotator ID if not provided
@@ -348,68 +329,18 @@ else:
 
         st.download_button( "Download Annotations", downloadAnnotations(), "annotations.csv", mime="text/csv", key="download_annotations", use_container_width=True)
 
+
+# ------------------------------------------------------------------------------
+#                              Front-end injections
+# ------------------------------------------------------------------------------
+
+# HTML injections
 components.html(
-    """
-    <script>
-    var doc = window.parent.document;
-    var buttons = doc.querySelectorAll('button > div > p');
-
-    function clickButton(label) {
-        buttons.forEach((pElement) => {
-            console.log(label)
-            console.log(pElement.innerText)
-            if (pElement.innerText.startsWith(label)) {
-                const buttonElement = pElement.closest("button");
-                console.log(buttonElement);
-                buttonElement.click();
-            }
-        });
-    }
-
-    doc.addEventListener('keydown', function(e) {
-    
-        // Check if the key code is between 49 (key '1') and 59 (key ':')
-        if (e.keyCode >= 49 && e.keyCode <= 59) {
-            // Calculate the corresponding button string
-            const keyChar = String.fromCharCode(e.keyCode);
-            clickButton(`${keyChar}:`);
-        }
-
-        switch (e.keyCode) {
-            case 37: // (37 = left arrow)
-                doc.querySelector('.step-down').click();
-                break;
-            case 39: // (39 = right arrow)
-                doc.querySelector('.step-up').click();
-                break;
-        }
-    });
-    </script>
-    """,
+    custom_html,
     height=0,
     width=0,
 )
 
-
-
-# Define your custom CSS
-custom_css = """
-<style>
-header, footer, [data-testid="stSidebarHeader"] {
-  visibility: hidden;
-  display: none;
-}
-.main .block-container {
-  padding: 0rem 2rem 0rem 2rem;
-}
-#root > div:nth-child(1) > div.withScreencast > div > div > div > section > div > div {
-  padding-top: 0em !important;
-}
-.stAlert a {
-word-break: break-all;
-}
-</style>
-"""
 
 # Inject the CSS into the Streamlit app
 st.markdown(custom_css, unsafe_allow_html=True)
