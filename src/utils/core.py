@@ -41,6 +41,10 @@ def loadTasks():
     """
     tasks = pd.read_csv(TASKS_FILE)
 
+    # add annotations (as json)
+    tasks['annotations'] = tasks['_id'].apply(loadAnnotations).apply(lambda x: x.to_json() if x is not None else None)
+    # TODO: will not update upon new annotations
+
     # turn into dict
     tasks = tasks.to_dict(orient='records')
 
