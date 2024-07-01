@@ -2,7 +2,6 @@ import os
 import json
 import pandas as pd
 
-
 from dotenv import load_dotenv
 from selectolax.parser import HTMLParser
 from trafilatura import extract
@@ -124,20 +123,23 @@ def downloadAnnotations():
     """
     annotations = []
 
-    for file in os.listdir(ANNOTATIONS_DIR):
-        task_id = file.split('.')[0]
+    tasks = loadTasks()
+
+    for task in tasks:
+        task_id = task.get('_id')
         task_annotations = loadAnnotations(task_id)
 
         if task_annotations is None:
-            continue
-        
-        task_annotations['task_id'] = task_id
+            # empty annotations
+            task_annotations = pd.DataFrame(columns=['annotator_id', 'comment', 'labels', 'task_id'], data=[{'annotator_id': None, 'comment': None, 'labels': None, 'task_id': task_id}])
+        else:
+            task_annotations['task_id'] = task_id
         
         annotations.append(task_annotations)
-    
+
     # to csv
-    annotations = pd.concat(annotations)
-    return annotations.to_csv(index=False)\
+    annotations = pd.concat(annotations, ignore_index=True)
+    return annotations.to_csv(index=False)
 
 def getPageContent(id: str):
     """
