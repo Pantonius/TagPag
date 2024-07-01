@@ -6,11 +6,12 @@ from dotenv import load_dotenv
 from selectolax.parser import HTMLParser
 from trafilatura import extract
 
-TASKS_FILE = 'data/tasks.csv' # TODO: Move this to .env (mayhaps)
-ANNOTATIONS_DIR = 'data/annotations' # TODO: Move this to .env (mayhaps)
-SELECTOLAX_DIR = 'data/selectolax' # TODO: Move this to .env (mayhaps)
-TRAFILATURA_DIR = 'data/trafilatura' # TODO: Move this to .env (mayhaps)
-HTML_DIR = 'data/html' # TODO: Move this to .env (mayhaps)
+# CONFIGURATION
+TASKS_FILE = os.getenv('TASKS_FILE', 'data/tasks.csv')
+ANNOTATIONS_DIR = os.getenv('ANNOTATIONS_DIR', 'data/annotations')
+SELECTOLAX_DIR = os.getenv('SELECTOLAX_DIR', 'data/selectolax')
+TRAFILATURA_DIR = os.getenv('TRAFILATURA_DIR', 'data/trafilatura')
+HTML_DIR = os.getenv('HTML_DIR', 'data/html')
 
 loaded = False
 
