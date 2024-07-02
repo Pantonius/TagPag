@@ -55,25 +55,6 @@ if 'task_id' not in st.session_state:
 if 'last_task_reached' not in st.session_state:
     STATE.last_task_reached = False
 
-if 'limit' not in st.session_state:
-    STATE.limit = ast.literal_eval(os.getenv("LIMIT"))
-
-if 'query' not in st.session_state:
-    STATE.query = ast.literal_eval(os.getenv("QUERY"))
-
-if 'sampling' not in st.session_state:
-
-    param_sampling = params.get('sampling', None)
-
-    if param_sampling:
-        STATE.sampling = (param_sampling[0] == 'True')
-    else:
-        STATE.sampling = ast.literal_eval(os.getenv("SAMPLING"))
-
-
-if 'fields' not in st.session_state:
-    STATE.fields = ast.literal_eval(os.getenv("FIELDS"))
-
 if 'demo_modus' not in st.session_state:
     STATE.demo_modus = False
 
@@ -85,7 +66,6 @@ if 'tasks' not in st.session_state:
     with st.spinner('Loding tasks...'):
 
         try:
-            # STATE.query, STATE.fields, STATE.limit, STATE.sampling
             STATE.tasks = loadTasks()
 
         except Exception as e:
@@ -298,11 +278,11 @@ else:
         
         st.checkbox("Auto-advance", key="auto_advance", value=False,  help="Automatically advance to the next task after selecting a tag.")
 
-        st.toggle('1: Hollow Page',
+        st.toggle('1: Hollow Page', key="1",
                     on_change=select_annotation, args=("Hollow-Page",), value=("Hollow-Page" in STATE.selected_tags))
-        st.toggle('2: Listing Page',
+        st.toggle('2: Listing Page', key="2",
                     on_change=select_annotation, args=("Listing-Page",), value=("Listing-Page" in STATE.selected_tags))
-        st.toggle('3: Article',
+        st.toggle('3: Article', key="3",
                     on_change=select_annotation, args=("Article",), value=("Article" in STATE.selected_tags))
         st.multiselect(
             'Selected Tags:', LABELS, key='selected_tags', on_change=update_annotations)
