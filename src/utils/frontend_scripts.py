@@ -14,8 +14,9 @@ function clickButton(label) {
 
 doc.addEventListener('keydown', function(e) {
 
-    // Check if the key code is between 49 (key '1') and 59 (key ':')
-    if (e.keyCode >= 49 && e.keyCode <= 59) {
+    // Check if the key code is between 48 (key '0') and 58 (key '9')
+    console.log(e.keyCode)
+    if (e.keyCode >= 48 && e.keyCode <= 58) {
         // Calculate the corresponding button string
         const keyChar = String.fromCharCode(e.keyCode);
         clickButton(`${keyChar}:`);
