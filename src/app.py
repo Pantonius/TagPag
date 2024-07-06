@@ -112,7 +112,7 @@ def display_content():
     if not text:
         st.warning("Couldn't extract any text! :worried:")
     else: 
-        st.write(text)
+        st.text_area('Raw text:', value=text, height=550, key='raw_text')
 
 def display_cleaned_content():
     """ Display the cleaned webpage text content (trafilatura)."""
@@ -124,7 +124,7 @@ def display_cleaned_content():
     if not text:
         st.warning("Couldn't extract any text! :worried:")
     else:
-        st.write(text)
+        st.text_area('Cleaned text:', value=text, height=500, key='cleaned_text')
 
 def update_annotations():
     """Update the annotations for the current task."""
@@ -219,15 +219,11 @@ else:
         with st.spinner('Wait for it...'):
             cleaned_text, raw_text = st.columns(2)
 
-
             with cleaned_text:
-                with st.container():
-                    st.markdown("#### Cleaned")
-                    display_cleaned_content()
+                display_cleaned_content()
+                st.button("Reset clean text", key="reset_cleaned_text")
             with raw_text:
-                with st.container():
-                    st.markdown("#### Raw")
-                    display_content()
+                display_content()
     
     # TAB: Display webpage snapshot
     with tab_snapshot:
