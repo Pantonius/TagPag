@@ -31,8 +31,9 @@ load_key_css()
 
 
 # ================================= CONSTANTS ================================
-LABELS = ['None', 'Hollow-Page', 'Listing-Page',
-          'Article', "Paywall", "Login", "Cookie-Consent"]
+LABELS = ['None', 'Hollow', 'Listing',
+          'Article', "Paywall", "Login", "Cookie",
+          'Wikipedia', 'Test', 'Other', "News", "Blog", "Forum", "Social Media", "E-commerce", "Government", "Educational", "Health", "Tech", "Entertainment", "Sports", "Other"]
 TASKS = read_json_file("example_data.json")
 STATE = st.session_state
 
@@ -263,7 +264,6 @@ else:
         st.button(':blue[Find next incomplete task]', use_container_width=True,
                     on_click=go_to_next_task, disabled=(STATE.selected_tags == []))
 
-        st.divider()
 
         # get the current annotation
         file_id = task.get('_id')
@@ -278,12 +278,24 @@ else:
         
         st.checkbox("Auto-advance", key="auto_advance", value=False,  help="Automatically advance to the next task after selecting a tag.")
 
-        st.toggle('1: Hollow Page', key="1",
-                    on_change=select_annotation, args=("Hollow-Page",), value=("Hollow-Page" in STATE.selected_tags))
-        st.toggle('2: Listing Page', key="2",
-                    on_change=select_annotation, args=("Listing-Page",), value=("Listing-Page" in STATE.selected_tags))
-        st.toggle('3: Article', key="3",
-                    on_change=select_annotation, args=("Article",), value=("Article" in STATE.selected_tags))
+        # create the streamlit columns
+        col1, col2 = st.columns(2)
+
+        # create a variable _LABELS with maximum 10 labels
+        _LABELS = LABELS[:10]
+
+        with col1:
+            # display a togle button for each label in the first half of LABELs, they must start with a number followed by a colon
+            for number, label in enumerate(_LABELS[:(len(_LABELS) + 1)//2]):
+                st.toggle(f"{number + 1}: {label}", key=f"{number + 1}",
+                            on_change=select_annotation, args=(label,), value=(label in STATE.selected_tags))
+        with col2:
+            # display a togle button for each label in the second half of _LABELs, they must start with a number followed by a colon
+            for number, label in enumerate(_LABELS[(len(_LABELS) + 1)//2:], (len(_LABELS) + 1)//2):
+                st.toggle(f"{str(number + 1)[-1]}: {label}", key=f"{str(number + 1)[-1]}",
+                            on_change=select_annotation, args=(label,), value=(label in STATE.selected_tags))
+
+
         st.multiselect(
             'Selected Tags:', LABELS, key='selected_tags', on_change=update_annotations)
         
@@ -294,18 +306,33 @@ else:
         with st.expander("Keyboard Shortcuts"):
 
             st.markdown("_Navigation:_")
-            st.markdown(key("right", write=False) +
-                        " Next Page", unsafe_allow_html=True)
-            st.markdown(key("left", write=False) +
-                        " Prev. Page", unsafe_allow_html=True)
+
+            # create two streamlit columns
+            col1, col2 = st.columns(2)
+
+            with col1:
+                st.markdown(key("right", write=False) +
+                            " Next Page", unsafe_allow_html=True)
+            with col2:
+                st.markdown(key("left", write=False) +
+                            " Prev. Page", unsafe_allow_html=True)
 
             st.markdown("_Tag Selection:_")
-            st.markdown(key("1", write=False) +
-                        " Hollow Page", unsafe_allow_html=True)
-            st.markdown(key("2", write=False) +
-                        " Listing Page", unsafe_allow_html=True)
-            st.markdown(key("3", write=False) +
-                        " Article", unsafe_allow_html=True)
+
+            # create two streamlit columns
+            col1, col2 = st.columns(2)
+
+            with col1:
+                # display a markdown label for each label in the first half of LABELs
+                for number, label in enumerate(_LABELS[:(len(_LABELS) + 1)//2]):
+                    st.markdown(key(str(number + 1), write=False) +
+                                f" {label}", unsafe_allow_html=True)
+                    
+            with col2:
+                # display a markdown label for each label in the second half of LABELs
+                for number, label in enumerate(_LABELS[(len(_LABELS) + 1)//2:], (len(_LABELS) + 1)//2):
+                    st.markdown(key(str(number + 1)[-1], write=False) +
+                                f" {label}", unsafe_allow_html=True)
 
         st.download_button( "Download Annotations", downloadAnnotations(), "annotations.csv", mime="text/csv", key="download_annotations", use_container_width=True)
 
