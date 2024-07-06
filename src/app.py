@@ -112,7 +112,7 @@ def display_content():
     if not text:
         st.warning("Couldn't extract any text! :worried:")
     else: 
-        st.text_area('Raw text:', value=text, height=550, key='raw_text')
+        st.text_area('Raw text:', value=text, height=550, key='raw_text', disabled=True)
 
 def display_cleaned_content():
     """ Display the cleaned webpage text content (trafilatura)."""
@@ -221,7 +221,11 @@ else:
 
             with cleaned_text:
                 display_cleaned_content()
-                st.button("Reset clean text", key="reset_cleaned_text")
+                col1, col2, _ = st.columns([1,1,2])
+                with col1:
+                    st.button("Reset clean text", key="reset_cleaned_text", use_container_width=True)
+                with col2:
+                    st.button("Copy raw text", key="copy_raw_text", use_container_width=True)
             with raw_text:
                 display_content()
     
