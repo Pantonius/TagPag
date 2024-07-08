@@ -66,12 +66,10 @@ if 'tasks' not in st.session_state:
     with st.spinner('Loding tasks...'):
 
         try:
-            STATE.tasks = loadTasks()
+            STATE.tasks = loadTasks(STATE.annotator_id)
 
         except Exception as e:
             st.error(f"{str(e)}")
-            st.write("Query:")
-            st.write(STATE.query)
             exit()
 
 # Shorthand variables
@@ -80,8 +78,6 @@ task = STATE.tasks[STATE.task_id]
 annotator_id = STATE.annotator_id
 task_url = STATE.tasks[STATE.task_id]['landing_url']
 exploded_url = explode_url(task_url)
-
-
 
 # ------------------------------------------------------------------------------
 #                                    Functions
@@ -127,7 +123,6 @@ def display_cleaned_content():
 
 def update_annotations():
     """Update the annotations for the current task."""
-
     update_task_annotations(STATE.annotator_id, STATE.tasks[STATE.task_id], STATE.selected_tags, STATE.current_comment)
 
 def go_to_next_task():
@@ -307,7 +302,7 @@ else:
             st.markdown(key("3", write=False) +
                         " Article", unsafe_allow_html=True)
 
-        st.download_button( "Download Annotations", downloadAnnotations(), "annotations.csv", mime="text/csv", key="download_annotations", use_container_width=True)
+        # st.download_button( "Download Annotations", downloadAnnotations, "annotations.csv", mime="text/csv", key="download_annotations", use_container_width=True)
 
 
 # ------------------------------------------------------------------------------

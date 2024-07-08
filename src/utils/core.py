@@ -36,14 +36,18 @@ def load_environment():
         loaded = True
 
 
-def loadTasks():
+def loadTasks(annotator_id: str):
     """
     Load the tasks from the local storage
     """
     tasks = pd.read_csv(TASKS_FILE)
 
     # add annotations (as json)
-    tasks['annotations'] = tasks['_id'].apply(loadAnnotations).apply(lambda x: x.to_json() if x is not None else None)
+    tasks['annotations'] = tasks['_id'].apply(loadAnnotations)
+
+    # only show the annotator's annotations
+    tasks['annotations'] = tasks['annotations'].apply(lambda x: x.get(annotator_id) if x is not None else None)
+
     # TODO: will not update upon new annotations
 
     # turn into dict
@@ -59,7 +63,7 @@ def loadAnnotations(task_id: str):
         # Read the content of the page
         path = f"{ANNOTATIONS_DIR}/{task_id}.json"
         with open(path, "r") as f:
-            return pd.read_json(f)
+            return json.load(f)
     except FileNotFoundError:
         return None
     
@@ -70,9 +74,12 @@ def loadAnnotation(task_id: str, annotator_id: str):
     annotations = loadAnnotations(task_id)
 
     if annotations is not None:
-        return annotations[annotations['annotator_id'] == annotator_id].iloc[0]
+        return annotations[annotator_id]
     else:
-        return None
+        return {
+            'labels': [],
+            'comment': ""
+        }
 
 
 def update_task_annotations(annotator, task, labels, comment):
@@ -81,13 +88,6 @@ def update_task_annotations(annotator, task, labels, comment):
     """
     try:
         annotation = loadAnnotation(task.get('_id'), annotator)
-
-        if annotation is None:
-            annotation = {
-                'annotator_id': annotator,
-                'labels': [],
-                'comment': ""
-            }
         
         # add the selected tags to the annotation
         annotation['labels'] = labels
@@ -111,16 +111,14 @@ def save_annotation(task_id: str, annotator_id: str, new_annotations: dict):
 
     # If the annotations file doesn't exist, create it
     if annotations is None:
-        annotations = pd.DataFrame(columns=['annotator_id', 'comment', 'labels'])
-    
-    # Update the annotations
-    annotations = annotations[annotations['annotator_id'] != annotator_id]
-    annotations = pd.concat([annotations, pd.DataFrame([{'annotator_id': annotator_id, **new_annotations}])])
-
-    # TODO: doesn't quite save it in the expected format -- also the new_annotations aren't really new
+        annotations = { annotator_id: new_annotations }
+    else:
+        # Update the annotations
+        annotations[annotator_id] = new_annotations
 
     # Save the annotations
-    annotations.to_json(f"{ANNOTATIONS_DIR}/{task_id}.json")
+    with open(f"{ANNOTATIONS_DIR}/{task_id}.json", "w") as f:
+        json.dump(annotations, f)
 
 def downloadAnnotations():
     """
@@ -136,7 +134,12 @@ def downloadAnnotations():
 
         if task_annotations is None:
             # empty annotations
-            task_annotations = pd.DataFrame(columns=['annotator_id', 'comment', 'labels', 'task_id'], data=[{'annotator_id': None, 'comment': None, 'labels': None, 'task_id': task_id}])
+            task_annotations = {
+                'task_id': task_id,
+                'annotator_id': None,
+                'labels': [],
+                'comment': ""
+            }
         else:
             task_annotations['task_id'] = task_id
         
