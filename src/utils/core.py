@@ -37,7 +37,7 @@ def load_annotator_tasks(annotator_id: str ):
     tasks = pd.read_csv(TASKS_FILE)
 
     # add annotations (as json)
-    tasks['annotations'] = tasks[TASK_ID_COLUMN].apply(load_annotations)
+    tasks['annotations'] = tasks[TASKS_ID_COLUMN].apply(load_annotations)
 
     # only show the annotator's annotations
     tasks['annotations'] = tasks['annotations'].apply(lambda x: x.get(annotator_id) if x is not None else None)
@@ -60,7 +60,7 @@ def load_tasks():
     tasks = pd.read_csv(TASKS_FILE)
 
     # add annotations (as json)
-    tasks['annotations'] = tasks[TASK_ID_COLUMN].apply(load_annotations)
+    tasks['annotations'] = tasks[TASKS_ID_COLUMN].apply(load_annotations)
 
     # turn into dict
     tasks = tasks.to_dict(orient='records')
@@ -121,7 +121,7 @@ def update_task_annotations(annotator_id: str, task: dict, labels: list[str], co
         None
     """
     try:
-        annotation = load_annotation(task.get(TASK_ID_COLUMN), annotator_id)
+        annotation = load_annotation(task.get(TASKS_ID_COLUMN), annotator_id)
         
         # add the selected tags to the annotation
         annotation['labels'] = labels
@@ -129,7 +129,7 @@ def update_task_annotations(annotator_id: str, task: dict, labels: list[str], co
         # add the comment to the annotation
         annotation['comment'] = comment
 
-        save_annotation(task.get(TASK_ID_COLUMN), annotator_id, annotation)
+        save_annotation(task.get(TASKS_ID_COLUMN), annotator_id, annotation)
 
     except (KeyError, TypeError) as e:
         print("An error occurred while updating the task annotations:", e)
@@ -177,10 +177,10 @@ def download_annotations():
     tasks = load_tasks()
 
     for task in tasks:
-        task_id = task.get(TASK_ID_COLUMN)
+        task_id = task.get(TASKS_ID_COLUMN)
         task_annotations = load_annotations(task_id)
 
-        url = task.get(TASK_URL_COLUMN)
+        url = task.get(TASKS_URL_COLUMN)
 
         if task_annotations is None:
             # empty annotations
