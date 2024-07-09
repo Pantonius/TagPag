@@ -1,6 +1,10 @@
 data/
 workdir/
 
+example_workdir/raw_text/
+example_workdir/cleaned_text/
+example_workdir/annotations/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
