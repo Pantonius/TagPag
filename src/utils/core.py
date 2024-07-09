@@ -1,5 +1,6 @@
 import os
 import json
+import re
 import pandas as pd
 
 from utils.config import *
@@ -23,6 +24,20 @@ def init():
     except FileExistsError:
         pass
 
+
+def reduce_line_breaks(text):
+    """
+    Reduce multiple line breaks to a single line break
+    
+    Args:
+        text (str): The text to reduce line breaks in
+        
+    Returns:
+        str: The text with reduced line breaks
+    """
+    
+    # Use regular expression to replace multiple line breaks with a single line break
+    return re.sub(r'\n\s*\n+', '\n', text.strip())
 
 def load_annotator_tasks(annotator_id: str ):
     """
@@ -276,7 +291,7 @@ def extract_raw_text(id: str):
             tag.decompose()
 
         # Extract the text
-        text = tree.body.text(separator='\n')
+        text = reduce_line_breaks(tree.body.text(separator='\n'))
 
         # Save the parsed selectolax text to a file
         with open(f'{RAW_TEXT_DIR}/{id}.txt', 'w') as f:
