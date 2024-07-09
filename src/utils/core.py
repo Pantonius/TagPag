@@ -113,7 +113,7 @@ def load_annotation(task_id: str, annotator_id: str):
     """
     annotations = load_annotations(task_id)
 
-    if annotations is not None:
+    if annotations is not None and annotator_id in annotations:
         return annotations[annotator_id]
     else:
         return {
