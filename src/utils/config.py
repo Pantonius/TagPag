@@ -78,5 +78,4 @@ HTML_DIR = join(WORKING_DIR, os.getenv('HTML_DIR', 'html'))
 
 LABELS = os.getenv("LABELS", "").split(",")
 
-TASKS = read_json_file("example_data.json")
 STATE = st.session_state
