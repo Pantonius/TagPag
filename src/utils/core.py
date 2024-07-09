@@ -2,36 +2,9 @@ import os
 import json
 import pandas as pd
 
-from dotenv import load_dotenv
+from utils.config import *
 from selectolax.parser import HTMLParser
 from trafilatura import extract
-
-loaded = False
-
-def load_environment():
-    """
-    Load the environment only once to avoid unnecessary page reloads
-
-    Args:
-        None
-    
-    Returns:
-        None
-    """
-    global loaded
-    if not loaded:
-        load_dotenv()
-        loaded = True
-
-# CONFIGURATION
-TASK_ID_COLUMN = os.getenv("TASK_ID_COLUMN", "_id")
-
-WORKING_DIR = os.getenv('WORKING_DIR', 'data')
-TASKS_FILE = os.getenv('TASKS_FILE', f'{WORKING_DIR}/tasks.csv')
-ANNOTATIONS_DIR = os.getenv('ANNOTATIONS_DIR', f'{WORKING_DIR}/annotations')
-SELECTOLAX_DIR = os.getenv('SELECTOLAX_DIR', f'{WORKING_DIR}/selectolax')
-TRAFILATURA_DIR = os.getenv('TRAFILATURA_DIR', f'{WORKING_DIR}/trafilatura')
-HTML_DIR = os.getenv('HTML_DIR', f'{WORKING_DIR}/html')
 
 def init():
     """
@@ -207,6 +180,8 @@ def download_annotations():
         task_id = task.get(TASK_ID_COLUMN)
         task_annotations = load_annotations(task_id)
 
+        url = task.get(TASK_URL_COLUMN)
+
         if task_annotations is None:
             # empty annotations
             task_annotations = {
@@ -215,16 +190,29 @@ def download_annotations():
         else:
             # compose the annotations into a single row
             task_annotations_composite = {
-                'task_id': task_id,
+                'task_id': task_id
             }
 
             # for each annotator, add the labels and comment
             for annotator_id, annotation in task_annotations.items():
-                task_annotations_composite[f'{annotator_id}_labels'] = annotation.get('labels')
-                task_annotations_composite[f'{annotator_id}_comment'] = annotation.get('comment')
+                labels = None
+                comment = ""
+
+                if annotation is not None:
+                    labels = annotation.get('labels')
+                    comment = annotation.get('comment')
+
+                if labels == []:
+                    labels = None
+
+                task_annotations_composite[f'{annotator_id}_labels'] = labels
+                task_annotations_composite[f'{annotator_id}_comment'] = comment
             
             # update the task annotations to be the composite
             task_annotations = task_annotations_composite
+
+        # url should be the last column
+        task_annotations['url'] = url
 
         # append the task annotations to the list of annotations
         annotations.append(task_annotations)
@@ -249,33 +237,6 @@ def get_page_content(id: str):
             return f.read()
     except FileNotFoundError:
         return None
-
-
-def read_json_file(file_path: str) -> dict:
-    """
-    Read and parse a JSON file.
-
-    Args:
-        file_path (str): The path to the JSON file.
-
-    Returns:
-        dict: The parsed JSON data as a dictionary.
-
-    Raises:
-        FileNotFoundError: If the file specified by `file_path` is not found.
-        json.JSONDecodeError: If there is an error decoding the JSON data.
-        Exception: If any other error occurs while reading the JSON file.
-    """
-    try:
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-            return data
-    except FileNotFoundError:
-        raise FileNotFoundError(f"Error: File '{file_path}' not found.")
-    except json.JSONDecodeError:
-        raise json.JSONDecodeError(f"Error: Failed to decode JSON in file '{file_path}'.")
-    except Exception as e:
-        raise Exception(f"Error: An error occurred while reading the JSON file: {str(e)}")
 
 def extract_raw_text(id: str):
     """
@@ -363,7 +324,7 @@ def extract_cleaned_text(id: str):
         # Return the extracted text
         return text
 
-def update_cleaned_text(id: str, text: str):
+def update_cleaned_text(task_id: str, text: str):
     """
     Update the cleaned text for the task with the given id
 
@@ -375,5 +336,5 @@ def update_cleaned_text(id: str, text: str):
         None
     """
     
-    with open(f'{TRAFILATURA_DIR}/{id}.txt', 'w') as f:
+    with open(f'{TRAFILATURA_DIR}/{task_id}.txt', 'w') as f:
         f.write(text)

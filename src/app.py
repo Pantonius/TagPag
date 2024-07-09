@@ -6,6 +6,7 @@
 from streamlit_extras.keyboard_text import key, load_key_css
 from components.welcome import WelcomePage
 from utils.core import *
+from utils.config import *
 from utils.url_parser import explode_url
 from utils.frontend_scripts import custom_css, custom_html
 
@@ -17,9 +18,6 @@ import os
 # ------------------------------------------------------------------------------
 #                                  Configuration
 # ------------------------------------------------------------------------------
-
-load_environment()
-
 st.set_page_config(
     page_title="Webpage Annotations",
     layout="wide",
@@ -29,15 +27,6 @@ st.set_page_config(
 
 load_key_css()
 
-
-# ================================= CONSTANTS ================================
-LABELS = os.getenv("LABELS", "").split(",")
-
-TASK_ID_COLUMN = os.getenv("TASK_ID_COLUMN", "_id")
-TASK_LANDING_URL_COLUMN = os.getenv("TASK_LANDING_URL_COLUMN", "landing_url")
-
-TASKS = read_json_file("example_data.json")
-STATE = st.session_state
 
 # ------------------------------------------------------------------------------
 #                                 Set-up state
@@ -78,6 +67,9 @@ if 'tasks' not in st.session_state or STATE.reload_tasks:
             st.error(f"{str(e)}")
             exit()
 
+if 'cleaned_text' not in st.session_state:
+    STATE.cleaned_text = ""
+
 # Shorthand variables
 tasks = STATE.tasks
 task = STATE.tasks[STATE.task_id]
@@ -102,7 +94,7 @@ def display_webpage(iframe_content: components.html, task):
         None
     """
 
-    url = task.get(TASK_LANDING_URL_COLUMN)
+    url = task.get(TASK_URL_COLUMN)
     file_id = task.get(TASK_ID_COLUMN)
 
     if file_id:
@@ -137,6 +129,19 @@ def display_content():
         # otherwise, display the extracted text in a text area
         st.text_area('Raw text:', value=text, height=550, key='raw_text', disabled=True)
 
+def save_cleaned_text():
+    """
+    Save the cleaned text to the session state.
+
+    Args:
+        None
+    
+    Returns:
+        None
+    """
+
+    update_cleaned_text(task.get(TASK_ID_COLUMN), STATE.cleaned_text)
+
 def display_cleaned_content():
     """
     Display the cleaned webpage text content ("Cleaned text"; trafilatura).
@@ -150,14 +155,14 @@ def display_cleaned_content():
 
     file_id = task.get(TASK_ID_COLUMN)
 
-    text = extract_cleaned_text(file_id)
+    STATE.cleaned_text = extract_cleaned_text(file_id)
 
-    if not text:
+    if not STATE.cleaned_text:
         # if no text could be extracted, display a warning message
         st.warning("Couldn't extract any text! :worried:")
     else:
         # otherwise, display the extracted text in a text area
-        st.text_area('Cleaned text:', value=text, height=500, key='cleaned_text')
+        st.text_area('Cleaned text:', value=STATE.cleaned_text, height=500, key='cleaned_text', on_change=save_cleaned_text)
 
 def update_annotations():
     """
@@ -289,8 +294,6 @@ def truncate_string(string: str, n=100):
     return string if len(string) < n else string[:n] + '...'
 
 
-
-
 # ------------------------------------------------------------------------------
 #                                    Layout
 # ------------------------------------------------------------------------------
@@ -376,7 +379,7 @@ else:
         
         st.markdown(f"<div style='text-align: center'>(Task {STATE.task_id + 1} out of {len(STATE.tasks)})</div>", unsafe_allow_html=True)
 
-        number = st.number_input(f"task_number", value=STATE.task_id + 1, min_value=1, max_value=len(STATE.tasks), on_change=go_to_task, key="task_number_input", label_visibility='collapsed')
+        number = st.number_input("task_number", value=STATE.task_id + 1, min_value=1, max_value=len(STATE.tasks), on_change=go_to_task, key="task_number_input", label_visibility='collapsed')
 
         st.button(':blue[Find next incomplete task]', use_container_width=True,
                     on_click=go_to_next_task, disabled=(STATE.selected_tags == []))
