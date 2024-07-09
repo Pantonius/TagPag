@@ -31,12 +31,13 @@ load_key_css()
 
 
 # ================================= CONSTANTS ================================
-LABELS = ['None', 'Hollow', 'Listing',
-          'Article', "Paywall", "Login", "Cookie",
-          'Wikipedia', 'Test', 'Other', "News", "Blog", "Forum", "Social Media", "E-commerce", "Government", "Educational", "Health", "Tech", "Entertainment", "Sports", "Other"]
+LABELS = os.getenv("LABELS", "").split(",")
+
+TASK_ID_COLUMN = os.getenv("TASK_ID_COLUMN", "_id")
+TASK_LANDING_URL_COLUMN = os.getenv("TASK_LANDING_URL_COLUMN", "landing_url")
+
 TASKS = read_json_file("example_data.json")
 STATE = st.session_state
-
 
 # ------------------------------------------------------------------------------
 #                                 Set-up state
@@ -62,12 +63,16 @@ if 'demo_modus' not in st.session_state:
 if 'news_only' not in st.session_state:
     STATE.news_only = True
 
+if 'reload_tasks' not in st.session_state:
+    STATE.reload_tasks = False
+
 # Get tasks
-if 'tasks' not in st.session_state:
+if 'tasks' not in st.session_state or STATE.reload_tasks:
     with st.spinner('Loding tasks...'):
 
         try:
-            STATE.tasks = loadTasks(STATE.annotator_id)
+            STATE.tasks = load_annotator_tasks(STATE.annotator_id)
+            STATE.reload_tasks = False
 
         except Exception as e:
             st.error(f"{str(e)}")
@@ -85,88 +90,202 @@ exploded_url = explode_url(task_url)
 # ------------------------------------------------------------------------------
 
 
-def display_webpage(iframe_content, task):
-    """ Display the webpage content in an iframe."""
-    url = task.get('landing_url')
-    file_id = task.get('_id')
+def display_webpage(iframe_content: components.html, task):
+    """
+    Display the webpage content in an iframe.
+    
+    Args:
+        iframe_content (streamlit.components.v1.html): The iframe component.
+        task (dict): The task dictionary.
+    
+    Returns:
+        None
+    """
+
+    url = task.get(TASK_LANDING_URL_COLUMN)
+    file_id = task.get(TASK_ID_COLUMN)
 
     if file_id:
-        content = getPageContent(file_id)
+        # if there is html content saved in the local storage, display that one directly
+        content = get_page_content(file_id)
         iframe_content = components.html(content, height=2048, scrolling=True)
     else:
+        # otherwise, display the webpage in an iframe
         iframe_content.write(
             f'<iframe src="{url}" width="100%" height="1024px" style="border:none;"></iframe>', unsafe_allow_html=True)
 
 
 def display_content():
-    """ Display the webpage text content."""
+    """
+    Display the webpage text content ("Raw text"; selectolax)
 
-    file_id = task.get('_id')
+    Args:
+        None
+    
+    Returns:
+        None
+    """
 
-    text = extractText(file_id)
+    file_id = task.get(TASK_ID_COLUMN)
+
+    text = extract_raw_text(file_id)
 
     if not text:
+        # if no text could be extracted, display a warning message
         st.warning("Couldn't extract any text! :worried:")
     else: 
+        # otherwise, display the extracted text in a text area
         st.text_area('Raw text:', value=text, height=550, key='raw_text', disabled=True)
 
 def display_cleaned_content():
-    """ Display the cleaned webpage text content (trafilatura)."""
+    """
+    Display the cleaned webpage text content ("Cleaned text"; trafilatura).
 
-    file_id = task.get('_id')
+    Args:
+        None
+    
+    Returns:
+        None
+    """
 
-    text = extractTextTrafilatura(file_id)
+    file_id = task.get(TASK_ID_COLUMN)
+
+    text = extract_cleaned_text(file_id)
 
     if not text:
+        # if no text could be extracted, display a warning message
         st.warning("Couldn't extract any text! :worried:")
     else:
+        # otherwise, display the extracted text in a text area
         st.text_area('Cleaned text:', value=text, height=500, key='cleaned_text')
 
 def update_annotations():
-    """Update the annotations for the current task."""
+    """
+    Update the annotations for the current task.
+    
+    Args:
+        None
+    
+    Returns:
+        None
+    """
     update_task_annotations(STATE.annotator_id, STATE.tasks[STATE.task_id], STATE.selected_tags, STATE.current_comment)
 
 def go_to_next_task():
-    """Advance to the next task."""
+    """
+    Advance to the next unannotated task. Wraps around if the end of the list is reached to look for unannotated tasks at the beginning of the list.
+    Does not change the current task if all tasks have been annotated.
+
+    Args:
+        None
+    
+    Returns:
+        None
+    """
+
+    # update the annotations for the current task
     update_annotations()
-    if STATE.task_id < len(STATE.tasks) - 1:
-        STATE.last_task_reached = False
-        STATE.task_id += 1
-    else:
-        STATE.last_task_reached = True
+
+    # find the next task that has not been annotated yet
+    for i in range(STATE.task_id + 1, len(STATE.tasks)):
+        annotation = load_annotation(STATE.tasks[i].get('_id'), STATE.annotator_id)
+
+        if annotation["labels"] == [] and annotation["comment"] == "":
+            # if an unannotated task has been found, update the task_id and return
+            STATE.task_id = i
+            STATE.last_task_reached = False
+            return
+    
+    # No task has been found between the current position and the end of the list
+    # Search from the beginning to the current position
+    for i in range(STATE.task_id):
+        annotation = load_annotation(STATE.tasks[i].get(TASK_ID_COLUMN), STATE.annotator_id)
+
+        if annotation["labels"] == [] and annotation["comment"] == "":
+            # if an unannotated task has been found, update the task_id and return
+            STATE.task_id = i
+            STATE.last_task_reached = False
+            return
+
+    # No task has been found -- all tasks have been annotated
+    STATE.last_task_reached = True
 
 
 def go_to_prev_task():
-    """Go back to the previous task."""
+    """
+    Go back to the previous task.
+    
+    Args:
+        None
+
+    Returns:
+        None
+    """
+    
+    # update the annotations for the current task
     update_annotations()
+
+    # go back to the previous task
     STATE.last_task_reached = False
     if STATE.task_id > 0:
         STATE.task_id -= 1
 
 def go_to_task():
+    """
+    Go to the task specified by the task number input.
+
+    Args:
+        None
+    
+    Returns:
+        None
+    """
+
+    # update the annotations for the current task
     update_annotations()
 
     # the -1 is because of the offset, the list starts at 0 not at 1
     STATE.task_id = st.session_state.task_number_input - 1
 
 
-def select_annotation(class_name):
-    """Select an annotation for the current task."""
+def select_annotation(class_name: str):
+    """
+    Select an annotation for the current task.
+    
+    Args:
+        class_name (str): The annotation class name.
+    
+    Returns:
+        None
+    """
+
+    # toggle the annotation
     if class_name not in STATE.selected_tags:
+        # add the class name to the selected tags, if it is not already in the list
         STATE.selected_tags.append(class_name)
     else:
+        # otherwise remove the class name from the selected tags
         STATE.selected_tags.remove(class_name)
     
+    # update the annotations for the current task
     update_annotations()
 
+    # auto-advance to the next task if the auto-advance option is enabled
     if STATE.auto_advance:
-        if STATE.task_id < len(STATE.tasks) - 1:
-            STATE.last_task_reached = False
-            STATE.task_id += 1
-        else:
-            STATE.last_task_reached = True
+        go_to_next_task()
 
-def truncate_string(string, n=100):
+def truncate_string(string: str, n=100):
+    """
+    Truncates a given string to a maximum length of n characters.
+
+    Args:
+        string (str): The string to truncate.
+        n (int): The maximum length of the string.
+    
+    Returns:
+        str: The truncated string
+    """
+
     return string if len(string) < n else string[:n] + '...'
 
 
@@ -240,13 +359,16 @@ else:
 
     # TAB: Display more info about webpage
     with tab_info:
+        STATE.reload_tasks = True
+
+        # update annotations in task
         st.write(task)
 
     # Sidebar
     with st.sidebar:
         st.title(':pencil2: Webpage Annotations')
 
-        annotation = loadAnnotation(task.get('_id'), STATE.annotator_id)
+        annotation = load_annotation(task.get(TASK_ID_COLUMN), STATE.annotator_id)
         if annotation is not None and 'labels' in annotation:
             STATE.selected_tags = annotation['labels']
         else:
@@ -254,15 +376,15 @@ else:
         
         st.markdown(f"<div style='text-align: center'>(Task {STATE.task_id + 1} out of {len(STATE.tasks)})</div>", unsafe_allow_html=True)
 
-        number = st.number_input(f"", value=STATE.task_id + 1, min_value=1, max_value=len(STATE.tasks), on_change=go_to_task, key="task_number_input", label_visibility='collapsed')
+        number = st.number_input(f"task_number", value=STATE.task_id + 1, min_value=1, max_value=len(STATE.tasks), on_change=go_to_task, key="task_number_input", label_visibility='collapsed')
 
         st.button(':blue[Find next incomplete task]', use_container_width=True,
                     on_click=go_to_next_task, disabled=(STATE.selected_tags == []))
 
 
         # get the current annotation
-        file_id = task.get('_id')
-        annotation = loadAnnotation(file_id, STATE.annotator_id)
+        file_id = task.get(TASK_ID_COLUMN)
+        annotation = load_annotation(file_id, STATE.annotator_id)
         
         if annotation is not None:
             STATE.current_comment = annotation['comment']
@@ -329,7 +451,7 @@ else:
                     st.markdown(key(str(number + 1)[-1], write=False) +
                                 f" {label}", unsafe_allow_html=True)
 
-        # st.download_button( "Download Annotations", downloadAnnotations, "annotations.csv", mime="text/csv", key="download_annotations", use_container_width=True)
+        st.download_button( "Download Annotations", download_annotations(), "annotations.csv", mime="text/csv", key="download_annotations", use_container_width=True)
 
 
 # ------------------------------------------------------------------------------
