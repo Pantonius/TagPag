@@ -382,7 +382,7 @@ else:
         number = st.number_input("task_number", value=STATE.task_id + 1, min_value=1, max_value=len(STATE.tasks), on_change=go_to_task, key="task_number_input", label_visibility='collapsed')
 
         st.button(':blue[Find next incomplete task]', use_container_width=True,
-                    on_click=go_to_next_task, disabled=(STATE.selected_tags == []))
+                    on_click=go_to_next_task, disabled=(STATE.selected_tags == []), help="Find the next task that has not been annotated yet.")
 
 
         # get the current annotation
