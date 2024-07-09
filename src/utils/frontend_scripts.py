@@ -14,6 +14,11 @@ function clickButton(label) {
 
 doc.addEventListener('keydown', function(e) {
 
+    // if the cursors is in a textare or input, don't trigger the shortcuts
+    if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') {
+        return;
+    }
+
     // Check if the key code is between 48 (key '0') and 58 (key '9')
     console.log(e.keyCode)
     if (e.keyCode >= 48 && e.keyCode <= 58) {
