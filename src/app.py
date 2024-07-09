@@ -437,6 +437,9 @@ else:
                 st.markdown(key("left", write=False) +
                             " Prev. Page", unsafe_allow_html=True)
 
+            st.markdown(key("F | f", write=False) +
+                        " Find next incomplete task", unsafe_allow_html=True)
+
             st.markdown("_Tag Selection:_")
 
             # create two streamlit columns
