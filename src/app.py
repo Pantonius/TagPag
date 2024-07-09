@@ -27,6 +27,9 @@ st.set_page_config(
 
 load_key_css()
 
+# create the directories if they don't exist
+create_directories()
+
 
 # ------------------------------------------------------------------------------
 #                                 Set-up state
@@ -107,7 +110,7 @@ def display_webpage(iframe_content: components.html, task):
             f'<iframe src="{url}" width="100%" height="1024px" style="border:none;"></iframe>', unsafe_allow_html=True)
 
 
-def display_content():
+def display_raw_content():
     """
     Display the webpage text content ("Raw text"; selectolax)
 
@@ -127,7 +130,7 @@ def display_content():
         st.warning("Couldn't extract any text! :worried:")
     else: 
         # otherwise, display the extracted text in a text area
-        st.text_area('Raw text:', value=text, height=550, key='raw_text', disabled=True)
+        st.text_area('Raw text:', value=text, height=550, key='raw_text_area', disabled=True)
 
 def save_cleaned_text():
     """
@@ -162,7 +165,7 @@ def display_cleaned_content():
         st.warning("Couldn't extract any text! :worried:")
     else:
         # otherwise, display the extracted text in a text area
-        st.text_area('Cleaned text:', value=STATE.cleaned_text, height=500, key='cleaned_text', on_change=save_cleaned_text)
+        st.text_area('Cleaned text:', value=STATE.cleaned_text, height=500, key='cleaned_text_area', on_change=save_cleaned_text)
 
 def update_annotations():
     """
@@ -344,7 +347,7 @@ else:
                 with col2:
                     st.button("Copy raw text", key="copy_raw_text", use_container_width=True)
             with raw_text:
-                display_content()
+                display_raw_content()
     
     # TAB: Display webpage snapshot
     with tab_snapshot:

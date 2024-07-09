@@ -21,7 +21,6 @@ def load_environment():
         load_dotenv()
         loaded = True
 
-load_environment()
 
 def read_json_file(file_path: str) -> dict:
     """
@@ -48,6 +47,23 @@ def read_json_file(file_path: str) -> dict:
         raise json.JSONDecodeError(f"Error: Failed to decode JSON in file '{file_path}'.")
     except Exception as e:
         raise Exception(f"Error: An error occurred while reading the JSON file: {str(e)}")
+    
+def create_directories():
+    """
+    Create the directories for the data if they don't exist.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
+    for directory in [ANNOTATIONS_DIR, RAW_TEXT_DIR, CLEANED_TEXT_DIR]:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+
+load_environment()
 
 # Get the environment variables
 TASK_ID_COLUMN = os.getenv("TASK_ID_COLUMN", "_id")
@@ -56,8 +72,8 @@ TASK_URL_COLUMN = os.getenv("TASK_URL_COLUMN", "target_url")
 WORKING_DIR = os.getenv('WORKING_DIR', 'data')
 TASKS_FILE = join(WORKING_DIR, os.getenv('TASKS_FILE', 'tasks.csv'))
 ANNOTATIONS_DIR = join(WORKING_DIR, os.getenv('ANNOTATIONS_DIR', 'annotations'))
-SELECTOLAX_DIR = join(WORKING_DIR, os.getenv('SELECTOLAX_DIR', 'selectolax'))
-TRAFILATURA_DIR = join(WORKING_DIR, os.getenv('TRAFILATURA_DIR', 'trafilatura'))
+RAW_TEXT_DIR = join(WORKING_DIR, os.getenv('RAW_TEXT_DIR', 'raw_text'))
+CLEANED_TEXT_DIR = join(WORKING_DIR, os.getenv('CLEANED_TEXT_DIR', 'cleaned_text'))
 HTML_DIR = join(WORKING_DIR, os.getenv('HTML_DIR', 'html'))
 
 LABELS = os.getenv("LABELS", "").split(",")

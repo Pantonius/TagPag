@@ -252,7 +252,7 @@ def extract_raw_text(id: str):
     # First check if there already is a parsed version in the selectolax directory
     try:
         # read the file content if it exists
-        with open(f'{SELECTOLAX_DIR}/{id}.txt', 'r') as f:
+        with open(f'{RAW_TEXT_DIR}/{id}.txt', 'r') as f:
             # return the content of the file
             return f.read()
     except FileNotFoundError:
@@ -279,7 +279,7 @@ def extract_raw_text(id: str):
         text = tree.body.text(separator='\n')
 
         # Save the parsed selectolax text to a file
-        with open(f'{SELECTOLAX_DIR}/{id}.txt', 'w') as f:
+        with open(f'{RAW_TEXT_DIR}/{id}.txt', 'w') as f:
             f.write(text)
         
         # Return the extracted text
@@ -299,7 +299,7 @@ def extract_cleaned_text(id: str):
     # First check if there already is a parsed version in the trafilatura directory
     try:
         # read the file content if it exists
-        with open(f'{TRAFILATURA_DIR}/{id}.txt', 'r') as f:
+        with open(f'{CLEANED_TEXT_DIR}/{id}.txt', 'r') as f:
             # return the content of the file
             return f.read()
     except FileNotFoundError:
@@ -318,7 +318,7 @@ def extract_cleaned_text(id: str):
             return None
 
         # Save the parsed trafilatura text to a file
-        with open(f'{TRAFILATURA_DIR}/{id}.txt', 'w') as f:
+        with open(f'{CLEANED_TEXT_DIR}/{id}.txt', 'w') as f:
             f.write(text)
         
         # Return the extracted text
@@ -336,5 +336,5 @@ def update_cleaned_text(task_id: str, text: str):
         None
     """
     
-    with open(f'{TRAFILATURA_DIR}/{task_id}.txt', 'w') as f:
+    with open(f'{CLEANED_TEXT_DIR}/{task_id}.txt', 'w') as f:
         f.write(text)
