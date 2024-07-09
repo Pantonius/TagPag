@@ -77,7 +77,7 @@ if 'cleaned_text' not in st.session_state:
 tasks = STATE.tasks
 task = STATE.tasks[STATE.task_id]
 annotator_id = STATE.annotator_id
-task_url = STATE.tasks[STATE.task_id]['landing_url']
+task_url = STATE.tasks[STATE.task_id][TASKS_URL_COLUMN]
 exploded_url = explode_url(task_url)
 
 # ------------------------------------------------------------------------------
@@ -97,8 +97,8 @@ def display_webpage(iframe_content: components.html, task):
         None
     """
 
-    url = task.get(TASK_URL_COLUMN)
-    file_id = task.get(TASK_ID_COLUMN)
+    url = task.get(TASKS_URL_COLUMN)
+    file_id = task.get(TASKS_ID_COLUMN)
 
     if file_id:
         # if there is html content saved in the local storage, display that one directly
@@ -121,7 +121,7 @@ def display_raw_content():
         None
     """
 
-    file_id = task.get(TASK_ID_COLUMN)
+    file_id = task.get(TASKS_ID_COLUMN)
 
     text = extract_raw_text(file_id)
 
@@ -143,7 +143,7 @@ def save_cleaned_text():
         None
     """
 
-    update_cleaned_text(task.get(TASK_ID_COLUMN), STATE.cleaned_text)
+    update_cleaned_text(task.get(TASKS_ID_COLUMN), STATE.cleaned_text)
 
 def display_cleaned_content():
     """
@@ -156,7 +156,7 @@ def display_cleaned_content():
         None
     """
 
-    file_id = task.get(TASK_ID_COLUMN)
+    file_id = task.get(TASKS_ID_COLUMN)
 
     STATE.cleaned_text = extract_cleaned_text(file_id)
 
@@ -207,7 +207,7 @@ def go_to_next_task():
     # No task has been found between the current position and the end of the list
     # Search from the beginning to the current position
     for i in range(STATE.task_id):
-        annotation = load_annotation(STATE.tasks[i].get(TASK_ID_COLUMN), STATE.annotator_id)
+        annotation = load_annotation(STATE.tasks[i].get(TASKS_ID_COLUMN), STATE.annotator_id)
 
         if annotation["labels"] == [] and annotation["comment"] == "":
             # if an unannotated task has been found, update the task_id and return
@@ -374,7 +374,7 @@ else:
     with st.sidebar:
         st.title(':pencil2: Webpage Annotations')
 
-        annotation = load_annotation(task.get(TASK_ID_COLUMN), STATE.annotator_id)
+        annotation = load_annotation(task.get(TASKS_ID_COLUMN), STATE.annotator_id)
         if annotation is not None and 'labels' in annotation:
             STATE.selected_tags = annotation['labels']
         else:
@@ -389,7 +389,7 @@ else:
 
 
         # get the current annotation
-        file_id = task.get(TASK_ID_COLUMN)
+        file_id = task.get(TASKS_ID_COLUMN)
         annotation = load_annotation(file_id, STATE.annotator_id)
         
         if annotation is not None:
