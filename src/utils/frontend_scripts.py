@@ -3,11 +3,20 @@ custom_html="""
 <script>
 var doc = window.parent.document;
 
-function clickButton(label) {
+function toggleButton(label) {
     var buttons = doc.querySelectorAll('label div > p');
     buttons.forEach((pElement) => {
         if (pElement.innerText.startsWith(label)) {
             pElement.closest("label").click();
+        }
+    });
+}
+
+function clickButton(label) {
+    var buttons = doc.querySelectorAll('.stButton button');
+    buttons.forEach((pElement) => {
+        if (pElement.innerText.startsWith(label)) {
+            pElement.click();
         }
     });
 }
@@ -24,7 +33,12 @@ doc.addEventListener('keydown', function(e) {
     if (e.keyCode >= 48 && e.keyCode <= 58) {
         // Calculate the corresponding button string
         const keyChar = String.fromCharCode(e.keyCode);
-        clickButton(`${keyChar}:`);
+        toggleButton(`${keyChar}:`);
+    }
+
+    // if F or f is pressed, click the Find button
+    if (e.keyCode === 70 || e.keyCode === 102) {
+        clickButton('Find next incomplete task');
     }
 
     switch (e.keyCode) {
