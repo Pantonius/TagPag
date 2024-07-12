@@ -298,7 +298,7 @@ else:
 
     if STATE.last_task_reached:
         st.error(
-            "You reached the end of the list! To load a new batch of webpages, please refresh the page.", icon="🚨")
+            "You reached the end of the list!", icon="🚨")
 
     if not validators.url(task_url):
         st.error(f"Invalid URL! :worried: Please that the URLs in your file are well formed. The scheme (http:// or https://) is required.")
