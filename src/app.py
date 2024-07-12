@@ -12,7 +12,7 @@ from utils.frontend_scripts import custom_css, custom_html
 
 import streamlit.components.v1 as components
 import streamlit as st
-import ast
+import validators
 import os
 
 # ------------------------------------------------------------------------------
@@ -282,20 +282,6 @@ def select_annotation(class_name: str):
     if STATE.auto_advance:
         go_to_next_task()
 
-def truncate_string(string: str, n=100):
-    """
-    Truncates a given string to a maximum length of n characters.
-
-    Args:
-        string (str): The string to truncate.
-        n (int): The maximum length of the string.
-    
-    Returns:
-        str: The truncated string
-    """
-
-    return string if len(string) < n else string[:n] + '...'
-
 
 # ------------------------------------------------------------------------------
 #                                    Layout
@@ -314,19 +300,24 @@ else:
         st.error(
             "You reached the end of the list! To load a new batch of webpages, please refresh the page.", icon="🚨")
 
-    # Create a beta container to hold components in a horizontal layout
-    row1_col1, row1_col2, = st.columns([1, 2]) 
+    if not validators.url(task_url):
+        st.error(f"Invalid URL! :worried: Please that the URLs in your file are well formed. The scheme (http:// or https://) is required.")
+        st.error(f'**URL**: {task_url[:500]}')
 
-    with row1_col1:
+    else:
+        # Create a beta container to hold components in a horizontal layout
+        row1_col1, row1_col2, = st.columns([1, 2]) 
 
-        _fqdn = f"**Domain**: {truncate_string(exploded_url['fqdn'])}"
-        _path = f"  \n**Path**: {truncate_string(exploded_url['path'])}"
-        _search_terms = f"  \n**Search terms**: {truncate_string(exploded_url['search_terms'])}" if exploded_url['search_terms'] != "" else ""
+        with row1_col1:
 
-        st.info(f'{_fqdn}{_path}{_search_terms}  \n **:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**')
+            _fqdn = f"**Domain**: {truncate_string(exploded_url['fqdn'])}"
+            _path = f"  \n**Path**: {truncate_string(exploded_url['path'])}"
+            _search_terms = f"  \n**Search terms**: {truncate_string(exploded_url['search_terms'])}" if exploded_url['search_terms'] != "" else ""
 
-    with row1_col2:
-        st.info(f'**Full URL**: [{(task_url if len(task_url) < 450 else task_url[:450] + "..." )}]({task_url})')
+            st.info(f'{_fqdn}{_path}{_search_terms}  \n **:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**')
+
+        with row1_col2:
+            st.info(f'**Full URL**: [{truncate_string(task_url, 450) + "..." }]({task_url})')
 
 
     # Tabs

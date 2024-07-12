@@ -353,3 +353,17 @@ def update_cleaned_text(task_id: str, text: str):
     
     with open(f'{CLEANED_TEXT_DIR}/{task_id}.txt', 'w') as f:
         f.write(text)
+
+def truncate_string(string: str, n=100):
+    """
+    Truncates a given string to a maximum length of n characters.
+
+    Args:
+        string (str): The string to truncate.
+        n (int): The maximum length of the string.
+    
+    Returns:
+        str: The truncated string
+    """
+
+    return string if len(string) < n else string[:n] + '...'
