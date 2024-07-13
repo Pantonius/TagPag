@@ -81,7 +81,6 @@ doc.addEventListener('keydown', function(e) {
         clickButton('Find');
     }
 
-    console.log(e.keyCode);
     // if w | . | + | ] | Enter is pressed, click the .step-down button
     if (e.keyCode === 87 || e.keyCode === 190 || e.keyCode === 187 || e.keyCode === 221 || e.keyCode === 13) {
         doc.querySelector('.step-up').click();
