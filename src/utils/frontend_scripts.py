@@ -3,6 +3,42 @@ custom_html="""
 <script>
 var doc = window.parent.document;
 
+// Select all <p> elements
+const expanders = doc.querySelectorAll('div[data-testid="stExpander"] > details > summary > span > div > p');
+var shortcut_expander = null;
+
+// Iterate through each <p> element
+expanders.forEach(expander => {
+    // Check if the text content of the <p> element is "Keyboard shortcuts"
+    if (expander.textContent.trim() === 'Keyboard shortcuts') {
+        // Save the expander element
+        shortcut_expander = expander;
+    }
+});
+
+function attachEventListeners() {
+    var elements = doc.querySelectorAll('textarea, input, button');
+    elements.forEach(element => {
+        element.addEventListener('focus', handleFocus);
+        element.addEventListener('blur', handleBlur);
+    });
+}
+
+function handleFocus(e) {
+    window.shortcutDisabled = true;
+    //gray out the keyboard shortcuts
+    shortcut_expander.style.color = "gray";
+}
+
+function handleBlur(e) {
+    window.shortcutDisabled = false;
+    //restore the color of the keyboard shortcuts
+    shortcut_expander.style.color = "black";
+}
+
+// Initial check in case elements already exist
+attachEventListeners();
+
 function toggleButton(label) {
     var buttons = doc.querySelectorAll('label div > p');
     buttons.forEach((pElement) => {
@@ -24,12 +60,11 @@ function clickButton(label) {
 doc.addEventListener('keydown', function(e) {
 
     // if the cursors is in a textare or input, don't trigger the shortcuts
-    if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') {
+    if (window.shortcutDisabled) {
         return;
     }
 
     // Check if the key code is between 48 (key '0') and 58 (key '9')
-    console.log(e.keyCode)
     if (e.keyCode >= 48 && e.keyCode <= 58) {
         // Calculate the corresponding button string
         const keyChar = String.fromCharCode(e.keyCode);
