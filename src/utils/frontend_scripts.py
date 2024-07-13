@@ -42,6 +42,50 @@ function handleBlur(e) {
 // Initial check in case elements already exist
 attachEventListeners();
 
+
+// MutationObserver callback function
+function onMutation(mutationsList, observer) {
+    for (let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+            // Re-attach event listeners in case new elements are added to the DOM
+            attachEventListeners();
+        }
+    }
+
+    // necessary to refresh when, e.g., the text input is used to jump to a specific task
+    // because the element is changed 
+    var elements = doc.querySelectorAll('textarea, input, button');
+    shortcut_expander.style.color = "black";
+    window.shortcutDisabled = false;
+    elements.forEach(element => {
+        if (element.type !== 'checkbox') {
+            // if element has the focus, disable the shortcuts
+            if (element === doc.activeElement) {
+                window.shortcutDisabled = true;
+                //gray out the keyboard shortcuts
+                shortcut_expander.style.color = "gray";
+            }
+        }
+    });
+
+}
+
+// Create an instance of MutationObserver and specify the callback function
+const observer = new MutationObserver(onMutation);
+
+// Options for the observer (which mutations to observe)
+const config = { childList: true, subtree: true };
+
+// Start observing the document body for DOM mutations
+// observer.observe(doc.body, config);
+
+// Start observing the document body for DOM mutations only on data-testid="stSidebar"
+const sidebar = doc.querySelector('[data-testid="stSidebar"]');
+if (sidebar) {
+    observer.observe(sidebar, config);
+}
+
+
 function toggleButton(label) {
     var buttons = doc.querySelectorAll('label div > p');
     buttons.forEach((pElement) => {

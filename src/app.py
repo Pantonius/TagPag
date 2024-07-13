@@ -179,7 +179,7 @@ def update_annotations():
     """
     update_task_annotations(STATE.annotator_id, STATE.tasks[STATE.task_id], STATE.selected_tags, STATE.current_comment)
 
-def go_to_next_task():
+def find_next_unannotated_task():
     """
     Advance to the next unannotated task. Wraps around if the end of the list is reached to look for unannotated tasks at the beginning of the list.
     Does not change the current task if all tasks have been annotated.
@@ -238,6 +238,28 @@ def go_to_prev_task():
     if STATE.task_id > 0:
         STATE.task_id -= 1
 
+def go_to_next_task():
+    """
+    Go to the next task.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
+
+    # update the annotations for the current task
+    update_annotations()
+
+    # go to the next task
+    if STATE.task_id < len(STATE.tasks) - 1:
+        STATE.last_task_reached = False
+        STATE.task_id += 1
+    else:
+        STATE.last_task_reached = True
+
+
 def go_to_task():
     """
     Go to the task specified by the task number input.
@@ -256,12 +278,13 @@ def go_to_task():
     STATE.task_id = st.session_state.task_number_input - 1
 
 
-def select_annotation(class_name: str):
+def select_annotation(class_name: str, key: str):
     """
     Select an annotation for the current task.
     
     Args:
         class_name (str): The annotation class name.
+        key (str): The key of the annotation.
     
     Returns:
         None
@@ -278,9 +301,12 @@ def select_annotation(class_name: str):
     # update the annotations for the current task
     update_annotations()
 
+
     # auto-advance to the next task if the auto-advance option is enabled
     if STATE.auto_advance:
+        st.session_state[key] = False
         go_to_next_task()
+
 
 
 # ------------------------------------------------------------------------------
@@ -376,7 +402,7 @@ else:
         number = st.number_input("task_number", value=STATE.task_id + 1, min_value=1, max_value=len(STATE.tasks), on_change=go_to_task, key="task_number_input", label_visibility='collapsed')
 
         st.button(':blue[Find next incomplete task]', use_container_width=True,
-                    on_click=go_to_next_task, disabled=(STATE.selected_tags == []), 
+                    on_click=find_next_unannotated_task, disabled=(STATE.selected_tags == []), key="find_next_task",
                     help="Current task has not been annotated yet." if STATE.selected_tags == [] else "Find the next task that has not been annotated yet.")
 
 
@@ -403,12 +429,12 @@ else:
             # display a togle button for each label in the first half of LABELs, they must start with a number followed by a colon
             for number, label in enumerate(_LABELS[:(len(_LABELS) + 1)//2]):
                 st.toggle(f"{number + 1}: {label}", key=f"{number + 1}",
-                            on_change=select_annotation, args=(label,), value=(label in STATE.selected_tags))
+                            on_change=select_annotation, args=(label, f"{number + 1}"), value=(label in STATE.selected_tags))
         with col2:
             # display a togle button for each label in the second half of _LABELs, they must start with a number followed by a colon
             for number, label in enumerate(_LABELS[(len(_LABELS) + 1)//2:], (len(_LABELS) + 1)//2):
                 st.toggle(f"{str(number + 1)[-1]}: {label}", key=f"{str(number + 1)[-1]}",
-                            on_change=select_annotation, args=(label,), value=(label in STATE.selected_tags))
+                            on_change=select_annotation, args=(label, f"{number + 1}"), value=(label in STATE.selected_tags))
 
 
         st.multiselect(
