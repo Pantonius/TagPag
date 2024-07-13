@@ -24,7 +24,21 @@ function clickButton(label) {
 doc.addEventListener('keydown', function(e) {
 
     // if the cursors is in a textare or input, don't trigger the shortcuts
-    if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') {
+    if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') {
+        // Select all <p> elements
+        const paragraphs = doc.querySelectorAll('div[data-testid="stExpander"] > details > summary > span > div > p');
+        console.log(paragraphs);
+        console.log("reach");
+
+        // Iterate through each <p> element
+        paragraphs.forEach(paragraph => {
+            // Check if the text content of the <p> element is "Keyboard shortcuts"
+            if (paragraph.textContent.trim() === 'Keyboard shortcuts') {
+                // gray out the text
+                paragraph.style.color = 'gray';
+            }
+        });
+
         return;
     }
 
@@ -38,7 +52,9 @@ doc.addEventListener('keydown', function(e) {
 
     // if F or f is pressed, click the Find button
     if (e.keyCode === 70 || e.keyCode === 102) {
-        clickButton('Find next incomplete task');
+        if (!event.ctrlKey) {
+            clickButton('Find next incomplete task');
+        }
     }
 
     switch (e.keyCode) {

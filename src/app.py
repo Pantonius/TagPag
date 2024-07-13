@@ -317,7 +317,7 @@ else:
             st.info(f'{_fqdn}{_path}{_search_terms}  \n **:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**')
 
         with row1_col2:
-            st.info(f'**Full URL**: [{truncate_string(task_url, 450) + "..." }]({task_url})')
+            st.info(f'**Full URL**: [{truncate_string(task_url, 450) }]({task_url})')
 
 
     # Tabs
@@ -418,7 +418,7 @@ else:
                         key='annotator_comment',
                         on_change=update_annotations)
     
-        with st.expander("Keyboard Shortcuts"):
+        with st.expander("Keyboard shortcuts"):
 
             st.markdown("_Navigation:_")
 
