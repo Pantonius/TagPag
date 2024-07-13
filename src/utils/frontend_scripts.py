@@ -19,8 +19,11 @@ expanders.forEach(expander => {
 function attachEventListeners() {
     var elements = doc.querySelectorAll('textarea, input, button');
     elements.forEach(element => {
-        element.addEventListener('focus', handleFocus);
-        element.addEventListener('blur', handleBlur);
+        // if element is not of type checkbox, attach the event listeners
+        if (element.type !== 'checkbox') {
+            element.addEventListener('focus', handleFocus);
+            element.addEventListener('blur', handleBlur);
+        }
     });
 }
 
@@ -44,6 +47,8 @@ function toggleButton(label) {
     buttons.forEach((pElement) => {
         if (pElement.innerText.startsWith(label)) {
             pElement.closest("label").click();
+            // remove the focus from the button
+            pElement.blur();
         }
     });
 }
@@ -71,20 +76,20 @@ doc.addEventListener('keydown', function(e) {
         toggleButton(`${keyChar}:`);
     }
 
-    // if F or f is pressed, click the Find button
-    if (e.keyCode === 70 || e.keyCode === 102) {
-        if (!event.ctrlKey) {
-            clickButton('Find next incomplete task');
-        }
+    // if F | f | = is pressed, click the Find button
+    if (e.keyCode === 70 || e.keyCode === 102 || e.keyCode === 61) {
+        clickButton('Find');
     }
 
-    switch (e.keyCode) {
-        case 37: // (37 = left arrow)
-            doc.querySelector('.step-down').click();
-            break;
-        case 39: // (39 = right arrow)
-            doc.querySelector('.step-up').click();
-            break;
+    console.log(e.keyCode);
+    // if w | . | + | ] | Enter is pressed, click the .step-down button
+    if (e.keyCode === 87 || e.keyCode === 190 || e.keyCode === 187 || e.keyCode === 221 || e.keyCode === 13) {
+        doc.querySelector('.step-up').click();
+    }
+
+    // if q | , | - | [ | Backspace" is pressed, click the .step-up button
+    if (e.keyCode === 81 || e.keyCode === 188 || e.keyCode === 173 || e.keyCode === 219 || e.keyCode === 8) {
+        doc.querySelector('.step-down').click();
     }
 });
 </script>

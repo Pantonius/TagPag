@@ -422,17 +422,12 @@ else:
 
             st.markdown("_Navigation:_")
 
-            # create two streamlit columns
-            col1, col2 = st.columns(2)
+            st.markdown(key("w | . | + | ] | Enter", write=False) +
+                        " Next", unsafe_allow_html=True)
+            st.markdown(key("q | , | - | [ | Backspace", write=False) +
+                        " Previous", unsafe_allow_html=True)
 
-            with col1:
-                st.markdown(key("right", write=False) +
-                            " Next Page", unsafe_allow_html=True)
-            with col2:
-                st.markdown(key("left", write=False) +
-                            " Prev. Page", unsafe_allow_html=True)
-
-            st.markdown(key("F | f", write=False) +
+            st.markdown(key("F | f | =", write=False) +
                         " Find next incomplete task", unsafe_allow_html=True)
 
             st.markdown("_Tag Selection:_")
