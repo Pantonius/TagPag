@@ -73,6 +73,9 @@ if 'tasks' not in st.session_state or STATE.reload_tasks:
 if 'cleaned_text' not in st.session_state:
     STATE.cleaned_text = ""
 
+if 'refresh_counter' not in st.session_state:
+    st.session_state.refresh_counter = 0
+
 # Shorthand variables
 tasks = STATE.tasks
 task = STATE.tasks[STATE.task_id]
@@ -304,8 +307,15 @@ def select_annotation(class_name: str, key: str):
 
     # auto-advance to the next task if the auto-advance option is enabled
     if STATE.auto_advance:
-        st.session_state[key] = False
+
         go_to_next_task()
+
+        # delete the key from the session state to avoid odd behaviours
+        del st.session_state[key]
+
+        # Increment the counter when you want to refresh: %2 is enough, but %10 would allow
+        # for oddities
+        st.session_state.refresh_counter = (st.session_state.refresh_counter + 1) % 10
 
 
 
@@ -428,13 +438,15 @@ else:
         with col1:
             # display a togle button for each label in the first half of LABELs, they must start with a number followed by a colon
             for number, label in enumerate(_LABELS[:(len(_LABELS) + 1)//2]):
-                st.toggle(f"{number + 1}: {label}", key=f"{number + 1}",
-                            on_change=select_annotation, args=(label, f"{number + 1}"), value=(label in STATE.selected_tags))
+                st.toggle(f"{number + 1}: {label}", key=f"{number + 1}_{st.session_state.refresh_counter}",
+                            on_change=select_annotation, args=(label, f"{number + 1}_{st.session_state.refresh_counter}"), 
+                            value=(label in STATE.selected_tags))
         with col2:
             # display a togle button for each label in the second half of _LABELs, they must start with a number followed by a colon
             for number, label in enumerate(_LABELS[(len(_LABELS) + 1)//2:], (len(_LABELS) + 1)//2):
-                st.toggle(f"{str(number + 1)[-1]}: {label}", key=f"{str(number + 1)[-1]}",
-                            on_change=select_annotation, args=(label, f"{number + 1}"), value=(label in STATE.selected_tags))
+                st.toggle(f"{str(number + 1)[-1]}: {label}", key=f"{str(number + 1)[-1]}_{st.session_state.refresh_counter}",
+                            on_change=select_annotation, args=(label, f"{number + 1}_{st.session_state.refresh_counter}"), 
+                            value=(label in STATE.selected_tags))
 
 
         st.multiselect(
