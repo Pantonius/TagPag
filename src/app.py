@@ -145,7 +145,7 @@ def save_cleaned_text():
     Returns:
         None
     """
-
+    STATE.cleaned_text = STATE.cleaned_text_area
     update_cleaned_text(task.get(TASKS_ID_COLUMN), STATE.cleaned_text)
 
 def display_cleaned_content():
@@ -161,14 +161,27 @@ def display_cleaned_content():
 
     file_id = task.get(TASKS_ID_COLUMN)
 
-    STATE.cleaned_text = extract_cleaned_text(file_id)
+    STATE.cleaned_text = load_cleaned_text(file_id)
 
-    if not STATE.cleaned_text:
+    if not STATE.cleaned_text: # if the cleaned text is still not loaded, signal a problem to the user
         # if no text could be extracted, display a warning message
         st.warning("Couldn't extract any text! :worried:")
     else:
         # otherwise, display the extracted text in a text area
         st.text_area('Cleaned text:', value=STATE.cleaned_text, height=500, key='cleaned_text_area', on_change=save_cleaned_text)
+
+def reset_cleaned_text():
+    """
+    Reset the cleaned text to the original value.
+
+    Args:
+        None
+    
+    Returns:
+        None
+    """
+
+    STATE.cleaned_text_area = extract_cleaned_text(task.get(TASKS_ID_COLUMN))
 
 def update_annotations():
     """
@@ -317,8 +330,6 @@ def select_annotation(class_name: str, key: str):
         # for oddities
         st.session_state.refresh_counter = (st.session_state.refresh_counter + 1) % 10
 
-
-
 # ------------------------------------------------------------------------------
 #                                    Layout
 # ------------------------------------------------------------------------------
@@ -370,7 +381,7 @@ else:
                 display_cleaned_content()
                 col1, col2, _ = st.columns([1,1,2])
                 with col1:
-                    st.button("Reset clean text", key="reset_cleaned_text", use_container_width=True)
+                    st.button("Reset clean text", key="reset_cleaned_text", use_container_width=True, on_click=reset_cleaned_text)
                 with col2:
                     st.button("Copy raw text", key="copy_raw_text", use_container_width=True)
             with raw_text:

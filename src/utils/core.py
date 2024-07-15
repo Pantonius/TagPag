@@ -311,6 +311,38 @@ def extract_cleaned_text(id: str):
         str: The text extracted from the HTML document.
     """
 
+    # read the html content
+    html_document = get_page_content(id)
+        
+    # if the page content is None, there is nothing to extract
+    if html_document is None:
+        return None
+        
+    # extract the text
+    text = extract(html_document)
+
+    # if the text is None, there is nothing to save
+    if text is None:
+        return None
+
+    # Save the parsed trafilatura text to a file
+    with open(f'{CLEANED_TEXT_DIR}/{id}.txt', 'w') as f:
+        f.write(text)
+        
+    # Return the extracted text
+    return text
+
+def load_cleaned_text(id: str):
+    """
+    Loads the extracted text of an HTML document associated with a task (trafilatura)
+    
+    Args:
+        id (str): The id of the task.
+    
+    Returns:
+        str: The text extracted from the HTML document.
+    """
+
     # First check if there already is a parsed version in the trafilatura directory
     try:
         # read the file content if it exists
@@ -318,26 +350,9 @@ def extract_cleaned_text(id: str):
             # return the content of the file
             return f.read()
     except FileNotFoundError:
-        # read the html content
-        html_document = get_page_content(id)
+        # extract the cleaned text
+        return extract_cleaned_text(id)
         
-        # if the page content is None, there is nothing to extract
-        if html_document is None:
-            return None
-        
-        # extract the text
-        text = extract(html_document)
-
-        # if the text is None, there is nothing to save
-        if text is None:
-            return None
-
-        # Save the parsed trafilatura text to a file
-        with open(f'{CLEANED_TEXT_DIR}/{id}.txt', 'w') as f:
-            f.write(text)
-        
-        # Return the extracted text
-        return text
 
 def update_cleaned_text(task_id: str, text: str):
     """
