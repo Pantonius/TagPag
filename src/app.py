@@ -39,27 +39,21 @@ create_directories()
 params = st.query_params
 
 # Set annotator ID if ANNOTATOR is not set
-if 'annotator_id' not in st.session_state:
+if 'annotator_id' not in STATE:
     STATE.annotator_id = os.getenv("ANNOTATOR")
 
 # Show first webpage by default
-if 'task_id' not in st.session_state:
+if 'task_id' not in STATE:
     STATE.task_id = 0
 
-if 'last_task_reached' not in st.session_state:
+if 'last_task_reached' not in STATE:
     STATE.last_task_reached = False
 
-if 'demo_modus' not in st.session_state:
-    STATE.demo_modus = False
-
-if 'news_only' not in st.session_state:
-    STATE.news_only = True
-
-if 'reload_tasks' not in st.session_state:
+if 'reload_tasks' not in STATE:
     STATE.reload_tasks = False
 
 # Get tasks
-if 'tasks' not in st.session_state or STATE.reload_tasks:
+if 'tasks' not in STATE or STATE.reload_tasks:
     with st.spinner('Loding tasks...'):
 
         try:
@@ -70,11 +64,11 @@ if 'tasks' not in st.session_state or STATE.reload_tasks:
             st.error(f"{str(e)}")
             exit()
 
-if 'cleaned_text' not in st.session_state:
+if 'cleaned_text' not in STATE:
     STATE.cleaned_text = ""
 
-if 'refresh_counter' not in st.session_state:
-    st.session_state.refresh_counter = 0
+if 'refresh_counter' not in STATE:
+    STATE.refresh_counter = 0
 
 # Shorthand variables
 tasks = STATE.tasks
@@ -305,7 +299,7 @@ def go_to_task():
     update_annotations()
 
     # the -1 is because of the offset, the list starts at 0 not at 1
-    STATE.task_id = st.session_state.task_number_input - 1
+    STATE.task_id = STATE.task_number_input - 1
 
 
 def select_annotation(class_name: str, key: str):
@@ -338,11 +332,11 @@ def select_annotation(class_name: str, key: str):
         go_to_next_task()
 
         # delete the key from the session state to avoid odd behaviours
-        del st.session_state[key]
+        del STATE[key]
 
         # Increment the counter when you want to refresh: %2 is enough, but %10 would allow
         # for oddities
-        st.session_state.refresh_counter = (st.session_state.refresh_counter + 1) % 10
+        STATE.refresh_counter = (STATE.refresh_counter + 1) % 10
 
 # ------------------------------------------------------------------------------
 #                                    Layout
@@ -352,6 +346,7 @@ def select_annotation(class_name: str, key: str):
 # ================================= SETUP SCREEN ===============================
 # Ask for annotator ID if not provided
 if not STATE.annotator_id or not STATE.tasks:
+    # FIXME: Do we still need this? 
     WelcomePage(st).show()
 
 # ================================= MAIN SCREEN ===============================
@@ -463,14 +458,14 @@ else:
         with col1:
             # display a togle button for each label in the first half of LABELs, they must start with a number followed by a colon
             for number, label in enumerate(_LABELS[:(len(_LABELS) + 1)//2]):
-                st.toggle(f"{number + 1}: {label}", key=f"{number + 1}_{st.session_state.refresh_counter}",
-                            on_change=select_annotation, args=(label, f"{number + 1}_{st.session_state.refresh_counter}"), 
+                st.toggle(f"{number + 1}: {label}", key=f"{number + 1}_{STATE.refresh_counter}",
+                            on_change=select_annotation, args=(label, f"{number + 1}_{STATE.refresh_counter}"), 
                             value=(label in STATE.selected_tags))
         with col2:
             # display a togle button for each label in the second half of _LABELs, they must start with a number followed by a colon
             for number, label in enumerate(_LABELS[(len(_LABELS) + 1)//2:], (len(_LABELS) + 1)//2):
-                st.toggle(f"{str(number + 1)[-1]}: {label}", key=f"{str(number + 1)[-1]}_{st.session_state.refresh_counter}",
-                            on_change=select_annotation, args=(label, f"{number + 1}_{st.session_state.refresh_counter}"), 
+                st.toggle(f"{str(number + 1)[-1]}: {label}", key=f"{str(number + 1)[-1]}_{STATE.refresh_counter}",
+                            on_change=select_annotation, args=(label, f"{number + 1}_{STATE.refresh_counter}"), 
                             value=(label in STATE.selected_tags))
 
 

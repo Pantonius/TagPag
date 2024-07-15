@@ -3,7 +3,7 @@ import os
 import json
 import shutil
 from dotenv import load_dotenv
-from os.path import join, dirname
+from os.path import join
 
 # Load the environment variables
 loaded = False

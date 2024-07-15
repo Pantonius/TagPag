@@ -1,4 +1,3 @@
-import os
 import json
 import re
 import pandas as pd
@@ -352,7 +351,6 @@ def load_cleaned_text(id: str):
     except FileNotFoundError:
         # extract the cleaned text
         return extract_cleaned_text(id)
-        
 
 def update_cleaned_text(task_id: str, text: str):
     """
