@@ -152,7 +152,11 @@ header, footer, [data-testid="stSidebarHeader"] {
   padding-top: 0em !important;
 }
 .stAlert a {
-word-break: break-all;
+  word-break: break-all;
 }
+iframe {
+  background-color: #fff;
+}
+
 </style>
 """

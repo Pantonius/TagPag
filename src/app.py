@@ -100,7 +100,7 @@ def display_webpage(iframe_content: components.html, task):
     if file_id:
         # if there is html content saved in the local storage, display that one directly
         content = get_page_content(file_id)
-        iframe_content = components.html(content, height=2048, scrolling=True)
+        iframe_content = components.html(content, height=1024, scrolling=True)
     else:
         # otherwise, display the webpage in an iframe
         iframe_content.write(
