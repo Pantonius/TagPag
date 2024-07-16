@@ -72,8 +72,8 @@ def create_directories():
 load_environment()
 
 # Get the environment variables
-TASKS_ID_COLUMN = os.getenv("TASKS_ID_COLUMN", "_id")
-TASKS_URL_COLUMN = os.getenv("TASKS_URL_COLUMN", "target_url")
+TASKS_ID_COLUMN = os.getenv("TASKS_ID_COLUMN", '_id')
+TASKS_URL_COLUMN = os.getenv("TASKS_URL_COLUMN", 'url')
 
 WORKING_DIR = os.getenv('WORKING_DIR', 'data')
 TASKS_FILE = join(WORKING_DIR, os.getenv('TASKS_FILE', 'tasks.csv'))
