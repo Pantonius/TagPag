@@ -6,49 +6,13 @@ This web application is designed to label scraped webpages. It allows users to a
 
 ![Application Screenshot](screenshot.png)
 
-## Installation
+## Step by Step Instructions
+The following topics are covered in the [doc folder](doc). Read them carefully and setup the project for the example data in the [example_workdir](example_workdir).
 
-To set up this application and create a virtual environment, follow these steps:
-
-1. Install `pyenv` by following the instructions in the [official documentation](https://github.com/pyenv/pyenv#installation).
-
-2. Create a virtual environment for this application using `pyenv`. Open your terminal and execute the following commands:
-
-   ```bash
-   pyenv install 3.9.6
-   pyenv virtualenv 3.9.6 seek2judge-env
-   pyenv activate seek2judge-env
-   ```
-
-3. Install the required dependencies by running the following command:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. To configure the MongoDB database connection, rename the .env-example file to .env and add your MongoDB connection key. For example:
-   ```text
-   CONNECTION_STRING="mongodb://localhost:27017/"
-   DATABASE_NAME="webpagesDB"
-   ```
-
-## Usage
-
-To run this application, execute the following command:
-
-```bash
-streamlit run src/app.py
-```
-
-The application will launch in your web browser, and you can start labeling webpages.
-
-## Development
-
-If you make any changes to the dependencies in your development environment, update the `requirements.txt` file using the following command:
-
-```bash
-pip freeze > requirements.txt
-```
+1. [Installation](doc/01-INSTALLATION.md)
+2. [Configuration](doc/02-CONFIGURATION.md)
+3. [Usage](doc/03-USAGE.md)
+4. [Development](doc/04-DEVELOPMENT.md)
 
 ## Additional Resources
 
