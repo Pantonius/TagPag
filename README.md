@@ -12,7 +12,6 @@ The following topics are covered in the [doc folder](doc). Read them carefully a
 1. [Installation](doc/01-INSTALLATION.md)
 2. [Configuration](doc/02-CONFIGURATION.md)
 3. [Usage](doc/03-USAGE.md)
-4. [Development](doc/04-DEVELOPMENT.md)
 
 ## Additional Resources
 

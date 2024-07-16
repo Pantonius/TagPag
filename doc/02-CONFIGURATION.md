@@ -18,7 +18,7 @@ When you take a look into the [.env-example](../.env-example), you will find the
 | `HTML_DIR` | The directory in the `WORKING_DIR` that holds the html content of each task as a result of scraping done before-hand. Each html file is expected to follow the naming scheme: `<TASK_ID>.html` | `html` |
 
 ## File Structure
-As you can see from the [environment variables](02-CONFIGURATION#environment-variables), the file structure corresponds to:
+As you can see from the [environment variables](02-CONFIGURATION#L4), the file structure corresponds to:
 
 ```
 WORKING_DIR
@@ -38,9 +38,9 @@ Let's make a configuration for the example data in the [example_workdir](../exam
 
 1. Copy the `.env-example` into the same directory that it currently resides in and rename it to `.env`
 
-2. You will notice that the `.env-example` already includes all [environment variables](02-CONFIGURATION#environment-variables) that we have described previously.
+2. You will notice that the `.env-example` already includes all [environment variables](02-CONFIGURATION#L4) that we have described previously.
 
-3. You will notice that the `example_workdir` already includes a file called `tasks.csv` and an accompanying directory called `html` -- these correspond to the `TASKS_FILE` and `HTML_DIR` [environment variables](02-CONFIGURATION#environment-variables) respectively. `example_workdir` corresponds to `WORKING_DIR`.
+3. You will notice that the `example_workdir` already includes a file called `tasks.csv` and an accompanying directory called `html` -- these correspond to the `TASKS_FILE` and `HTML_DIR` [environment variables](02-CONFIGURATION#L4) respectively. `example_workdir` corresponds to `WORKING_DIR`.
 
     ```
     WORKING_DIR/
@@ -54,6 +54,6 @@ Let's make a configuration for the example data in the [example_workdir](../exam
     └── html
     ```
 
-4. Feel free to adapt any of the preset [environment variables](02-CONFIGURATION#environment-variables) to your liking. Keep in mind: `TASKS_FILE` and `HTML_DIR` have to be in the `WORKING_DIR`.
+4. Feel free to adapt any of the preset [environment variables](02-CONFIGURATION#L4) to your liking. Keep in mind: `TASKS_FILE` and `HTML_DIR` have to be in the `WORKING_DIR`.
 
 5. Move on to [03-USAGE.md](03-USAGE.md) to start the application and play around with the example data.
