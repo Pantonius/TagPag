@@ -362,19 +362,17 @@ else:
 
     else:
         # Create a beta container to hold components in a horizontal layout
-        row1_col1, row1_col2, = st.columns([1, 2]) 
+        row1_col1, row1_col2, = st.columns([2, 1]) 
 
         with row1_col1:
+            st.info(f'**Full URL**: [{truncate_string(task_url, 450) }]({task_url})')
 
+        with row1_col2:
             _fqdn = f"**Domain**: {truncate_string(exploded_url['fqdn'])}"
             _path = f"  \n**Path**: {truncate_string(exploded_url['path'])}"
             _search_terms = f"  \n**Search terms**: {truncate_string(exploded_url['search_terms'])}" if exploded_url['search_terms'] != "" else ""
 
             st.info(f'{_fqdn}{_path}{_search_terms}  \n **:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**')
-
-        with row1_col2:
-            st.info(f'**Full URL**: [{truncate_string(task_url, 450) }]({task_url})')
-
 
     # Tabs
     tab_names = ["Text", "Webpage Snapshot", "URL Anatomy", "Task"]
