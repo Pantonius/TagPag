@@ -6,7 +6,38 @@ This web application is designed to label scraped webpages. It allows users to a
 
 ![Application Screenshot](screenshot.png)
 
-## Step by Step Instructions
+## Quickstart
+For more information, see the next section "Further Documentation".
+
+### 1. Clone the Repository
+```bash
+git clone https://gitlab.inf.uni-konstanz.de/julian.schelb/seek2judge-annotations.git
+cd seek2judge-annotations
+```
+
+### 2. Setup a Virtual Environment
+For example install `pyenv` as per [their instructions](https://github.com/pyenv/pyenv#installation) and setup a virtual environment for the project:
+```bash
+pyenv install 3.10.12
+pyenv virtualenv 3.10.12 seek2judge-env
+```
+
+Then start the virtual environment:
+```bash
+pyenv activate seek2judge-env
+```
+
+### 3. Install the Requirements
+```bash
+pip install -r requirements.txt
+``` 
+
+### 4. Start the Project
+```bash
+streamlit run src/app.py
+```
+
+## Further Documentation
 The following topics are covered in the [doc folder](doc). Read them carefully and setup the project for the example data in the [example_workdir](example_workdir).
 
 1. [Installation](doc/01-INSTALLATION.md)

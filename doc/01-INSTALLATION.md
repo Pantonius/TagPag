@@ -4,7 +4,7 @@
 Start by cloning the repository to your desired location and navigating into the local repository:
 ```bash
 git clone https://gitlab.inf.uni-konstanz.de/julian.schelb/seek2judge-annotations.git
-cd seekd2judge-annotations
+cd seek2judge-annotations
 ```
 
 ## Virtual Environment
