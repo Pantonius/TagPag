@@ -44,7 +44,7 @@ If the current task is already annotated the `ANNOTATOR` may press the *"Find ne
 
 Additionally, the `ANNOTATOR` may use the *auto-advance* option to automatically jump to the next task, once the task has been labeled.
 
-The **annotation section** includes up to ten toggles for the first ten `LABELS` such that a quick annotation can be achieved. Alternatively all `LABELS` can be found in the dropdown menu below the toggles labeled *"Selected Tags"*.
+The **annotation section** includes up to ten toggles for the first ten `LABELS` such that a quick annotation can be achieved. Alternatively all `LABELS` can be found in the dropdown menu below the toggles labeled *"Selected Labels"*.
 Moreover, it contains a text area for additional comments.
 
 The **shortcut overview** reveals several keyboard shortcuts for task navigation as well as label selection:

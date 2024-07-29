@@ -137,7 +137,7 @@ def update_task_annotations(annotator_id: str, task: dict, labels: list[str], co
     try:
         annotation = load_annotation(task.get(TASKS_ID_COLUMN), annotator_id)
         
-        # add the selected tags to the annotation
+        # add the selected labels to the annotation
         annotation['labels'] = labels
 
         # add the comment to the annotation

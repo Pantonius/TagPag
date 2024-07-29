@@ -201,7 +201,7 @@ def update_annotations():
     Returns:
         None
     """
-    update_task_annotations(STATE.annotator_id, STATE.tasks[STATE.task_id], STATE.selected_tags, STATE.current_comment)
+    update_task_annotations(STATE.annotator_id, STATE.tasks[STATE.task_id], STATE.selected_labels, STATE.current_comment)
 
 def find_next_unannotated_task():
     """
@@ -315,12 +315,12 @@ def select_annotation(class_name: str, key: str):
     """
 
     # toggle the annotation
-    if class_name not in STATE.selected_tags:
-        # add the class name to the selected tags, if it is not already in the list
-        STATE.selected_tags.append(class_name)
+    if class_name not in STATE.selected_labels:
+        # add the class name to the selected labels, if it is not already in the list
+        STATE.selected_labels.append(class_name)
     else:
-        # otherwise remove the class name from the selected tags
-        STATE.selected_tags.remove(class_name)
+        # otherwise remove the class name from the selected labels
+        STATE.selected_labels.remove(class_name)
     
     # update the annotations for the current task
     update_annotations()
@@ -421,17 +421,17 @@ else:
 
         annotation = load_annotation(task.get(TASKS_ID_COLUMN), STATE.annotator_id)
         if annotation is not None and 'labels' in annotation:
-            STATE.selected_tags = annotation['labels']
+            STATE.selected_labels = annotation['labels']
         else:
-            STATE.selected_tags = []
+            STATE.selected_labels = []
         
         st.markdown(f"<div style='text-align: center'>(Task {STATE.task_id + 1} out of {len(STATE.tasks)})</div>", unsafe_allow_html=True)
 
         number = st.number_input("task_number", value=STATE.task_id + 1, min_value=1, max_value=len(STATE.tasks), on_change=go_to_task, key="task_number_input", label_visibility='collapsed')
 
         st.button(':blue[Find next incomplete task]', use_container_width=True,
-                    on_click=find_next_unannotated_task, disabled=(STATE.selected_tags == []), key="find_next_task",
-                    help="Current task has not been annotated yet." if STATE.selected_tags == [] else "Find the next task that has not been annotated yet.")
+                    on_click=find_next_unannotated_task, disabled=(STATE.selected_labels == []), key="find_next_task",
+                    help="Current task has not been annotated yet." if STATE.selected_labels == [] else "Find the next task that has not been annotated yet.")
 
 
         # get the current annotation
@@ -458,17 +458,17 @@ else:
             for number, label in enumerate(_LABELS[:(len(_LABELS) + 1)//2]):
                 st.toggle(f"{number + 1}: {label}", key=f"{number + 1}_{STATE.refresh_counter}",
                             on_change=select_annotation, args=(label, f"{number + 1}_{STATE.refresh_counter}"), 
-                            value=(label in STATE.selected_tags))
+                            value=(label in STATE.selected_labels))
         with col2:
             # display a togle button for each label in the second half of _LABELs, they must start with a number followed by a colon
             for number, label in enumerate(_LABELS[(len(_LABELS) + 1)//2:], (len(_LABELS) + 1)//2):
                 st.toggle(f"{str(number + 1)[-1]}: {label}", key=f"{str(number + 1)[-1]}_{STATE.refresh_counter}",
                             on_change=select_annotation, args=(label, f"{number + 1}_{STATE.refresh_counter}"), 
-                            value=(label in STATE.selected_tags))
+                            value=(label in STATE.selected_labels))
 
 
         st.multiselect(
-            'Selected Tags:', LABELS, key='selected_tags', on_change=update_annotations)
+            'Selected Labels:', LABELS, key='selected_labels', on_change=update_annotations)
         
         st.text_area('Comment:', value=STATE.current_comment,
                         key='annotator_comment',
