@@ -362,18 +362,13 @@ else:
         st.error(f'**URL**: {task_url[:500]}')
 
     else:
-        # Create a beta container to hold components in a horizontal layout
-        row1_col1, row1_col2, = st.columns([2, 1]) 
+        # FIXME: This can probably be moved
+        _full_url = f"**Full URL**: {truncate_string(task_url, 450)}"
+        _fqdn = f"  \n**Domain**: {truncate_string(exploded_url['fqdn'])}"
+        _path = f"  \n**Path**: {truncate_string(exploded_url['path'])}"
+        _search_terms = f"  \n**Search terms**: {truncate_string(exploded_url['search_terms'])}" if exploded_url['search_terms'] != "" else ""
 
-        with row1_col1:
-            st.info(f'**Full URL**: [{truncate_string(task_url, 450) }]({task_url})')
-
-        with row1_col2:
-            _fqdn = f"**Domain**: {truncate_string(exploded_url['fqdn'])}"
-            _path = f"  \n**Path**: {truncate_string(exploded_url['path'])}"
-            _search_terms = f"  \n**Search terms**: {truncate_string(exploded_url['search_terms'])}" if exploded_url['search_terms'] != "" else ""
-
-            st.info(f'{_fqdn}{_path}{_search_terms}  \n **:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**')
+        st.info(f'{_full_url}{_fqdn}{_path}{_search_terms}  \n\n **:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})**')
 
     # Tabs
     tab_names = ["Text", "Webpage Snapshot", "URL Anatomy", "Task"]
@@ -405,6 +400,7 @@ else:
             display_webpage(container.iframe_content, task)
 
     # TAB: Display URL Anatomy
+    # FIXME: This may not be necessary anymore
     with tab_url:
         with st.container():
             st.write(exploded_url)
