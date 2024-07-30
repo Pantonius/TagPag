@@ -175,7 +175,7 @@ def reset_cleaned_text():
         None
     """
 
-    STATE.cleaned_text_area = extract_cleaned_text(task.get(TASKS_ID_COLUMN)) # update text area and update file (extract_cleaned_text automatically updates the file after extraction)
+    STATE.cleaned_text = extract_cleaned_text(task.get(TASKS_ID_COLUMN)) # update text area and update file (extract_cleaned_text automatically updates the file after extraction)
 
 def copy_raw_text():
     """
@@ -188,8 +188,8 @@ def copy_raw_text():
         None
     """
 
-    STATE.cleaned_text_area = STATE.raw_text_area # update text area
-    update_cleaned_text(task.get(TASKS_ID_COLUMN), STATE.cleaned_text_area) # update file
+    STATE.cleaned_text = STATE.raw_text_area # update text area
+    update_cleaned_text(task.get(TASKS_ID_COLUMN), STATE.cleaned_text) # update file
 
 def update_annotations():
     """
