@@ -201,6 +201,7 @@ def update_annotations():
     Returns:
         None
     """
+    STATE.current_comment = STATE.annotator_comment
     update_task_annotations(STATE.annotator_id, STATE.tasks[STATE.task_id], STATE.selected_labels, STATE.current_comment)
 
 def find_next_unannotated_task():
@@ -439,9 +440,11 @@ else:
         annotation = load_annotation(file_id, STATE.annotator_id)
         
         if annotation is not None:
-            STATE.current_comment = annotation['comment']
-            STATE.current_labels = annotation['labels']
+            # try to get the current comment and labels from the annotation
+            STATE.current_comment = annotation['comment'] if 'comment' in annotation else ""
+            STATE.current_labels = annotation['labels'] if 'labels' in annotation else []
         else:
+            # if no annotation is found, set the current comment and labels to be empty
             STATE.current_comment = ""
             STATE.current_labels = []
         
