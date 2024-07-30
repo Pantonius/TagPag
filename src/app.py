@@ -387,11 +387,11 @@ else:
 
             with cleaned_text:
                 display_cleaned_content()
-                col1, col2, _ = st.columns([1,1,2])
+                col1, col2 = st.columns([1,1])
                 with col1:
-                    st.button("Reset clean text", key="reset_cleaned_text", use_container_width=True, on_click=reset_cleaned_text)
+                    st.button("Reset Clean Text", key="reset_cleaned_text", use_container_width=True, on_click=reset_cleaned_text)
                 with col2:
-                    st.button("Copy raw text", key="copy_raw_text", use_container_width=True, on_click=copy_raw_text)
+                    st.button("Copy Raw Text", key="copy_raw_text", use_container_width=True, on_click=copy_raw_text)
             with raw_text:
                 display_raw_content()
     

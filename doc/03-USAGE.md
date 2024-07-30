@@ -59,10 +59,25 @@ The **shortcut overview** reveals several keyboard shortcuts for task navigation
 Pressing the **download annotations button** will start a download of the `annotations.csv` file, which includes the `task_id`, `ANNOTATOR01_labels`, `ANNOTATOR01_comment`, ..., `ANNOTATORXY_labels`, `ANNOTATORXY_comment`, `url`.
 
 ### Main Panel
-The **main panel** consists of several tabs:
-1. Text
-2. Webpage Snapshot
-3. URL Anatomy
-4. Task
+The **main panel** consists of **several tabs** that make up most of the viewport. Those are described below.
 
-<!-- TODO: continue work on documentation>
+Above those tabs there is a brief information about the **full url** of the current task as well as a **brief url decomposition** with **two links**: The first link opens the url, the second opens the corresponding page in the web archive (there may not exist an archived version of the current webpage).
+
+Let's get back to the main attraction. The tabs are as follows:
+
+1. **Text**
+2. **Webpage Snapshot**
+3. **URL Anatomy**
+4. **Task**
+
+The **Text tab** offers a cleaned and raw text version of the current website content. One may edit the cleaned version directly in the text area as well as reset said text area to its original form via the **"Reset Clean Text"** button below.
+
+Another button called **"Copy Raw Text"** directly copies the *raw text* content into the *cleaned text* text area.
+
+For a closer look at the website at hand one may use the **Webpage Snapshot tab** to view its HTML content. After pressing the **"Show Snapshot"** button, a preview is loaded.
+
+To get a better grasp of the conjugate parts of the url, there is the option of visiting the **URL Anatomy tab** to take a quick look at a technical decomposition.
+
+The **Task tab** holds a JSON representation of the task at hand, as given in the underlying `TASKS_FILE`, with an added `annotations` field.
+
+Said `annotations` field holds a JSON representation of the corresponding annotation by the current `ANNOTATOR` as given in the corresponding annotation file within the `ANNOTATIONS_DIR`.
