@@ -347,7 +347,6 @@ def select_annotation(class_name: str, key: str):
 # ================================= SETUP SCREEN ===============================
 # Ask for annotator ID if not provided
 if not STATE.annotator_id or not STATE.tasks:
-    # FIXME: Do we still need this? 
     WelcomePage(st).show()
 
 # ================================= MAIN SCREEN ===============================
@@ -362,7 +361,6 @@ else:
         st.error(f'**URL**: {task_url[:500]}')
 
     else:
-        # FIXME: This can probably be moved
         _full_url = f"**Full URL**: {truncate_string(task_url, 450)}"
         _fqdn = f"  \n**Domain**: {truncate_string(exploded_url['fqdn'])}"
         _path = f"  \n**Path**: {truncate_string(exploded_url['path'])}"
@@ -400,7 +398,6 @@ else:
             display_webpage(container.iframe_content, task)
 
     # TAB: Display URL Anatomy
-    # FIXME: This may not be necessary anymore
     with tab_url:
         with st.container():
             st.write(exploded_url)
