@@ -3,6 +3,7 @@ import re
 import pandas as pd
 
 from utils.config import *
+from utils.db import load_annotations, load_annotation, save_annotation
 from selectolax.parser import HTMLParser
 from trafilatura import extract
 
@@ -80,47 +81,7 @@ def load_tasks():
     tasks = tasks.to_dict(orient='records')
 
     return tasks
-
-def load_annotations(task_id: str):
-    """
-    Load the annotations for the task with the given id (all annotators)
-
-    Args:
-        task_id (str): The id of the task.
     
-    Returns:
-        dict | None: The annotations made by all annotators for the task. (may be None if no annotations exist)
-    """
-    try:
-        # Read the content of the page
-        path = f"{ANNOTATIONS_DIR}/{task_id}.json"
-        with open(path, "r") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return None
-    
-def load_annotation(task_id: str, annotator_id: str):
-    """
-    Load the annotation for the task with the given id and annotator id
-
-    Args:
-        task_id (str): The id of the task.
-        annotator_id (str): The id of the annotator.
-    
-    Returns:
-        dict: The annotations made by the annotator for the task.
-    """
-    annotations = load_annotations(task_id)
-
-    if annotations is not None and annotator_id in annotations:
-        return annotations[annotator_id]
-    else:
-        return {
-            'labels': [],
-            'comment': ""
-        }
-
-
 def update_task_annotations(annotator_id: str, task: dict, labels: list[str], comment: str):
     """
     Update task annotations for a given annotator and task
@@ -147,34 +108,6 @@ def update_task_annotations(annotator_id: str, task: dict, labels: list[str], co
 
     except (KeyError, TypeError) as e:
         print("An error occurred while updating the task annotations:", e)
-
-
-def save_annotation(task_id: str, annotator_id: str, new_annotations: dict):
-    """
-    Save the annotations the annotator made for a given task
-
-    Args:
-        task_id (str): The id of the task.
-        annotator_id (str): The id of the annotator.
-        new_annotations (dict): The annotations made by the annotator.
-
-    Returns:
-        None
-    """
-
-    # Load the annotations
-    annotations = load_annotations(task_id)
-
-    # If the annotations file doesn't exist, create it
-    if annotations is None:
-        annotations = { annotator_id: new_annotations }
-    else:
-        # Update the annotations
-        annotations[annotator_id] = new_annotations
-
-    # Save the annotations
-    with open(f"{ANNOTATIONS_DIR}/{task_id}.json", "w") as f:
-        json.dump(annotations, f)
 
 def download_annotations():
     """
