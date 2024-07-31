@@ -17,7 +17,7 @@ expanders.forEach(expander => {
 });
 
 function attachEventListeners() {
-    var elements = doc.querySelectorAll('textarea, input, button[role="tab"]');
+    var elements = doc.querySelectorAll('textarea, input');
     elements.forEach(element => {
         // if element is not of type checkbox, attach the event listeners
         if (element.type !== 'checkbox') {
@@ -56,7 +56,7 @@ function onMutation(mutationsList, observer) {
 
     // necessary to refresh when, e.g., the text input is used to jump to a specific task
     // because the element is changed 
-    var elements = doc.querySelectorAll('textarea, input, button[role="tab"]');
+    var elements = doc.querySelectorAll('textarea, input');
     shortcut_expander.style.color = "black";
     window.shortcutDisabled = false;
     elements.forEach(element => {

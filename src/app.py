@@ -476,6 +476,7 @@ else:
     
         with st.expander("Keyboard shortcuts"):
 
+            st.caption("Disabled if keyboard focus is on a text area field.")
             st.markdown("_Navigation:_")
 
             st.markdown(key("w | . | + | ] | Enter", write=False) +
