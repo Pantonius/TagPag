@@ -96,3 +96,32 @@ def save_annotation(task_id: str, annotator_id: str, new_annotations: dict):
     conn.commit()
     conn.close()
 
+
+def migrate_annotations(annotations_dir: str):
+    """
+    Migrate old annotation data from JSON files in the directory to the SQLite database.
+    
+    This function reads each JSON file, parses the annotations, and saves them into the SQLite database.
+
+    Args:
+        annotations_dir (str): The directory where the JSON files are stored.
+
+    Returns:
+        None
+    """
+    # Ensure the database is initialized
+    initialize_db()
+
+    # Iterate over all JSON files in the directory
+    for filename in os.listdir(annotations_dir):
+        if filename.endswith(".json"):
+            task_id = filename[:-5]  # Remove the ".json" extension to get the task_id
+            filepath = os.path.join(annotations_dir, filename)
+            
+            # Load annotations from the JSON file
+            with open(filepath, 'r') as f:
+                annotations = json.load(f)
+            
+            # Save each annotation into the SQLite database
+            for annotator_id, annotation in annotations.items():
+                save_annotation(task_id, annotator_id, annotation)
