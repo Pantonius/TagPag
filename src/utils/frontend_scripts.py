@@ -10,7 +10,7 @@ var shortcut_expander = null;
 // Iterate through each <p> element
 expanders.forEach(expander => {
     // Check if the text content of the <p> element is "Keyboard shortcuts"
-    if (expander.textContent.trim() === 'Keyboard shortcuts') {
+    if (expander.textContent.trim().startsWith('Keyboard shortcuts')) {
         // Save the expander element
         shortcut_expander = expander;
     }
@@ -31,12 +31,14 @@ function handleFocus(e) {
     window.shortcutDisabled = true;
     //gray out the keyboard shortcuts
     shortcut_expander.style.color = "gray";
+    shortcut_expander.textContent = "Keyboard shortcuts (disabled)";
 }
 
 function handleBlur(e) {
     window.shortcutDisabled = false;
     //restore the color of the keyboard shortcuts
     shortcut_expander.style.color = "black";
+    shortcut_expander.textContent = "Keyboard shortcuts";
 }
 
 // Initial check in case elements already exist
