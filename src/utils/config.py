@@ -77,7 +77,6 @@ TASKS_URL_COLUMN = os.getenv("TASKS_URL_COLUMN", 'url')
 
 WORKING_DIR = os.getenv('WORKING_DIR', 'data')
 TASKS_FILE = join(WORKING_DIR, os.getenv('TASKS_FILE', 'tasks.csv'))
-# ANNOTATIONS_DIR = join(WORKING_DIR, os.getenv('ANNOTATIONS_DIR', 'annotations'))
 ANNOTATIONS_DB = join(WORKING_DIR, os.getenv('ANNOTATIONS_DB', 'annotations.sqlite'))
 RAW_TEXT_DIR = join(WORKING_DIR, os.getenv('RAW_TEXT_DIR', 'raw_text'))
 CLEANED_TEXT_DIR = join(WORKING_DIR, os.getenv('CLEANED_TEXT_DIR', 'cleaned_text'))
