@@ -10,14 +10,14 @@ var shortcut_expander = null;
 // Iterate through each <p> element
 expanders.forEach(expander => {
     // Check if the text content of the <p> element is "Keyboard shortcuts"
-    if (expander.textContent.trim() === 'Keyboard shortcuts') {
+    if (expander.textContent.trim().startsWith('Keyboard shortcuts')) {
         // Save the expander element
         shortcut_expander = expander;
     }
 });
 
 function attachEventListeners() {
-    var elements = doc.querySelectorAll('textarea, input, button');
+    var elements = doc.querySelectorAll('textarea, input');
     elements.forEach(element => {
         // if element is not of type checkbox, attach the event listeners
         if (element.type !== 'checkbox') {
@@ -31,12 +31,14 @@ function handleFocus(e) {
     window.shortcutDisabled = true;
     //gray out the keyboard shortcuts
     shortcut_expander.style.color = "gray";
+    shortcut_expander.textContent = "Keyboard shortcuts (disabled)";
 }
 
 function handleBlur(e) {
     window.shortcutDisabled = false;
     //restore the color of the keyboard shortcuts
     shortcut_expander.style.color = "black";
+    shortcut_expander.textContent = "Keyboard shortcuts";
 }
 
 // Initial check in case elements already exist
@@ -54,11 +56,13 @@ function onMutation(mutationsList, observer) {
 
     // necessary to refresh when, e.g., the text input is used to jump to a specific task
     // because the element is changed 
-    var elements = doc.querySelectorAll('textarea, input, button');
+    var elements = doc.querySelectorAll('textarea, input');
     shortcut_expander.style.color = "black";
     window.shortcutDisabled = false;
     elements.forEach(element => {
+            
         if (element.type !== 'checkbox') {
+            // print the text of the element
             // if element has the focus, disable the shortcuts
             if (element === doc.activeElement) {
                 window.shortcutDisabled = true;
