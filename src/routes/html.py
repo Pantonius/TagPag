@@ -1,7 +1,6 @@
 import streamlit as st
 from utils.core import *
 from utils.config import *
-from os.path import join
 
 def return_home():
     st.switch_page("routes/main.py")
