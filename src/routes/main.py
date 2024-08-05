@@ -6,6 +6,7 @@ from streamlit_extras.keyboard_text import key, load_key_css
 from components.welcome import WelcomePage
 from utils.core import *
 from utils.config import *
+from utils.db import initialize_db
 from utils.url_parser import explode_url
 from utils.frontend_scripts import custom_css, custom_html
 
@@ -30,6 +31,8 @@ load_key_css()
 # create the directories if they don't exist
 create_directories()
 
+# initialize the database
+initialize_db()
 
 # ------------------------------------------------------------------------------
 #                                 Set-up state
