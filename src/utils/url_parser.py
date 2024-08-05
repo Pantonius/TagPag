@@ -6,8 +6,6 @@ from urllib.parse import parse_qs
 
 import tldextract
 
-
-
 # Define the mapping dictionary
 # umlauts_map = {'Ä': 'AE', 'Ö': 'OE', 'Ü': 'UE', 'ß': 'ss', 'ä': 'ae', 'ö': 'oe', 'ü': 'ue'}
 umlauts_map = {'ß': 'ss', 'ä': 'ae', 'ö': 'oe', 'ü': 'ue'}
@@ -182,6 +180,7 @@ def explode_url(url: str) -> dict:
     # Following the syntax specifications in RFC 1808, urlparse recognizes a netloc only if it is properly 
     # introduced by ‘//’. Otherwise the input is presumed to be a relative URL and thus to start with a path component.
     ext = urlparse(url)
+    results["scheme"] = ext.scheme
     results["netloc"] = ext.netloc
     results["hostname"] = ext.hostname
     results["path"] = ext.path

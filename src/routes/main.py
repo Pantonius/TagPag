@@ -77,6 +77,8 @@ annotator_id = STATE.annotator_id
 task_url = STATE.tasks[STATE.task_id][TASKS_URL_COLUMN]
 exploded_url = explode_url(task_url)
 
+print(exploded_url)
+
 # ------------------------------------------------------------------------------
 #                                    Functions
 # ------------------------------------------------------------------------------
@@ -361,12 +363,14 @@ else:
         st.error(f'**URL**: {task_url[:500]}')
 
     else:
-        _full_url = f"**Full URL**: {truncate_string(task_url, 450)}"
-        _fqdn = f"  \n**Domain**: {truncate_string(exploded_url['fqdn'])}"
-        _path = f"  \n**Path**: {truncate_string(exploded_url['path'])}"
-        _search_terms = f"  \n**Search terms**: {truncate_string(exploded_url['search_terms'])}" if exploded_url['search_terms'] != "" else ""
+        _query = ""
+        if exploded_url["query"]:
+            _query = f'?{exploded_url["query"]}'
 
-        st.info(f'{_full_url}{_fqdn}{_path}{_search_terms}  \n\n **:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})** | **[Open saved version](/html?task_id={STATE.task_id})**')
+        fancy_url = f'{exploded_url["scheme"]}://**{exploded_url["fqdn"]}{exploded_url["path"]}**{_query}'
+        links = f'**:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})** | **[Open saved version](/html?task_id={STATE.task_id})**'
+        
+        st.info(f"[{fancy_url}]({task_url}) \n\n {links}")
 
     # Tabs
     tab_names = ["Text", "URL Anatomy", "Task"]
