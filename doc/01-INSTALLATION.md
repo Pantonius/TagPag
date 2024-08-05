@@ -33,4 +33,9 @@ An easy way to create such python environments is `pyenv`:
    pip install -r requirements.txt
    ```
 
-4. To get a basic configuration of the application, rename the `.env-example` file to `.env` and adapt it as you see fit. We discuss the details of the configuration in [02-CONFIGURATION.md](doc/02-CONFIGURATION.md).
+4. Start the Project
+   ```bash
+   streamlit run src/app.py
+   ```
+
+An example configuration (see [.env-example](.env-example)) should be loaded with some example data (see [example_workdir](example_workdir)).

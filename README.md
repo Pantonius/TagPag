@@ -37,13 +37,16 @@ pip install -r requirements.txt
 streamlit run src/app.py
 ```
 
+Notice that a new `.env` file has been created from the `.env-example` file, which uses the example data located in `example_workdir`.
+
+At this point you can take a look around. Maybe the [usage documentation](doc/03-USAGE.md) can be of service.
+
 ## Further Documentation
-The following topics are covered in the [doc folder](doc). Read them carefully and setup the project for the example data in the [example_workdir](example_workdir).
+A more detailed guide to setting up the project can be found in the [doc folder](doc). It will lead you through the process using the example data of the [example_workdir](example_workdir).
 
 1. [Installation](doc/01-INSTALLATION.md)
 2. [Configuration](doc/02-CONFIGURATION.md)
 3. [Usage](doc/03-USAGE.md)
 
 ## Additional Resources
-
 For more information on how to use Streamlit, refer to the [Streamlit Documentation](https://docs.streamlit.io/library/api-reference).

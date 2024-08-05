@@ -1,21 +1,25 @@
 # Configuration
 The entire configuration of the annotation interface is done via a `.env` file in the root directory of the project. See the [.env-example](../.env-example) for an example configuration.
 
-## Environment Variables
-When you take a look into the [.env-example](../.env-example), you will find the following environment variables. Most of them have a default value within the [config.py](../src/utils/config.py).
+You may skip this section if you only want to play around with the interface. **If no `.env` file is specified, the [.env-example](../.env-example) is copied into a new `.env` file such that the [example data](../example_workdir) is used.**
 
-| Variable | Description | default |
-| :- | :- | :- |
-| `ANNOTATOR` | Some ID for the annotator of the dataset. This ID will be used as a prefix for the `comment` and `labels` fields of the [output.csv](03-USAGE.md). | - |
-| `LABELS` | A comma-seperated list of labels that the `ANNOTATOR` may use for the tasks of the `TASKS_FILE`. | `""` (which results in an empty list) |
-| `TASKS_ID_COLUMN` | The column of the `TASKS_FILE` that uniquely identifies each annotation task. | `_id` |
-| `TASKS_URL_COLUMN` | The column of the `TASKS_FILE` that holds the url to be annotated. | `target_url` |
-| `WORKING_DIR` | The directory that will hold the `TASKS_FILE`, the annotations directory, the raw text directory, the cleaned text directory and the html directory (more on those later). | `data` |
-| `TASKS_FILE` | The CSV file that holds the annotation tasks (including the `TASKS_ID_COLUMN` and `TASKS_URL_COLUMN`) | `tasks.csv` |
-| `ANNOTATIONS_DIR` | The directory in the `WORKING_DIR` that will hold all annotations as JSON files. Each annotation will follow the naming scheme: `<TASK_ID>.json` | `annotations` |
-| `RAW_TEXT_DIR` | The directory in the `WORKING_DIR` that will hold the extracted (raw) text of the html content of each task. Each text file will follow the naming scheme: `<TASK_ID>.txt`. | `raw_text` |
-| `CLEANED_TEXT_DIR` | The directory in the `WORKING_DIR` that will hold the extracted and cleaned text of the html content of each task. Each cleaned text file will follow the naming scheme: `<TASK_ID>.txt`. | `cleaned_text` |
-| `HTML_DIR` | The directory in the `WORKING_DIR` that holds the html content of each task as a result of scraping done before-hand. Each html file is expected to follow the naming scheme: `<TASK_ID>.html` | `html` |
+Notice that you will have to restart the application if you make any changes to the configuration.
+
+## Environment Variables
+When you take a look into the [.env-example](../.env-example), you will find the following environment variables. Most environment variables have a default value within the [config.py](../src/utils/config.py).
+
+| Variable | Description | default | .env-example
+| :- | :- | :- | :- |
+| `ANNOTATOR` | Some ID for the annotator of the dataset. This ID will be used as a prefix for the `comment` and `labels` fields of the [output.csv](03-USAGE.md). | - | `"annotator_name"` |
+| `LABELS` | A comma-seperated list of labels that the `ANNOTATOR` may use for the tasks of the `TASKS_FILE`. | empty string, which results in an empty list | `Children,Energy,Cannabis` |
+| `TASKS_ID_COLUMN` | The column of the `TASKS_FILE` that uniquely identifies each annotation task. | `_id` | `_id` |
+| `TASKS_URL_COLUMN` | The column of the `TASKS_FILE` that holds the url to be annotated. | `url` | `url` |
+| `WORKING_DIR` | The directory that will hold the `TASKS_FILE`, the annotations directory, the raw text directory, the cleaned text directory and the html directory (more on those later). | `data` | `example_workdir` |
+| `TASKS_FILE` | The CSV file that holds the annotation tasks (including the `TASKS_ID_COLUMN` and `TASKS_URL_COLUMN`) | `tasks.csv` | `tasks.csv` |
+| `ANNOTATIONS_DIR` | The directory in the `WORKING_DIR` that will hold all annotations as JSON files. Each annotation will follow the naming scheme: `<TASK_ID>.json` | `annotations` | `annotations` |
+| `RAW_TEXT_DIR` | The directory in the `WORKING_DIR` that will hold the extracted (raw) text of the html content of each task. Each text file will follow the naming scheme: `<TASK_ID>.txt`. | `raw_text` | `raw_text` |
+| `CLEANED_TEXT_DIR` | The directory in the `WORKING_DIR` that will hold the extracted and cleaned text of the html content of each task. Each cleaned text file will follow the naming scheme: `<TASK_ID>.txt`. | `cleaned_text` | `cleaned_text`
+| `HTML_DIR` | The directory in the `WORKING_DIR` that holds the html content of each task as a result of scraping done before-hand. Each html file is expected to follow the naming scheme: `<TASK_ID>.html` | `html` | `html` |
 
 ## File Structure
 As you can see from the [environment variables](02-CONFIGURATION#L4), the file structure corresponds to:

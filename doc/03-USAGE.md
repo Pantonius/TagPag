@@ -26,6 +26,8 @@ When running on your local system the *Local URL* (`http://localhost:8501`) will
 
 ![Webpage Annotation Interface](../screenshot.png)
 
+**Notice that you will have to restart the application if you [change the configuration file](doc/02-CONFIGURATION).**
+
 ## Exploration
 Let's explore the interface a little.
 
