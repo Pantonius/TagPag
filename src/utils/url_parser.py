@@ -143,7 +143,37 @@ def extract_url_infos(exploded_url):
 
 
 def explode_url(url: str) -> dict:
-    """Returns decomposed URL as dictionary"""
+    """Returns decomposed URL as a dictionary.
+    
+    Args:
+        url (str): The url to decompose
+    
+    Returns:
+        dict: individual parts of the url as dictionary of the following format
+        
+        ```
+        // tldextract (adapted)
+        subdomain (str): The subdomain (without prefixed 'www') of the url
+        domain (str): The domain of the url
+        suffix (str): The public suffix of the url (see: https://publicsuffix.org/list/)
+        registered_domain (str): The domain and suffix of the url, if both are set
+        fqdn (str): The fully qualified domain name of the url
+
+        // urllib
+        scheme (str): The scheme of the url (i.e. "http", "https", ...)
+        netloc (str): The network location of the url (has to be introduced by //. See: https://docs.python.org/3/library/urllib.parse.html#module-urllib.parse)
+        hostname (str): The hostname of the url
+        path (str): The path of the url
+        params (str): The parameters of the url
+        query (str): The query string of the url
+        fragment (str): The fragment of the url
+        
+        // custom
+        www (str): 'www' seperated from the subdomain (will be either empty or contain 'www')
+        query_dict (dict): A dictionary of all key value pairs in the query string
+        search_terms (dict): A dictionary of search_terms contained in the query string
+        ```
+    """
 
     # ------------------- Decompose URL -------------------
     #
@@ -151,7 +181,7 @@ def explode_url(url: str) -> dict:
     # \_/ \________________/\_________/ \_________/ \__/
     # |          |             |            |        |
     # scheme    authority     path        query   fragment
-    #
+    #           (netloc)
 
     # lower case the url
     url = unquote(url).lower().translate(umlaut_trans_table)
