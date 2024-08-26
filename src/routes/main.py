@@ -80,8 +80,6 @@ annotator_id = STATE.annotator_id
 task_url = STATE.tasks[STATE.task_id][TASKS_URL_COLUMN]
 exploded_url = explode_url(task_url)
 
-print(exploded_url)
-
 # ------------------------------------------------------------------------------
 #                                    Functions
 # ------------------------------------------------------------------------------
