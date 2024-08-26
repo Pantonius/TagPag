@@ -86,32 +86,6 @@ print(exploded_url)
 #                                    Functions
 # ------------------------------------------------------------------------------
 
-
-def display_webpage(iframe_content: components.html, task):
-    """
-    Display the webpage content in an iframe.
-    
-    Args:
-        iframe_content (streamlit.components.v1.html): The iframe component.
-        task (dict): The task dictionary.
-    
-    Returns:
-        None
-    """
-
-    url = task.get(TASKS_URL_COLUMN)
-    file_id = task.get(TASKS_ID_COLUMN)
-
-    if file_id:
-        # if there is html content saved in the local storage, display that one directly
-        content = get_page_content(file_id)
-        iframe_content = components.html(content, height=1024, scrolling=True)
-    else:
-        # otherwise, display the webpage in an iframe
-        iframe_content.write(
-            f'<iframe src="{url}" width="100%" height="1024px" style="border:none;"></iframe>', unsafe_allow_html=True)
-
-
 def display_raw_content():
     """
     Display the webpage text content ("Raw text"; selectolax)
@@ -144,6 +118,7 @@ def save_cleaned_text():
     Returns:
         None
     """
+    
     STATE.cleaned_text = STATE.cleaned_text_area
     update_cleaned_text(task.get(TASKS_ID_COLUMN), STATE.cleaned_text)
 
@@ -247,7 +222,6 @@ def find_next_unannotated_task():
 
     # No task has been found -- all tasks have been annotated
     STATE.last_task_reached = True
-
 
 def go_to_prev_task():
     """
@@ -362,7 +336,7 @@ else:
             "You reached the end of the list!", icon="🚨")
 
     if not validators.url(task_url):
-        st.error(f"Invalid URL! :worried: Please that the URLs in your file are well formed. The scheme (http:// or https://) is required.")
+        st.error(f"Invalid URL! :worried: Please check that the URLs in your file are well formed. The scheme (http:// or https://) is required.")
         st.error(f'**URL**: {task_url[:500]}')
 
     else:
