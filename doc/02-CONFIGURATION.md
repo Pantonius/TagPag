@@ -19,7 +19,7 @@ When you take a look into the [.env-example](../.env-example), you will find the
 | `ANNOTATIONS_DIR`  | The directory in the `WORKING_DIR` that will hold all annotations as JSON files. Each annotation will follow the naming scheme: `.json`                                               | `annotations`              |
 | `RAW_TEXT_DIR`     | The directory in the `WORKING_DIR` that will hold the extracted (raw) text of the html content of each task. Each text file will follow the naming scheme: `.txt`.                    | `raw_text`                 |
 | `CLEANED_TEXT_DIR` | The directory in the `WORKING_DIR` that will hold the extracted and cleaned text of the html content of each task. Each cleaned text file will follow the naming scheme: `.txt`.      | `cleaned_text`             |
-| `HTML_DIR`         | The directory in the `WORKING_DIR` that holds the html content of each task as a result of scraping done before-hand. Each html file is expected to follow the naming scheme: `.html` | `html`                     |
+| `HTML_DIR`         | The directory in the `WORKING_DIR` that holds the html content of each task as a result of scraping done before-hand. Each html file is expected to follow the naming scheme: `TASK_ID.html`, where `TASK_ID` is the value in the `TASKS_ID_COLUMN` of the corresponding row in the `TASKS_FILE` | `html`                     |
 
 ## File Structure
 As you can see from the [environment variables](02-CONFIGURATION#L4), the file structure corresponds to:
