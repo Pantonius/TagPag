@@ -342,7 +342,27 @@ else:
         if exploded_url["query"]:
             _query = f'?{exploded_url["query"]}'
 
-        fancy_url = f'{exploded_url["scheme"]}://**{exploded_url["fqdn"]}{exploded_url["path"]}**{_query}'
+        pre_bold = f'{exploded_url["scheme"]}://'
+        bold = f'{exploded_url["fqdn"]}{exploded_url["path"]}'
+        post_bold = f'{_query}'
+
+        fancy_url = f'{pre_bold}**{bold}**{post_bold}'
+        
+        # truncate url
+        trunc_limit = 400
+        truncated = truncate_string(pre_bold + bold + post_bold, trunc_limit)
+
+        # make it fancy while preserving truncation
+        pre_bold_end = len(pre_bold)
+        post_bold_start = len(pre_bold + bold)
+
+        # if pre_bold_end is lower than the truncated length bolderize
+        if pre_bold_end < len(truncated):
+            fancy_url = f'{truncated[:pre_bold_end]}**{truncated[pre_bold_end:post_bold_start]}**{truncated[post_bold_start:]}'
+        else:
+            fancy_url = truncated
+        
+
         links = f'**:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})** | **[Open saved version](/html?task_id={STATE.task_id})**'
         
         st.info(f"[{fancy_url}]({task_url}) \n\n {links}")
