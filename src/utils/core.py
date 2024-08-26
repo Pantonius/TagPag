@@ -4,6 +4,7 @@ import pandas as pd
 
 from utils.config import *
 from utils.db import load_annotations, load_annotation, save_annotation
+from utils.url_parser import explode_url
 from selectolax.parser import HTMLParser
 from trafilatura import extract
 
@@ -306,10 +307,51 @@ def truncate_string(string: str, n=100):
 
     Args:
         string (str): The string to truncate.
-        n (int): The maximum length of the string.
+        n (int): The maximum length of the string. No truncation if set to 0. (Default: 100)
     
     Returns:
         str: The truncated string
     """
 
-    return string if len(string) < n else string[:n] + '...'
+    # if the maximum length n is lower than one or no truncation is needed to meet the given length limit, return the entire string
+    if n <= 0 or len(string) < n:
+        return string
+
+    # otherwise truncate
+    return string[:n] + '...'
+
+def highlight_url(url: str, n=0):
+    """
+    Highlights the *"main part"* of a given url (meaning the fqdn and path) and truncates it to a maximum length of n characters
+
+    Args:
+        url (str): The url to make fancy
+        n (int): The maximum length of the string. No truncation if set to 0. (Default: 0)
+    
+    Returns:
+        str: The highlighted string
+    """
+    exploded_url = explode_url(url)
+
+    # format query
+    _query = ""
+    if exploded_url["query"]:
+        _query = f'?{exploded_url["query"]}'
+
+    # format
+    pre_bold = f'{exploded_url["scheme"]}://'
+    bold = f'{exploded_url["fqdn"]}{exploded_url["path"]}'
+    post_bold = f'{_query}'
+        
+    # truncate url
+    truncated = truncate_string(pre_bold + bold + post_bold, n)
+
+    # bolderize fqdn and path while preserving truncation
+    pre_bold_end = len(pre_bold)
+    post_bold_start = len(pre_bold + bold)
+
+    # if the end of the bold text lies behind the truncation limit, just return the trunacted string
+    if pre_bold_end >= len(truncated):
+        return truncated
+    
+    return f'{truncated[:pre_bold_end]}**{truncated[pre_bold_end:post_bold_start]}**{truncated[post_bold_start:]}'
