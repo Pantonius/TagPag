@@ -338,7 +338,7 @@ else:
         st.error(f'**URL**: {task_url[:500]}')
 
     else:
-        fancy_url = highlight_url(task_url, 400)
+        fancy_url = highlight_url(exploded_url, 400)
 
         links = f'**:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})** | **[Open saved version](/html?task_id={STATE.task_id})**'
         
@@ -388,11 +388,27 @@ else:
         
         st.markdown(f"<div style='text-align: center'>(Task {STATE.task_id + 1} out of {len(STATE.tasks)})</div>", unsafe_allow_html=True)
 
-        number = st.number_input("task_number", value=STATE.task_id + 1, min_value=1, max_value=len(STATE.tasks), on_change=go_to_task, key="task_number_input", label_visibility='collapsed')
-
-        st.button(':blue[Find next incomplete task]', use_container_width=True,
-                    on_click=find_next_unannotated_task, disabled=(STATE.selected_labels == []), key="find_next_task",
-                    help="Current task has not been annotated yet." if STATE.selected_labels == [] else "Find the next task that has not been annotated yet.")
+        st.number_input(
+            "Task number",
+            value=STATE.task_id + 1,
+            min_value=1,
+            max_value=len(STATE.tasks),
+            on_change=go_to_task,
+            key="task_number_input",
+            label_visibility="collapsed",
+        )
+        
+        st.button(
+            "Find next incomplete task",
+            use_container_width=True,
+            on_click=find_next_unannotated_task,
+            disabled=not STATE.selected_labels,
+            key="find_next_task",
+            help=(
+                "Current task has not been annotated yet." if not STATE.selected_labels else
+                "Find the next task that has not been annotated yet."
+            ),
+        )
 
 
         # get the current annotation

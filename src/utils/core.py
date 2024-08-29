@@ -320,18 +320,17 @@ def truncate_string(string: str, n=100):
     # otherwise truncate
     return string[:n] + '...'
 
-def highlight_url(url: str, n=0):
+def highlight_url(exploded_url: str, n=0):
     """
     Highlights the *"main part"* of a given url (meaning the fqdn and path) and truncates it to a maximum length of n characters
 
     Args:
-        url (str): The url to make fancy
+        exploded_url (str): The exploded version of the url to make fancy
         n (int): The maximum length of the string. No truncation if set to 0. (Default: 0)
     
     Returns:
         str: The highlighted string
     """
-    exploded_url = explode_url(url)
 
     # format query
     _query = ""
