@@ -348,7 +348,7 @@ def highlight_url(exploded_url: str, n=0):
     pre_bold_end = len(pre_bold)
     post_bold_start = len(pre_bold + bold)
 
-    # if the end of the bold text lies behind the truncation limit, just return the trunacted string
+    # if the truncation happens before the bolderized part, return the truncated string
     if pre_bold_end >= len(truncated):
         return truncated
     
