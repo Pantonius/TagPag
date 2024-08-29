@@ -75,6 +75,7 @@ load_environment()
 TASKS_ID_COLUMN = os.getenv("TASKS_ID_COLUMN", '_id')
 TASKS_URL_COLUMN = os.getenv("TASKS_URL_COLUMN", 'url')
 
+# set the directories
 WORKING_DIR = os.getenv('WORKING_DIR', 'data')
 TASKS_FILE = join(WORKING_DIR, os.getenv('TASKS_FILE', 'tasks.csv'))
 ANNOTATIONS_DB = join(WORKING_DIR, os.getenv('ANNOTATIONS_DB', 'annotations.sqlite'))
@@ -82,6 +83,10 @@ RAW_TEXT_DIR = join(WORKING_DIR, os.getenv('RAW_TEXT_DIR', 'raw_text'))
 CLEANED_TEXT_DIR = join(WORKING_DIR, os.getenv('CLEANED_TEXT_DIR', 'cleaned_text'))
 HTML_DIR = join(WORKING_DIR, os.getenv('HTML_DIR', 'html'))
 
+# parse the labels for annotation
 LABELS = os.getenv("LABELS", "").split(",")
+
+# set the URL query parameters
+URL_QUERY_PARAMS = set(os.getenv("URL_QUERY_PARAMS", "").split(","))
 
 STATE = st.session_state

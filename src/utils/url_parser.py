@@ -1,10 +1,10 @@
-import re
-
 from urllib.parse import urlparse
 from urllib.parse import unquote
 from urllib.parse import parse_qs
 
 import tldextract
+
+from utils.config import *
 
 # Define the mapping dictionary
 # umlauts_map = {'Ä': 'AE', 'Ö': 'OE', 'Ü': 'UE', 'ß': 'ss', 'ä': 'ae', 'ö': 'oe', 'ü': 'ue'}
@@ -41,11 +41,9 @@ set_not_one_word_titles = set(['search', 'watch', '', 'results', 'web', 'result'
                                'home', 'top', 'default', 'welcome', 'homepage', 'main', 'start',
                                'surveys', 'viwweb', 'login'])
 
+
 # commong extension endings in the slug
 common_extension = set(['html','htm', 'pdf', 'php', 'aspx'])
-
-# set of parameters to cnosider for the search terms
-set_search_terms = set(['q', 'p', 'query', 'text', 'search_query', 'search', 'psg'])
 
 # number of characters to consider in the token extraction
 nb_chars = 2
@@ -66,7 +64,7 @@ def extract_search_terms(parameters):
         The extracted search terms, or an empty string if none were found.
     """
 
-    search_terms = ' '.join(v.strip() for k, v in parameters.items() if k in set_search_terms) 
+    search_terms = ' '.join(v.strip() for k, v in parameters.items() if k in URL_QUERY_PARAMS) 
     if search_terms is None or search_terms == '' or search_terms.isdigit():
         return ''
     return search_terms 

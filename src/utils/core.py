@@ -4,7 +4,6 @@ import pandas as pd
 
 from utils.config import *
 from utils.db import load_annotations, load_annotation, save_annotation
-from utils.url_parser import explode_url
 from selectolax.parser import HTMLParser
 from trafilatura import extract
 
