@@ -13,13 +13,10 @@ umlauts_map = {'ß': 'ss', 'ä': 'ae', 'ö': 'oe', 'ü': 'ue'}
 # Create a translation table
 umlaut_trans_table = str.maketrans(umlauts_map)
 
-
-
 # this are commonly found steps in the paths (or giberish)
 set_dashed_generic = set([
     'cgi-bin','fast-cgi', 'auth-ui', 'consent-management', 'openid-connect',
     'de-de', 'en-us', 'wba-ui', 'websso-prod', 
-    'cGJ69yA21HDKMJzAYHDxGCZmdirrbQRV-QosJ4UmQEY',
 ])
 
 # this are paths that simply suggest a search or account
@@ -42,34 +39,67 @@ set_not_dashed_titles = set_dashed_search_or_account | set_navigation_related_st
 set_not_one_word_titles = set(['search', 'watch', '', 'results', 'web', 'result', 'scholar', 'url', 
                                'dsearch', 'zustimmung', 'index', 'live', 'suche', 'suchergebnisse',
                                'home', 'top', 'default', 'welcome', 'homepage', 'main', 'start',
-                               'xxxxx', 'surveys', 'viwweb', 'login'])
+                               'surveys', 'viwweb', 'login'])
 
 # commong extension endings in the slug
-set_extension_endings = set(['html','htm', 'pdf', 'php', 'aspx'])
+common_extension = set(['html','htm', 'pdf', 'php', 'aspx'])
+
+# set of parameters to cnosider for the search terms
+set_search_terms = set(['q', 'p', 'query', 'text', 'search_query', 'search', 'psg'])
 
 # number of characters to consider in the token extraction
 nb_chars = 2
 
 # extract the search terms
 def extract_search_terms(parameters):
-    search_terms = ' '.join(v.strip() for k, v in parameters.items() if k in ['q', 'p', 'query', 'text', 'search_query', 'search']) # later on, i figure `psg` is an option for bing
+    """
+    Extracts the search terms from a parameter dictionary.
+
+    Parameters
+    ----------
+    parameters : dict
+        A dictionary of parameters from a URL query string.
+
+    Returns
+    -------
+    str
+        The extracted search terms, or an empty string if none were found.
+    """
+
+    search_terms = ' '.join(v.strip() for k, v in parameters.items() if k in set_search_terms) 
     if search_terms is None or search_terms == '' or search_terms.isdigit():
         return ''
     return search_terms 
 
 
 def extract_steps(path):
+    """
+    Extracts the steps of a path (ignoring common extensions).
+
+    :param path: The path to extract the steps from.
+    :return: The extracted steps as a list of strings.
+    """
+
     if path == '' or path == '/':
         return []
 
     # ignore extensions
-    if (path_split := path.rsplit('.', 1))[-1] in set_extension_endings:
+    if (path_split := path.rsplit('.', 1))[-1] in common_extension:
         path = path_split[0]
     
     # split the path by slashes, and remove the first which is empty
     return path.split('/')[1:]
 
 def extract_dashed_steps(steps):
+    """
+    Extracts the dashed steps from a list of steps.
+
+    The dashed steps are those containing either a dash or an underscore, and that are not in the set of fake paths
+    or category related steps.
+
+    :param steps: A list of strings representing the steps in the URL path.
+    :return: A list of strings, the dashed steps.
+    """
 
     if len(steps) == 0:
         return []
@@ -82,7 +112,26 @@ def extract_dashed_steps(steps):
             and s not in set_dashed_search_or_account 
         ]
 
-def extract_url_title(steps, dashed_steps):
+def extract_url_title(results):
+    """
+    Extracts a title from a URL path.
+
+    The title is extracted in the following way:
+    1. The path is split into steps.
+    2. The steps with dashes or underscores are selected.
+    3. The steps that are navigation related are removed.
+    4. If there are more than one step, the largest one (separated by dashes) is selected.
+    5. If no title is selected, the last set of the path is selected, if it is not navigation related.
+
+    :param results: A dictionary containing the URL path as "path".
+    :return: The extracted title as a string.
+    """
+
+    # extract the steps
+    steps = extract_steps(results["path"])
+
+    # extract the dashed steps
+    dashed_steps = extract_dashed_steps(steps)
 
     title = ''
 
@@ -107,39 +156,6 @@ def extract_url_title(steps, dashed_steps):
             title = steps[-1]
 
     return title
-
-
-
-
-def extract_url_infos(exploded_url):
-
-    results = {}
-
-    # extract the search terms
-    results["search_terms"] = extract_search_terms(exploded_url["query_dict"])
-
-    # signal if it is any search
-    results["is_any_search"] = results["search_terms"] != ''
-
-    # extract the steps
-    steps = extract_steps(exploded_url["path"])
-
-    # extract the dashed steps
-    dashed_steps = extract_dashed_steps(steps)
-
-    # signal if there is a dashed step
-    results["has_dashed_step"] = len(dashed_steps) > 0
-
-    # extract the url title
-    results["url_title"] = extract_url_title(steps, dashed_steps)
-
-    # signal if there is a title
-    results["has_url_title"] = results["url_title"] != ''
-
-    # extract the tokens from the title
-    results["has_wordy_title"] = len(results["url_title_tokens"]) > 0
-
-    return results
 
 
 def explode_url(url: str) -> dict:
@@ -175,13 +191,28 @@ def explode_url(url: str) -> dict:
         ```
     """
 
-    # ------------------- Decompose URL -------------------
+    # ------------------- URL decomposition -------------------
     #
     # foo://example.com:8042/over/there?name=ferret#nose
     # \_/ \________________/\_________/ \_________/ \__/
     # |          |             |            |        |
     # scheme    authority     path        query   fragment
     #           (netloc)
+
+    # -------------- Domain decomposition (example) ----------------
+    #
+    # www.subd4.subd3.example.com
+    # \_/ \_________/ \_____/ \_/
+    #  |       |         |     |
+    # www subdomain   domain suffix
+    #                 \___________/
+    #                       |
+    #               registered domain
+    # \___________________________/
+    #               |
+    #            hostname
+
+
 
     # lower case the url
     url = unquote(url).lower().translate(umlaut_trans_table)
@@ -215,13 +246,16 @@ def explode_url(url: str) -> dict:
     results["hostname"] = ext.hostname
     results["path"] = ext.path
     results["params"] = ext.params
-    results["query"] = ext.query  # https://en.wikipedia.org/wiki/Query_string
-    results["fragment"] = ext.fragment  # https://en.wikipedia.org/wiki/URI_fragment
-
-    # parse the parameters of the query string, \x00 causes troubles with mongodb, it represents a null byte
+    results["query"] = ext.query  
+    results["fragment"] = ext.fragment  
+    
+    # parse the parameters of the query string, \x00 causes troubles with certain database (e.g.,mongodb), it represents a null byte
     results["query_dict"] = {k.replace('\x00', 'NULLHEX'): ' '.join(i.strip() for i in v) for k, v in parse_qs(results["query"]).items()}
 
     # extract the search terms
     results["search_terms"] = extract_search_terms(results["query_dict"])
+
+    # extract the title
+    results["title"] = extract_url_title(results)
 
     return results
