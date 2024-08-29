@@ -186,6 +186,7 @@ def explode_url(url: str) -> dict:
         www (str): 'www' seperated from the subdomain (will be either empty or contain 'www')
         query_dict (dict): A dictionary of all key value pairs in the query string
         search_terms (dict): A dictionary of search_terms contained in the query string
+        title (str): The title extracted from the path
         ```
     """
 
