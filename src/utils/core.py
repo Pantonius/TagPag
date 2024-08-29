@@ -1,11 +1,12 @@
-import json
 import re
+import html
 import pandas as pd
 
 from utils.config import *
 from utils.db import load_annotations, load_annotation, save_annotation
 from selectolax.parser import HTMLParser
 from trafilatura import extract
+
 
 def init():
     """
@@ -352,4 +353,11 @@ def highlight_url(exploded_url: str, n=0):
     if pre_bold_end >= len(truncated):
         return truncated
     
-    return f'{truncated[:pre_bold_end]}**{truncated[pre_bold_end:post_bold_start]}**{truncated[post_bold_start:]}'
+    # make truncated html safe
+    chunks = [truncated[:pre_bold_end], truncated[pre_bold_end:post_bold_start], truncated[post_bold_start:]]
+
+    # escape html
+    chunks = [html.escape(chunk) for chunk in chunks]
+
+    # return the highlighted url
+    return f'{chunks[0]}<strong>{chunks[1]}</strong>{chunks[2]}'

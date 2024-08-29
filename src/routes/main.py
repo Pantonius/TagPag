@@ -354,7 +354,8 @@ else:
             f'**[Open archive.org link]({archive_url})** | '
             f'**[Open saved version](/html?task_id={STATE.task_id})**'
         )        
-        st.info(f"[{fancy_url}]({task_url}) \n\n {links}")
+        st.markdown(f'<div style="margin-bottom:1em"><a href="{task_url}">\n{fancy_url}\n</a></div>', unsafe_allow_html=True)
+        st.markdown(f'{links}')
 
     # Tabs
     tab_names = ["Text", "URL Anatomy", "Task"]
