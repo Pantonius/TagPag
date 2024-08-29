@@ -135,12 +135,14 @@ def display_cleaned_content():
 
     STATE.cleaned_text = load_cleaned_text(file_id)
 
-    if not STATE.cleaned_text: # if the cleaned text is still not loaded, signal a problem to the user
+    # if the cleaned text is still not loaded, signal a problem to the user
+    if not STATE.cleaned_text: 
         # if no text could be extracted, display a warning message
         st.warning("Couldn't extract any text! :worried:")
     else:
         # otherwise, display the extracted text in a text area
-        st.text_area('Cleaned text:', value=STATE.cleaned_text, height=500, key='cleaned_text_area', on_change=save_cleaned_text)
+        st.text_area('Cleaned text:', value=STATE.cleaned_text, height=500, 
+                     key='cleaned_text_area', on_change=save_cleaned_text)
 
 def reset_cleaned_text():
     """
@@ -153,7 +155,8 @@ def reset_cleaned_text():
         None
     """
 
-    STATE.cleaned_text = extract_cleaned_text(task.get(TASKS_ID_COLUMN)) # update text area and update file (extract_cleaned_text automatically updates the file after extraction)
+    # update text area and update file (extract_cleaned_text automatically updates the file after extraction)
+    STATE.cleaned_text = extract_cleaned_text(task.get(TASKS_ID_COLUMN)) 
 
 def copy_raw_text():
     """
@@ -166,8 +169,10 @@ def copy_raw_text():
         None
     """
 
-    STATE.cleaned_text = STATE.raw_text_area # update text area
-    update_cleaned_text(task.get(TASKS_ID_COLUMN), STATE.cleaned_text) # update file
+    # update text area
+    STATE.cleaned_text = STATE.raw_text_area 
+    # update file
+    update_cleaned_text(task.get(TASKS_ID_COLUMN), STATE.cleaned_text) 
 
 def update_annotations():
     """
@@ -184,17 +189,20 @@ def update_annotations():
 
 def find_next_unannotated_task():
     """
-    Advance to the next unannotated task. Wraps around if the end of the list is reached to look for unannotated tasks at the beginning of the list.
+    Find the next unannotated task.
+
+    This function goes through all the tasks after the current one and tries to find the next task that has not been annotated yet.
+    If no such task is found, it goes through all the tasks before the current one and tries to find the next task that has not been annotated yet.
     Does not change the current task if all tasks have been annotated.
 
     Args:
         None
-    
+
     Returns:
         None
     """
 
-    # update the annotations for the current task
+    # update the annotations for the current task    
     update_annotations()
 
     # find the next task that has not been annotated yet
@@ -334,14 +342,18 @@ else:
             "You reached the end of the list!", icon="🚨")
 
     if not validators.url(task_url):
-        st.error(f"Invalid URL! :worried: Please check that the URLs in your file are well formed. The scheme (http:// or https://) is required.")
+        st.error(f"Invalid URL! :worried: Please check that the URLs in your file are well formed."
+                 " The scheme (http:// or https://) is required.")
         st.error(f'**URL**: {task_url[:500]}')
 
     else:
         fancy_url = highlight_url(exploded_url, 400)
-
-        links = f'**:link: [Open link]({task_url})** | **[Open archive.org link](https://web.archive.org/web/{task_url})** | **[Open saved version](/html?task_id={STATE.task_id})**'
-        
+        archive_url = f'https://web.archive.org/web/{task_url}'
+        links = (
+            f'**:link: [Open link]({task_url})** | '
+            f'**[Open archive.org link]({archive_url})** | '
+            f'**[Open saved version](/html?task_id={STATE.task_id})**'
+        )        
         st.info(f"[{fancy_url}]({task_url}) \n\n {links}")
 
     # Tabs
@@ -358,9 +370,11 @@ else:
                 display_cleaned_content()
                 col1, col2 = st.columns([1,1])
                 with col1:
-                    st.button("Reset Clean Text", key="reset_cleaned_text", use_container_width=True, on_click=reset_cleaned_text)
+                    st.button("Reset Clean Text", key="reset_cleaned_text", 
+                              use_container_width=True, on_click=reset_cleaned_text)
                 with col2:
-                    st.button("Copy Raw Text", key="copy_raw_text", use_container_width=True, on_click=copy_raw_text)
+                    st.button("Copy Raw Text", key="copy_raw_text", 
+                              use_container_width=True, on_click=copy_raw_text)
             with raw_text:
                 display_raw_content()
 
@@ -386,7 +400,8 @@ else:
         else:
             STATE.selected_labels = []
         
-        st.markdown(f"<div style='text-align: center'>(Task {STATE.task_id + 1} out of {len(STATE.tasks)})</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='text-align: center'>(Task {STATE.task_id + 1} out of {len(STATE.tasks)})</div>", 
+                    unsafe_allow_html=True)
 
         st.number_input(
             "Task number",
@@ -424,7 +439,8 @@ else:
             STATE.current_comment = ""
             STATE.current_labels = []
         
-        st.checkbox("Auto-advance", key="auto_advance", value=False,  help="Automatically advance to the next task after selecting a tag.")
+        st.checkbox("Auto-advance", key="auto_advance", value=False,  
+                    help="Automatically advance to the next task after selecting a tag.")
 
         # create the streamlit columns
         col1, col2 = st.columns(2)
@@ -455,18 +471,16 @@ else:
     
         with st.expander("Keyboard shortcuts"):
 
+            # message
             st.caption("Disabled if keyboard focus is on a text area field.")
             
+            # navigation section
             st.markdown("_Navigation:_")
+            st.markdown(key("w | . | + | ] | Enter", write=False) + " Next", unsafe_allow_html=True)
+            st.markdown(key("q | , | - | [ | Backspace", write=False) + " Previous", unsafe_allow_html=True)
+            st.markdown(key("F | f | =", write=False) + " Find next incomplete task", unsafe_allow_html=True)
 
-            st.markdown(key("w | . | + | ] | Enter", write=False) +
-                        " Next", unsafe_allow_html=True)
-            st.markdown(key("q | , | - | [ | Backspace", write=False) +
-                        " Previous", unsafe_allow_html=True)
-
-            st.markdown(key("F | f | =", write=False) +
-                        " Find next incomplete task", unsafe_allow_html=True)
-
+            # annotation section
             st.markdown("_Tag Selection:_")
 
             # create two streamlit columns
@@ -484,7 +498,8 @@ else:
                     st.markdown(key(str(number + 1)[-1], write=False) +
                                 f" {label}", unsafe_allow_html=True)
 
-        st.download_button( "Download Annotations", download_annotations(), "annotations.csv", mime="text/csv", key="download_annotations", use_container_width=True)
+        st.download_button( "Download Annotations", download_annotations(), "annotations.csv", 
+                           mime="text/csv", key="download_annotations", use_container_width=True)
 
 
 # ------------------------------------------------------------------------------
