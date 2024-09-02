@@ -320,6 +320,62 @@ def truncate_string(string: str, n=100):
     # otherwise truncate
     return string[:n] + '...'
 
+
+def highlight_substring(substring: str, string: str):
+    """
+    Highlights the substring part of a given string
+
+    Args:
+        substring (str): The substring to highlight
+        string (str): The string containing the substring
+    
+    Returns:
+        str: The highlighted string
+    """
+    
+    # if the substring is not part of the string, return the string
+    if substring not in string or substring == "":
+        return html.escape(string)
+
+    # get the index of the substring in the string
+    start = string.index(substring)
+    end = start + len(substring)
+
+    # make the substring html safe
+    substring = html.escape(substring)
+
+    # return the highlighted string
+    return f'{html.escape(string[:start])}<strong>{substring}</strong>{html.escape(string[end:])}'
+
+
+def highlight_query_param(param: str, query: str):
+    """
+    Highlights the values of a given parameter in a query string
+
+    Args:
+        param (str): The parameter whose values to highlight
+        query (str): The query string
+    
+    Returns:
+        str: The query string with highlighted values
+    """
+    
+    # Define a regex pattern to find the parameter and its value
+    pattern = re.compile(r'({}=)([^&]*)'.format(re.escape(param)))
+    
+    # Function to replace the matched value with highlighted value
+    def replace_func(match):
+        key = match.group(1)
+        value = match.group(2)
+        highlighted_value = f'<strong>{html.escape(value)}</strong>'
+        return f'{key}{highlighted_value}'
+    
+    # Use re.sub to replace all occurrences of the parameter's value
+    highlighted_query = pattern.sub(replace_func, query)
+    
+    return highlighted_query
+
+
 def highlight_url(exploded_url: str, n=0):
     """
     Highlights the *"main part"* of a given url (meaning the fqdn and path) and truncates it to a maximum length of n characters
@@ -338,26 +394,24 @@ def highlight_url(exploded_url: str, n=0):
         _query = f'?{exploded_url["query"]}'
 
     # format
-    pre_bold = f'{exploded_url["scheme"]}://'
-    bold = f'{exploded_url["fqdn"]}{exploded_url["path"]}'
-    post_bold = f'{_query}'
-        
-    # truncate url
-    truncated = truncate_string(pre_bold + bold + post_bold, n)
+    scheme = f'{exploded_url["scheme"]}://'
+    fqdn = highlight_substring(exploded_url["hostname"], exploded_url["fqdn"])
+    path = highlight_substring(exploded_url["title"], exploded_url["path"])
+    fragment = exploded_url["fragment"]
 
-    # bolderize fqdn and path while preserving truncation
-    pre_bold_end = len(pre_bold)
-    post_bold_start = len(pre_bold + bold)
 
-    # if the truncation happens before the bolderized part, return the truncated string
-    if pre_bold_end >= len(truncated):
-        return truncated
+    query = exploded_url["query"]
+
+    for param in URL_QUERY_PARAMS:
+        query = highlight_query_param(param, query)
+
+    # add ? if query is not empty
+    if query:
+        query = f'?{query}'
+
+    if fragment:
+        fragment = f'#{fragment}'
     
-    # make truncated html safe
-    chunks = [truncated[:pre_bold_end], truncated[pre_bold_end:post_bold_start], truncated[post_bold_start:]]
-
-    # escape html
-    chunks = [html.escape(chunk) for chunk in chunks]
 
     # return the highlighted url
-    return f'{chunks[0]}<strong>{chunks[1]}</strong>{chunks[2]}'
+    return f'{scheme}{fqdn}{path}{query}{fragment}'
