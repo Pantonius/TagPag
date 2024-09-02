@@ -397,18 +397,19 @@ def highlight_url(exploded_url: str, n=0):
     scheme = f'{exploded_url["scheme"]}://'
     fqdn = highlight_substring(exploded_url["hostname"], exploded_url["fqdn"])
     path = highlight_substring(exploded_url["title"], exploded_url["path"])
-    fragment = exploded_url["fragment"]
-
-
     query = exploded_url["query"]
 
-    for param in URL_QUERY_PARAMS:
-        query = highlight_query_param(param, query)
+    if exploded_url["search_terms"]:
+        for param in URL_QUERY_PARAMS:
+            query = highlight_query_param(param, query)
+    else:
+        query = html.escape(query)
 
     # add ? if query is not empty
     if query:
         query = f'?{query}'
 
+    fragment = html.escape(exploded_url["fragment"])
     if fragment:
         fragment = f'#{fragment}'
     
