@@ -99,16 +99,15 @@ def extract_url_title(results):
         
         # remove the navigation related steps
         not_nav_dashed_steps = [
-            stripped for s in dashed_steps if s not in NOT_SEO_TITLES
+            s for s in dashed_steps if s not in NOT_SEO_TITLES
 
             # this is done in the loop to make sure that the stripped is not empty
-            and (stripped := s.replace('-', ' ').replace('_', ' ').strip())
+            and (s.replace('-', ' ').replace('_', ' ').strip())
         ]
 
         # if there are more than one step, then select the largest one (separated by dashes)
         if (len(not_nav_dashed_steps) > 0):
             title = max(not_nav_dashed_steps, key=len)
-
 
     # if not title is selected, then select the last set of the path    
     if title == '' and len(steps) > 0:
