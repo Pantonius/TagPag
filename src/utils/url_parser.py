@@ -6,47 +6,9 @@ import tldextract
 
 from utils.config import *
 
-# Define the mapping dictionary
-# umlauts_map = {'Ä': 'AE', 'Ö': 'OE', 'Ü': 'UE', 'ß': 'ss', 'ä': 'ae', 'ö': 'oe', 'ü': 'ue'}
-umlauts_map = {'ß': 'ss', 'ä': 'ae', 'ö': 'oe', 'ü': 'ue'}
-
 # Create a translation table
-umlaut_trans_table = str.maketrans(umlauts_map)
+special_map_table = str.maketrans(SPECIAL_CHARACTER_MAP)
 
-# this are commonly found steps in the paths (or giberish)
-set_dashed_generic = set([
-    'cgi-bin','fast-cgi', 'auth-ui', 'consent-management', 'openid-connect',
-    'de-de', 'en-us', 'wba-ui', 'websso-prod', 
-])
-
-# this are paths that simply suggest a search or account
-set_dashed_search_or_account = set([
-    'meine-besucher', 'meine-huk', 'paypal-aktie', 'meine-allianz',
-    'search_results', 'search-results', 'login-actions', 'login-callback',
-    'your-account', 'order-history', 'deutsch-englisch'
-]) | set_dashed_generic
-
-
-# this are commonly found steps in the paths
-set_navigation_related_steps = set([
-    'tv-sender', 'live-tv', 'tv-programm', 'streamen-tv', 'tv-programm-live-stream', 'alle-kategorien',
-])
-
-# neither the fake paths nor the category related steps should be considered as titles
-set_not_dashed_titles = set_dashed_search_or_account | set_navigation_related_steps
-
-# these are ceratinly not titles
-set_not_one_word_titles = set(['search', 'watch', '', 'results', 'web', 'result', 'scholar', 'url', 
-                               'dsearch', 'zustimmung', 'index', 'live', 'suche', 'suchergebnisse',
-                               'home', 'top', 'default', 'welcome', 'homepage', 'main', 'start',
-                               'surveys', 'viwweb', 'login'])
-
-
-# commong extension endings in the slug
-common_extension = set(['html','htm', 'pdf', 'php', 'aspx'])
-
-# number of characters to consider in the token extraction
-nb_chars = 2
 
 # extract the search terms
 def extract_search_terms(parameters):
@@ -80,9 +42,9 @@ def extract_steps(path):
 
     if path == '' or path == '/':
         return []
-
+    
     # ignore extensions
-    if (path_split := path.rsplit('.', 1))[-1] in common_extension:
+    if (path_split := path.rsplit('.', 1))[-1] in COMMON_EXTENSIONS:
         path = path_split[0]
     
     # split the path by slashes, and remove the first which is empty
@@ -107,7 +69,7 @@ def extract_dashed_steps(steps):
         return [
             s for s in reversed(steps) 
             if ('-' in s or '_' in s) 
-            and s not in set_dashed_search_or_account 
+            and s not in NOT_SEO_TITLES 
         ]
 
 def extract_url_title(results):
@@ -137,7 +99,7 @@ def extract_url_title(results):
         
         # remove the navigation related steps
         not_nav_dashed_steps = [
-            stripped for s in dashed_steps if s not in set_navigation_related_steps
+            stripped for s in dashed_steps if s not in NOT_SEO_TITLES
 
             # this is done in the loop to make sure that the stripped is not empty
             and (stripped := s.replace('-', ' ').replace('_', ' ').strip())
@@ -150,7 +112,7 @@ def extract_url_title(results):
 
     # if not title is selected, then select the last set of the path    
     if title == '' and len(steps) > 0:
-        if steps[-1] not in set_not_dashed_titles and steps[-1] not in set_not_one_word_titles:
+        if steps[-1] not in NOT_SEO_TITLES and steps[-1] != '':
             title = steps[-1]
 
     return title
@@ -214,7 +176,7 @@ def explode_url(url: str) -> dict:
 
 
     # lower case the url
-    url = unquote(url).lower().translate(umlaut_trans_table)
+    url = unquote(url).lower().translate(special_map_table)
 
     results = {}
     # https://github.com/john-kurkowski/tldextract

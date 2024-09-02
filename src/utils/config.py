@@ -2,6 +2,8 @@ import streamlit as st
 import os
 import json
 import shutil
+import warnings
+
 from dotenv import load_dotenv
 from os.path import join
 
@@ -68,6 +70,53 @@ def create_directories():
         if not os.path.exists(directory):
             os.makedirs(directory)
 
+def get_env_set(var_name, default_value):
+    """
+    Retrieves an environment variable and returns its value as a set.
+
+    Args:
+        var_name (str): The name of the environment variable to retrieve.
+        default_value (set): The default value to return if the environment variable is not set or cannot be parsed.
+
+    Returns:
+        set: The value of the environment variable as a set, or the default value if an error occurs.
+
+    Notes:
+        The environment variable is expected to be a comma-separated list of values.
+        If an error occurs while parsing the environment variable, a warning is raised and the default value is returned.
+    """
+
+    try:
+        return set(os.getenv(var_name, "").split(","))
+    except Exception as e:
+        warnings.warn(f"Error parsing {var_name}: {e}. Using default value ({default_value}). See .env-example for more information.")
+        return default_value
+
+def get_env_dict(var_name, default_value):
+    """
+    Retrieves an environment variable and returns its value as a dictionary.
+
+    Args:
+        var_name (str): The name of the environment variable to retrieve.
+        default_value (dict): The default value to return if the environment variable is not set or cannot be parsed.
+
+    Returns:
+        dict: The value of the environment variable as a dictionary, or the default value if an error occurs.
+
+    Notes:
+        The environment variable is expected to be a JSON-formatted string.
+        If an error occurs while parsing the environment variable, a warning is raised and the default value is returned.
+    """
+
+    try:
+        return json.loads(os.getenv(var_name, "{}"))
+    except json.JSONDecodeError as e:
+        warnings.warn(f"Error parsing {var_name}: {e}. Using default value ({default_value}). See .env-example for more information.")
+        return default_value
+    except Exception as e:
+        warnings.warn(f"Unexpected error parsing {var_name}: {e}. Using default value ({default_value}). See .env-example for more information.")
+        return default_value
+
 
 load_environment()
 
@@ -87,6 +136,10 @@ HTML_DIR = join(WORKING_DIR, os.getenv('HTML_DIR', 'html'))
 LABELS = os.getenv("LABELS", "").split(",")
 
 # set the URL query parameters
-URL_QUERY_PARAMS = set(os.getenv("URL_QUERY_PARAMS", "").split(","))
+URL_QUERY_PARAMS = get_env_set("URL_QUERY_PARAMS", set())
+NOT_SEO_TITLES = get_env_set("NOT_SEO_TITLES", set())
+COMMON_EXTENSIONS = get_env_set("COMMON_EXTENSIONS", set())
+SPECIAL_CHARACTER_MAP = get_env_dict("SPECIAL_CHARACTER_MAP", {})
 
+# making a global variable for the session state
 STATE = st.session_state
