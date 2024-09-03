@@ -1,0 +1,8 @@
+services:
+  inara:
+    image: openjournals/inara
+    volumes:
+      - ./paper:/data
+    environment:
+      - JOURNAL=joss
+
