@@ -2,7 +2,6 @@ services:
   inara:
     image: openjournals/inara
     volumes:
-      - ./paper:/data
+      - .:/data
     environment:
       - JOURNAL=joss
-
