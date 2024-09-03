@@ -7,6 +7,8 @@ from utils.db import load_annotations, load_annotation, save_annotation
 from selectolax.parser import HTMLParser
 from trafilatura import extract
 
+from utils.url_parser import explode_url
+
 
 def init():
     """
@@ -376,20 +378,25 @@ def highlight_query_param(param: str, query: str):
     return highlighted_query
 
 
-def highlight_url(exploded_url: str, n=0):
+def highlight_url(exploded_url: dict | str, n=0):
     """
     Highlights the *"main part"* of a given url (meaning the fqdn and path) and truncates it to a maximum length of n characters
 
     Args:
-        exploded_url (str): The exploded version of the url to make fancy
+        exploded_url (dict | str): The exploded version of the url to make fancy (dict) or the plain text url (str)
         n (int): The maximum length of the string. No truncation if set to 0. (Default: 0)
     
     Returns:
         str: The highlighted string
     """
 
+    # ensure that the exploded_url is indeed exploded (check for string)
+    if isinstance(exploded_url, str):
+        exploded_url = explode_url(exploded_url)
+
     # format query
     _query = ""
+
     if exploded_url["query"]:
         _query = f'?{exploded_url["query"]}'
 
