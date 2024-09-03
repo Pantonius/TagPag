@@ -1,0 +1,18 @@
+# Testing
+Testing is accomplished via [pytest](https://docs.pytest.org/en/stable/index.html). For more detailed information refer to the [pytest documentation](https://docs.pytest.org/en/stable/index.html).
+
+## Test Location
+Currently all tests are located in `src/tests`.
+
+## Running Tests
+To start a complete testing run, simply run `pytest` in the project directory:
+```sh
+pytest
+```
+
+Pytest will look for files that match `*_test.py` or `test_*.py` when searching for tests.
+
+More detailed information about invoking pytest in the pytest docs: _["How to invoke pytest"](https://docs.pytest.org/en/stable/how-to/usage.html)_
+
+## Writing Tests
+When adding to this project you will want to ensure proper functionality by writing your own tests.
