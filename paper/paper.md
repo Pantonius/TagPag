@@ -35,10 +35,9 @@ Tag-Pag allows for configuring web pages and labels, integrating libraries to ex
 
 # Statement of need
 
-
 The annotation of web data is increasingly common across multiple disciplines, serving purposes such as analyzing online behavioral patterns [@stier_populist_2020; @guess_almost_2021; @ulloa_search_2023, @flaxman_filter_2016], auditing the performance of online platforms [@makhortykh_how_2020], or training and evaluating machine learning classifiers [@schelb_assessing_2024]. As researchers collect vast amounts of web data, the need for systematic and efficient tools to annotate and categorize this content becomes critical.
 
-Existing tools often focus on annotating specific text sections within a webpage [REFERENCE], where the user selects a portion of text and assigns a label. However, these tools fall short when the goal is to annotate entire pages to determine, for example, if the content corresponds to very specific topics [@schelb_assessing_2024], misinformation [@urman_where_2022], or, more broadly, political content [@stier_populist_2020; @guess_almost_2021], news articles [flaxman_filter_2016; @ulloa_search_2023] or pages that restrict access such as logins [@dahlke_quantifying_2023]. Tag-Pag addresses this gap by allowing broad-level annotations of entire web pages, offering a dedicated solution for a straightforward need that integrates previous research experiences.
+Existing tools often focus on annotating specific sections within a text [@rampin_taguette_2021; @meister_tact_2023; huang_rqda_2016], where the user selects a portion of text and assigns a label or establishes connections between parts of speech [@strippel_brat_2022].These tools fall short when the goal is to annotate entire pages to determine, for example, if the content corresponds to very specific topics [@schelb_assessing_2024], misinformation [@urman_where_2022], or, more broadly, political content [@stier_populist_2020; @guess_almost_2021], news articles [flaxman_filter_2016; @ulloa_search_2023] or pages that restrict access such as logins [@dahlke_quantifying_2023]. Tag-Pag addresses this gap by allowing broad-level annotations of entire web pages, offering a dedicated solution for a straightforward need that integrates previous research experiences.
 
 Researchers typically obtain web content by scraping it from dedicated servers. Despite its limitations related to the use of external environments that do not reflect individuals' computers [@ulloa_insitu_2024] and changes due to time delays in the scraping [@ulloa_insitu_2024; @dahlke_quantifying_2023], we argue that systematically scraping the content is the best alternative as it can be done closest to the time in which the individual visited the content and the delays can be uniformly distributed across visits by ensuring consistency. Recently, new tracking tools that collect content directly from an individual's browser have emerged [e.g., @adam_improving_2024], strengthening the argument of prioritizing systematically collected data for annotation purposes instead of encouraging the annotators to gather the content by their means (i.e., visiting the URLs using their browsers).
 
@@ -49,11 +48,6 @@ Tag-Pag integrates the authors' previous experiences with webpage annotations in
 Additionally, Tag-Pag includes functionality designed to speed up the annotation process: it is flexible and easy to configure, allows keybindings for rapid label assignment, supports automatic transitions for single-label annotations, and includes features to locate unannotated pages efficiently. The tool also supports multiple annotators, with the functionality to hide their annotations and randomize the tasks' order to avoid priming effects [@flaxman_filter_2016; @shen; @mathur]. Comments and annotations can be easily exported to CSV, ensuring compatibility with further steps of the analysis pipeline.
 
 By integrating these features, Tag-Pag offers a systematic, efficient, and user-friendly approach to web page annotation, addressing the needs of researchers across various disciplines.
-
-<!-- 
-priming1 and priming2
-https://ieeexplore.ieee.org/abstract/document/8925466
--->
 
 # Citations
 
