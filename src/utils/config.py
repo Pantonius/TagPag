@@ -122,9 +122,7 @@ load_environment()
 
 # Get the environment variables
 ANNOTATOR = os.getenv("ANNOTATOR", "default")
-RANDOM_SEED = os.getenv("RANDOM_SEED", 'None')
-if RANDOM_SEED == 'None': RANDOM_SEED = -1
-else: RANDOM_SEED = int(RANDOM_SEED)
+RANDOM_SEED = int(os.getenv("RANDOM_SEED", '-1')) if os.getenv("RANDOM_SEED", 'None') != 'None' else -1
 
 TASKS_ID_COLUMN = os.getenv("TASKS_ID_COLUMN", '_id')
 TASKS_URL_COLUMN = os.getenv("TASKS_URL_COLUMN", 'url')
