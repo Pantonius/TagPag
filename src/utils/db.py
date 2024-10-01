@@ -65,7 +65,9 @@ def load_annotation(task_id: str, annotator_id: str):
     else:
         return {
             'labels': [],
-            'comment': ""
+            'comment': "",
+            'random_seed': None,
+            'random_order': None
         }
 
 def save_annotation(task_id: str, annotator_id: str, new_annotations: dict):

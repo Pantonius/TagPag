@@ -114,7 +114,7 @@ def update_task_annotations(annotator_id: str, task: dict, labels: list[str], co
         annotation['comment'] = comment
 
         # add random_seed column
-        annotation['random_seed'] = RANDOM_SEED
+        annotation['random_seed'] = RANDOM_SEED if RANDOM_SEED >= 0 else None
 
         # add the order in which the task was annotated
         annotation['random_order'] = task.get('order')
