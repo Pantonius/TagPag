@@ -90,6 +90,7 @@ A more detailed guide to setting up the project can be found in the [doc folder]
 1. [Installation](doc/01-INSTALLATION.md)
 2. [Configuration](doc/02-CONFIGURATION.md)
 3. [Usage](doc/03-USAGE.md)
+4. [Testing](doc/04-TESTING.md)
 
 ## Additional Resources
 For more information on how to use Streamlit, refer to the [Streamlit Documentation](https://docs.streamlit.io/library/api-reference).
