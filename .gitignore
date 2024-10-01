@@ -1,3 +1,11 @@
+data/
+workdir/
+
+example_workdir/raw_text/
+example_workdir/cleaned_text/
+example_workdir/annotations/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -35,6 +43,9 @@ MANIFEST
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
+
+# VS Code stuff
+.VSCodeCounter/
 
 # Unit test / coverage reports
 htmlcov/
