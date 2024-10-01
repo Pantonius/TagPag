@@ -1,5 +1,5 @@
 # Configuration
-The entire configuration of the annotation interface is done via a `.env` file in the root directory of the project. See the [.env-example](../.env-example) for an example configuration.
+The configuration of the annotation interface is done via a `.env` file in the root directory of the project. See the [.env-example](../.env-example) for an example configuration.
 
 You may skip this section if you only want to play around with the interface. **If no `.env` file is specified, the [.env-example](../.env-example) is copied into a new `.env` file such that the [example data](../example_workdir) is used.**
 
@@ -27,7 +27,7 @@ When you take a look into the [.env-example](../.env-example), you will find the
 | `COMMON_EXTENSIONS`   | A list of common file extensions found in slugs (URL segments) that should be recognized and handled.                                                                                | `html,htm,pdf,php,aspx,asp,php` |
 
 ## File Structure
-As you can see from the [environment variables](02-CONFIGURATION#L4), the file structure corresponds to:
+As you can see from the [environment variables](02-CONFIGURATION#environment-variables), the file structure corresponds to:
 
 ```
 WORKING_DIR
@@ -47,9 +47,9 @@ Let's make a configuration for the example data in the [example_workdir](../exam
 
 1. Copy the `.env-example` into the same directory that it currently resides in and rename it to `.env`
 
-2. You will notice that the `.env-example` already includes all [environment variables](02-CONFIGURATION#L4) that we have described previously.
+2. You will notice that the `.env-example` already includes all [environment variables](02-CONFIGURATION#environment-variables) that we have described previously.
 
-3. You will notice that the `example_workdir` already includes a file called `tasks.csv` and an accompanying directory called `html` -- these correspond to the `TASKS_FILE` and `HTML_DIR` [environment variables](02-CONFIGURATION#L4) respectively. `example_workdir` corresponds to `WORKING_DIR`.
+3. You will notice that the `example_workdir` already includes a file called `tasks.csv` and an accompanying directory called `html` -- these correspond to the `TASKS_FILE` and `HTML_DIR` [environment variables](02-CONFIGURATION#environment-variables) respectively. `example_workdir` corresponds to `WORKING_DIR`.
 
     ```
     WORKING_DIR/
@@ -63,6 +63,6 @@ Let's make a configuration for the example data in the [example_workdir](../exam
     └── html
     ```
 
-4. Feel free to adapt any of the preset [environment variables](02-CONFIGURATION#L4) to your liking. Keep in mind: `TASKS_FILE` and `HTML_DIR` have to be in the `WORKING_DIR`.
+4. Feel free to adapt any of the preset [environment variables](02-CONFIGURATION#environment-variables) to your liking. Keep in mind: `TASKS_FILE` and `HTML_DIR` have to be in the `WORKING_DIR`.
 
 5. Move on to [03-USAGE.md](03-USAGE.md) to start the application and play around with the example data.

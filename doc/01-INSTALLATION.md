@@ -8,9 +8,8 @@ cd seek2judge-annotations
 ```
 
 ## Virtual Environment
-As you may know: It is best practice to run python applications in their own environments such that dependencies of different projects don't interfere with each other.
 
-An easy way to create such python environments is `pyenv`:
+It is best practice to run python applications in their own environments such that dependencies of different projects don't interfere with each other. An easy way to create such python environments is `pyenv`:
 
 1. Install `pyenv` by following the instructions in the [official documentation](https://github.com/pyenv/pyenv#installation).
 
