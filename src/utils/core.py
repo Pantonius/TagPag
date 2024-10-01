@@ -58,6 +58,11 @@ def load_annotator_tasks(annotator_id: str ):
     # only show the annotator's annotations
     tasks['annotations'] = tasks['annotations'].apply(lambda x: x.get(annotator_id) if x is not None else None)
 
+    # randomize with randomization seed (-1 means no randomization)
+    if RANDOM_SEED >= 0:
+        # randomize
+        tasks = tasks.sample(frac=1, random_state=RANDOM_SEED);
+
     # turn into dict
     tasks = tasks.to_dict(orient='records')
 
