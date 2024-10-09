@@ -121,6 +121,12 @@ def get_env_dict(var_name, default_value):
 load_environment()
 
 # Get the environment variables
+ANNOTATOR = os.getenv("ANNOTATOR", "annotator_name")
+RANDOM_SEED = int(os.getenv("RANDOM_SEED", '-1')) if os.getenv("RANDOM_SEED", 'None') != 'None' else -1
+
+## clip the random seed to -1 if it is less than 0
+RANDOM_SEED = RANDOM_SEED if RANDOM_SEED >= 0 else -1
+
 TASKS_ID_COLUMN = os.getenv("TASKS_ID_COLUMN", '_id')
 TASKS_URL_COLUMN = os.getenv("TASKS_URL_COLUMN", 'url')
 

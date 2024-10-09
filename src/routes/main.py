@@ -43,7 +43,7 @@ params = st.query_params
 
 # Set annotator ID if ANNOTATOR is not set
 if 'annotator_id' not in STATE:
-    STATE.annotator_id = os.getenv("ANNOTATOR")
+    STATE.annotator_id = ANNOTATOR
 
 # Show first webpage by default
 if 'task_id' not in STATE:

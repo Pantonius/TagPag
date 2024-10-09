@@ -60,6 +60,14 @@ def load_annotator_tasks(annotator_id: str ):
     # only show the annotator's annotations
     tasks['annotations'] = tasks['annotations'].apply(lambda x: x.get(annotator_id) if x is not None else None)
 
+    # randomize with randomization seed (-1 means no randomization)
+    if RANDOM_SEED >= 0:
+        # randomize
+        tasks = tasks.sample(frac=1, random_state=RANDOM_SEED);
+
+    # add order field to tasks -- this is the order in which the tasks will be displayed to the annotator (1-indexed)
+    tasks['order'] = range(1, len(tasks) + 1)
+
     # turn into dict
     tasks = tasks.to_dict(orient='records')
 
@@ -107,6 +115,12 @@ def update_task_annotations(annotator_id: str, task: dict, labels: list[str], co
         # add the comment to the annotation
         annotation['comment'] = comment
 
+        # add random_seed column
+        annotation['random_seed'] = RANDOM_SEED if RANDOM_SEED >= 0 else None
+
+        # add the order in which the task was annotated
+        annotation['task_order'] = task.get('order')
+
         save_annotation(task.get(TASKS_ID_COLUMN), annotator_id, annotation)
 
     except (KeyError, TypeError) as e:
@@ -143,24 +157,30 @@ def download_annotations():
                 'task_id': task_id
             }
 
-            # for each annotator, add the labels and comment
+            # for each annotator, add the labels, comment and order
             for annotator_id, annotation in task_annotations.items():
                 labels = None
                 comment = ""
+                random_seed = RANDOM_SEED
+                task_order = None
 
                 if annotation is not None:
                     labels = annotation.get('labels')
                     comment = annotation.get('comment')
+                    random_seed = annotation.get('random_seed')
+                    task_order = annotation.get('task_order')
 
                 if labels == []:
                     labels = None
 
                 task_annotations_composite[f'{annotator_id}_labels'] = labels
                 task_annotations_composite[f'{annotator_id}_comment'] = comment
-            
+                task_annotations_composite[f'{annotator_id}_order'] = task_order
+                task_annotations_composite[f'{annotator_id}_random_seed'] = random_seed
+
             # update the task annotations to be the composite
             task_annotations = task_annotations_composite
-
+        
         # url should be the last column
         task_annotations['url'] = url
 
