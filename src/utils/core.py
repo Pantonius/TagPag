@@ -117,7 +117,7 @@ def update_task_annotations(annotator_id: str, task: dict, labels: list[str], co
         annotation['random_seed'] = RANDOM_SEED if RANDOM_SEED >= 0 else None
 
         # add the order in which the task was annotated
-        annotation['random_order'] = task.get('order')
+        annotation['task_order'] = task.get('order')
 
         save_annotation(task.get(TASKS_ID_COLUMN), annotator_id, annotation)
 
@@ -160,20 +160,20 @@ def download_annotations():
                 labels = None
                 comment = ""
                 random_seed = RANDOM_SEED
-                random_order = None
+                task_order = None
 
                 if annotation is not None:
                     labels = annotation.get('labels')
                     comment = annotation.get('comment')
                     random_seed = annotation.get('random_seed')
-                    random_order = annotation.get('random_order')
+                    task_order = annotation.get('task_order')
 
                 if labels == []:
                     labels = None
 
                 task_annotations_composite[f'{annotator_id}_labels'] = labels
                 task_annotations_composite[f'{annotator_id}_comment'] = comment
-                task_annotations_composite[f'{annotator_id}_order'] = random_order
+                task_annotations_composite[f'{annotator_id}_order'] = task_order
                 task_annotations_composite[f'{annotator_id}_random_seed'] = random_seed
 
             # update the task annotations to be the composite
