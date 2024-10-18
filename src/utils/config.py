@@ -21,12 +21,17 @@ def load_environment():
     """
     global loaded
     if not loaded:
-        # if .env does not exist, load 
-        if not os.path.exists('.env'):
-            # copy .env-example to .env using shutil
-            shutil.copyfile('.env-example', '.env')
+        try:
+            # Use the ENV_FILE variable
+            load_dotenv(ENV_FILE)
+        except:
+            # if .env does not exist, load 
+            if not os.path.exists('.env'):
+                # copy .env-example to .env using shutil
+                shutil.copyfile('.env-example', '.env')
 
-        load_dotenv()
+            load_dotenv()
+        
         loaded = True
 
 
