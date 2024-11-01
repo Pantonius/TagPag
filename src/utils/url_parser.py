@@ -6,8 +6,11 @@ import tldextract
 
 from utils.config import *
 
+# Get the special character map
+env = load_environment_variables()
+
 # Create a translation table
-special_map_table = str.maketrans(SPECIAL_CHARACTER_MAP)
+special_map_table = str.maketrans(env.SPECIAL_CHARACTER_MAP)
 
 
 # extract the search terms
@@ -26,7 +29,7 @@ def extract_search_terms(parameters):
         The extracted search terms, or an empty string if none were found.
     """
 
-    search_terms = ' '.join(v.strip() for k, v in parameters.items() if k in URL_QUERY_PARAMS) 
+    search_terms = ' '.join(v.strip() for k, v in parameters.items() if k in env.URL_QUERY_PARAMS) 
     if search_terms is None or search_terms == '' or search_terms.isdigit():
         return ''
     return search_terms 
@@ -44,7 +47,7 @@ def extract_steps(path):
         return []
     
     # ignore extensions
-    if (path_split := path.rsplit('.', 1))[-1] in COMMON_EXTENSIONS:
+    if (path_split := path.rsplit('.', 1))[-1] in env.COMMON_EXTENSIONS:
         path = path_split[0]
     
     # split the path by slashes, and remove the first which is empty
@@ -69,7 +72,7 @@ def extract_dashed_steps(steps):
         return [
             s for s in reversed(steps) 
             if ('-' in s or '_' in s) 
-            and s not in NOT_SEO_TITLES 
+            and s not in env.NOT_SEO_TITLES 
         ]
 
 def extract_url_title(results):
@@ -99,7 +102,7 @@ def extract_url_title(results):
         
         # remove the navigation related steps
         not_nav_dashed_steps = [
-            s for s in dashed_steps if s not in NOT_SEO_TITLES
+            s for s in dashed_steps if s not in env.NOT_SEO_TITLES
 
             # this is done in the loop to make sure that the stripped is not empty
             and (s.replace('-', ' ').replace('_', ' ').strip())
@@ -111,7 +114,7 @@ def extract_url_title(results):
 
     # if not title is selected, then select the last set of the path    
     if title == '' and len(steps) > 0:
-        if steps[-1] not in NOT_SEO_TITLES and steps[-1] != '':
+        if steps[-1] not in env.NOT_SEO_TITLES and steps[-1] != '':
             title = steps[-1]
 
     return title

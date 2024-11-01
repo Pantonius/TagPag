@@ -2,9 +2,11 @@ import sqlite3
 import json
 from utils.config import *
 
+config = Config()
+
 def initialize_db():
     """Initialize the SQLite database and create the annotations table if it doesn't exist."""
-    conn = sqlite3.connect(ANNOTATIONS_DB)
+    conn = sqlite3.connect(config.ANNOTATIONS_DB)
     c = conn.cursor()
     c.execute('''
         CREATE TABLE IF NOT EXISTS annotations (
@@ -27,7 +29,7 @@ def load_annotations(task_id: str):
     Returns:
         dict | None: The annotations made by all annotators for the task. (may be None if no annotations exist)
     """
-    conn = sqlite3.connect(ANNOTATIONS_DB)
+    conn = sqlite3.connect(config.ANNOTATIONS_DB)
     c = conn.cursor()
     c.execute('SELECT annotator_id, annotations FROM annotations WHERE task_id = ?', (task_id,))
     rows = c.fetchall()
@@ -54,7 +56,7 @@ def load_annotation(task_id: str, annotator_id: str):
     Returns:
         dict: The annotations made by the annotator for the task.
     """
-    conn = sqlite3.connect(ANNOTATIONS_DB)
+    conn = sqlite3.connect(config.ANNOTATIONS_DB)
     c = conn.cursor()
     c.execute('SELECT annotations FROM annotations WHERE task_id = ? AND annotator_id = ?', (task_id, annotator_id))
     row = c.fetchone()
@@ -82,7 +84,7 @@ def save_annotation(task_id: str, annotator_id: str, new_annotations: dict):
     Returns:
         None
     """
-    conn = sqlite3.connect(ANNOTATIONS_DB)
+    conn = sqlite3.connect(config.ANNOTATIONS_DB)
     c = conn.cursor()
 
     annotations_json = json.dumps(new_annotations)
