@@ -2,7 +2,6 @@ from utils.db import initialize_db, load_annotations, load_annotation, save_anno
 from utils.config import *
 import os
 import sqlite3
-import json
 
 load_environment('.env-test', force=True)
 config = Config()
