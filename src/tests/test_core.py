@@ -103,12 +103,26 @@ def test_download_annotations():
     assert "task_id,url" in csv_content
 
 def test_get_page_content():
-    # Mock the config and file reading
-    config.HTML_DIR = "/path/to/html"
-    open = lambda *args: open("/path/to/html/1.html", "r")
+    # 1. well-formed task_id
+    tasks = load_tasks()
 
-    content = get_page_content("1")
-    assert content is not None
+    # for each task check that get_page_content(task_id) matches
+    for task in tasks:
+        task_id = task[config.TASKS_ID_COLUMN]
+        content = get_page_content(task_id)
+
+        # content should not be None
+        assert content is not None
+
+        # URL should match (each html file in our test_data has the URL in the third line)
+        html_url = content.split("\n")[2].strip().replace("url: ", "")
+        task_url = task[config.TASKS_URL_COLUMN]
+
+        # it's sufficient to check if the HTML URL is a substring of the task URL -- the other way around is not guaranteed
+        assert html_url in task_url
+    
+    # 2. malformed task_id
+    assert get_page_content("invalid_task_id") is None
 
 def test_extract_raw_text():
     # Mock the config and file reading
