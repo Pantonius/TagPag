@@ -14,7 +14,7 @@ special_map_table = str.maketrans(env.SPECIAL_CHARACTER_MAP)
 
 
 # extract the search terms
-def extract_search_terms(parameters):
+def extract_search_terms(parameters) -> str:
     """
     Extracts the search terms from a parameter dictionary.
 
@@ -35,7 +35,7 @@ def extract_search_terms(parameters):
     return search_terms 
 
 
-def extract_steps(path):
+def extract_steps(path) -> list:
     """
     Extracts the steps of a path (ignoring common extensions).
 
@@ -43,7 +43,7 @@ def extract_steps(path):
     :return: The extracted steps as a list of strings.
     """
 
-    if path == '' or path == '/':
+    if path == None or path == '' or path == '/':
         return []
     
     # ignore extensions
@@ -53,7 +53,7 @@ def extract_steps(path):
     # split the path by slashes, and remove the first which is empty
     return path.split('/')[1:]
 
-def extract_dashed_steps(steps):
+def extract_dashed_steps(steps) -> list:
     """
     Extracts the dashed steps from a list of steps.
 
@@ -64,18 +64,18 @@ def extract_dashed_steps(steps):
     :return: A list of strings, the dashed steps.
     """
 
-    if len(steps) == 0:
+    if steps is None or len(steps) == 0:
         return []
 
     # let's check the dashed steps, if there is at least one
     else:
         return [
-            s for s in reversed(steps) 
+            s for s in steps
             if ('-' in s or '_' in s) 
             and s not in env.NOT_SEO_TITLES 
         ]
 
-def extract_url_title(results):
+def extract_url_title(results: dict) -> str:
     """
     Extracts a title from a URL path.
 
