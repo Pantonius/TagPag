@@ -1,3 +1,4 @@
+import string
 from utils.core import *
 from utils.config import *
 from utils.db import initialize_db
@@ -9,6 +10,13 @@ def cleanup():
     # 0. Cleanup: Remove the database file, if it exists
     if os.path.exists(config.ANNOTATIONS_DB):
         os.remove(config.ANNOTATIONS_DB)
+    
+    # 1. Cleanup: Remove the directories
+    if os.path.exists(config.RAW_TEXT_DIR):
+        shutil.rmtree(config.RAW_TEXT_DIR)
+    
+    if os.path.exists(config.CLEANED_TEXT_DIR):
+        shutil.rmtree(config.CLEANED_TEXT_DIR)
 
 def test_highlight_url_with_truncation():
     # Test cases for highlight_url with truncation
@@ -28,7 +36,7 @@ def test_highlight_url_with_truncation():
 def test_reduce_line_breaks():
     assert reduce_line_breaks("Line1\n\n\nLine2\n\nLine3") == "Line1\nLine2\nLine3"
     assert reduce_line_breaks("Line1\n\n\n\n\nLine2") == "Line1\nLine2"
-    assert reduce_line_breaks("Line1\n\nLine2\n\n\nLine3") == "Line1\nLine2\nLine3"
+    assert reduce_line_breaks("Line1\n\nLine2\n\n\nLine3\n\n\n") == "Line1\nLine2\nLine3"
 
 def test_truncate_string():
     assert truncate_string("This is a long string that needs to be truncated", 20) == "This is a long strin..."
@@ -103,43 +111,135 @@ def test_download_annotations():
     assert "task_id,url" in csv_content
 
 def test_get_page_content():
-    # Mock the config and file reading
-    config.HTML_DIR = "/path/to/html"
-    open = lambda *args: open("/path/to/html/1.html", "r")
+    # 1. well-formed task_id
+    tasks = load_tasks()
 
-    content = get_page_content("1")
-    assert content is not None
+    # for each task check that get_page_content(task_id) matches
+    for task in tasks:
+        task_id = task[config.TASKS_ID_COLUMN]
+        content = get_page_content(task_id)
+
+        # content should not be None
+        assert content is not None
+
+        # URL should match (each html file in our test_data has the URL in the third line)
+        html_url = content.split("\n")[2].strip().replace("url: ", "")
+        task_url = task[config.TASKS_URL_COLUMN]
+
+        # it's sufficient to check if the HTML URL is a substring of the task URL -- the other way around is not guaranteed
+        assert html_url in task_url
+    
+    # 2. malformed task_id
+    assert get_page_content("invalid_task_id") is None
 
 def test_extract_raw_text():
-    # Mock the config and file reading
-    config.RAW_TEXT_DIR = "/path/to/raw_text"
-    config.HTML_DIR = "/path/to/html"
-    open = lambda *args: open("/path/to/html/1.html", "r")
+    # 0. Cleanup + Create the db and directories anew
+    cleanup()
+    initialize_db()
+    create_directories()
 
-    text = extract_raw_text("1")
-    assert text is not None
+    # 1. Extract from a well-formed HTML file
+    tasks = load_tasks()
+
+    # for each task check that extract_raw_text(task_id) matches
+    for task in tasks:
+        task_id = task[config.TASKS_ID_COLUMN]
+        text = extract_raw_text(task_id)
+
+        # text should not be None
+        assert text is not None
+
+        # the text should match the content of the HTML file
+        with open(f"{config.WORKING_DIR}/correct_raw_text/{task_id}.txt", "r") as f:
+            assert text == f.read()
+
+    # 2. Extract from a malformed HTML file
+    text = extract_raw_text("invalid_task_id")
+    assert text is None
+
+    # 3. Cleanup
+    cleanup()
 
 def test_extract_cleaned_text():
-    # Mock the config and file reading
-    config.CLEANED_TEXT_DIR = "/path/to/cleaned_text"
-    config.HTML_DIR = "/path/to/html"
-    open = lambda *args: open("/path/to/html/1.html", "r")
+        # 0. Cleanup + Create the db and directories anew
+    cleanup()
+    initialize_db()
+    create_directories()
 
-    text = extract_cleaned_text("1")
-    assert text is not None
+    # 1. Extract from a well-formed HTML file
+    tasks = load_tasks()
+
+    # for each task check that extract_cleaned_text(task_id) matches
+    for task in tasks:
+        task_id = task[config.TASKS_ID_COLUMN]
+        text = extract_cleaned_text(task_id)
+
+        # text should not be None
+        assert text is not None
+
+        # the text should match the content of the HTML file
+        with open(f"{config.WORKING_DIR}/correct_cleaned_text/{task_id}.txt", "r") as f:
+            assert text == f.read()
+
+    # 2. Extract from a malformed HTML file
+    text = extract_cleaned_text("invalid_task_id")
+    assert text is None
+
+    # 3. Cleanup
+    cleanup()
 
 def test_load_cleaned_text():
-    # Mock the config and file reading
-    config.CLEANED_TEXT_DIR = "/path/to/cleaned_text"
-    open = lambda *args: open("/path/to/cleaned_text/1.txt", "r")
+    # 0. Cleanup + Create the db and directories anew
+    cleanup()
+    initialize_db()
+    create_directories()
 
-    text = load_cleaned_text("1")
-    assert text is not None
+    # 1. Load from a well-formed HTML file
+    tasks = load_tasks()
+
+    # for each task check that load_cleaned_text(task_id) matches
+    for task in tasks:
+        task_id = task[config.TASKS_ID_COLUMN]
+        text = load_cleaned_text(task_id)
+
+        # text should not be None
+        assert text is not None
+
+        # the text should match the content of the HTML file
+        with open(f"{config.WORKING_DIR}/correct_cleaned_text/{task_id}.txt", "r") as f:
+            assert text == f.read()
+    
+    # 2. Load from a malformed HTML file
+    text = load_cleaned_text("invalid_task_id")
+    assert text is None
+
+    # 3. Cleanup
+    cleanup()
 
 def test_update_cleaned_text():
-    # Mock the config and file writing
-    config.CLEANED_TEXT_DIR = "/path/to/cleaned_text"
-    open = lambda *args: open("/path/to/cleaned_text/1.txt", "w")
+    # 0. Cleanup + Create the db and directories anew
+    cleanup()
+    initialize_db()
+    create_directories()
 
-    update_cleaned_text("1", "cleaned text")
+    # 1. Update the cleaned text for a well-formed HTML file
+    task1 = load_tasks()[0]
+
+    # Load the cleaned text
+    task_id = task1[config.TASKS_ID_COLUMN]
+    text = load_cleaned_text(task_id)
+
+    # Update the cleaned text
+    new_content = "Test\nTest\nTest"
+    update_cleaned_text(task_id, new_content)
+
+    # Load the updated cleaned text
+    updated_text = load_cleaned_text(task_id)
+    assert updated_text == new_content
+
+    # 2. Update the cleaned text for a malformed HTML file
+    update_cleaned_text("invalid_task_id", "Test")
     # No assertion needed, just ensure no exceptions are raised
+
+    # 3. Cleanup
+    cleanup()
