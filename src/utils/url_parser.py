@@ -51,7 +51,11 @@ def extract_steps(path) -> list:
         path = path_split[0]
     
     # split the path by slashes, and remove the first which is empty
-    return path.split('/')[1:]
+    steps = path.split('/')[1:]
+    if steps[-1] == '':
+        steps.pop()
+
+    return steps
 
 def extract_dashed_steps(steps) -> list:
     """
@@ -70,7 +74,7 @@ def extract_dashed_steps(steps) -> list:
     # let's check the dashed steps, if there is at least one
     else:
         return [
-            s for s in steps
+            s for s in reversed(steps)
             if ('-' in s or '_' in s) 
             and s not in env.NOT_SEO_TITLES 
         ]
@@ -92,6 +96,7 @@ def extract_url_title(results: dict) -> str:
 
     # extract the steps
     steps = extract_steps(results["path"])
+    print(steps)
 
     # extract the dashed steps
     dashed_steps = extract_dashed_steps(steps)

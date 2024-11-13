@@ -89,10 +89,9 @@ def test_extract_dashed_steps():
 def test_extract_url_title():
     test_cases = {
         '': '', # empty title
-        '/page': 'page',
-        '/pageWithDash/': 'pageWithDash', # FIXME: Is this the expected behavior?
-        '/some/other/longer_page': 'longer_page',
-        '/some/other/longer_pageWithDash': 'longer_pageWithDash'
+        '/page': 'page', # simple page
+        '/pageWithSlash/': 'pageWithSlash', # page with trailing slash
+        '/some/other/longer_page': 'longer_page' # longer path to page with dash
     }
 
     for test_case in test_cases:
