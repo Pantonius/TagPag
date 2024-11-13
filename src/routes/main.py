@@ -25,8 +25,11 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-
 load_key_css()
+
+# load the environment variables
+config = Config()
+print(config.LABELS)
 
 # create the directories if they don't exist
 create_directories()
@@ -43,7 +46,7 @@ params = st.query_params
 
 # Set annotator ID if ANNOTATOR is not set
 if 'annotator_id' not in STATE:
-    STATE.annotator_id = ANNOTATOR
+    STATE.annotator_id = config.ANNOTATOR
 
 # Show first webpage by default
 if 'task_id' not in STATE:
@@ -77,7 +80,7 @@ if 'refresh_counter' not in STATE:
 tasks = STATE.tasks
 task = STATE.tasks[STATE.task_id]
 annotator_id = STATE.annotator_id
-task_url = STATE.tasks[STATE.task_id][TASKS_URL_COLUMN]
+task_url = STATE.tasks[STATE.task_id][config.TASKS_URL_COLUMN]
 exploded_url = explode_url(task_url)
 
 # ------------------------------------------------------------------------------
@@ -95,7 +98,7 @@ def display_raw_content():
         None
     """
 
-    file_id = task.get(TASKS_ID_COLUMN)
+    file_id = task.get(config.TASKS_ID_COLUMN)
 
     text = extract_raw_text(file_id)
 
@@ -118,7 +121,7 @@ def save_cleaned_text():
     """
     
     STATE.cleaned_text = STATE.cleaned_text_area
-    update_cleaned_text(task.get(TASKS_ID_COLUMN), STATE.cleaned_text)
+    update_cleaned_text(task.get(config.TASKS_ID_COLUMN), STATE.cleaned_text)
 
 def display_cleaned_content():
     """
@@ -131,7 +134,7 @@ def display_cleaned_content():
         None
     """
 
-    file_id = task.get(TASKS_ID_COLUMN)
+    file_id = task.get(config.TASKS_ID_COLUMN)
 
     STATE.cleaned_text = load_cleaned_text(file_id)
 
@@ -156,7 +159,7 @@ def reset_cleaned_text():
     """
 
     # update text area and update file (extract_cleaned_text automatically updates the file after extraction)
-    STATE.cleaned_text = extract_cleaned_text(task.get(TASKS_ID_COLUMN)) 
+    STATE.cleaned_text = extract_cleaned_text(task.get(config.TASKS_ID_COLUMN)) 
 
 def copy_raw_text():
     """
@@ -172,7 +175,7 @@ def copy_raw_text():
     # update text area
     STATE.cleaned_text = STATE.raw_text_area 
     # update file
-    update_cleaned_text(task.get(TASKS_ID_COLUMN), STATE.cleaned_text) 
+    update_cleaned_text(task.get(config.TASKS_ID_COLUMN), STATE.cleaned_text) 
 
 def update_annotations():
     """
@@ -218,7 +221,7 @@ def find_next_unannotated_task():
     # No task has been found between the current position and the end of the list
     # Search from the beginning to the current position
     for i in range(STATE.task_id):
-        annotation = load_annotation(STATE.tasks[i].get(TASKS_ID_COLUMN), STATE.annotator_id)
+        annotation = load_annotation(STATE.tasks[i].get(config.TASKS_ID_COLUMN), STATE.annotator_id)
 
         if annotation["labels"] == [] and annotation["comment"] == "":
             # if an unannotated task has been found, update the task_id and return
@@ -395,7 +398,7 @@ else:
     with st.sidebar:
         st.title(':pencil2: Webpage Annotations')
 
-        annotation = load_annotation(task.get(TASKS_ID_COLUMN), STATE.annotator_id)
+        annotation = load_annotation(task.get(config.TASKS_ID_COLUMN), STATE.annotator_id)
         if annotation is not None and 'labels' in annotation:
             STATE.selected_labels = annotation['labels']
         else:
@@ -428,7 +431,7 @@ else:
 
 
         # get the current annotation
-        file_id = task.get(TASKS_ID_COLUMN)
+        file_id = task.get(config.TASKS_ID_COLUMN)
         annotation = load_annotation(file_id, STATE.annotator_id)
         
         if annotation is not None:
@@ -447,7 +450,7 @@ else:
         col1, col2 = st.columns(2)
 
         # create a variable _LABELS with maximum 10 labels
-        _LABELS = LABELS[:10]
+        _LABELS = config.LABELS[:10]
 
         with col1:
             # display a togle button for each label in the first half of LABELs, they must start with a number followed by a colon
@@ -464,7 +467,7 @@ else:
 
 
         st.multiselect(
-            'Selected Labels:', LABELS, key='selected_labels', on_change=update_annotations)
+            'Selected Labels:', config.LABELS, key='selected_labels', on_change=update_annotations)
         
         st.text_area('Comment:', value=STATE.current_comment,
                         key='annotator_comment',

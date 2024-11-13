@@ -7,11 +7,85 @@ import warnings
 from dotenv import load_dotenv
 from os.path import join
 
+# Define the Config class to store the configuration settings
+class Config:
+    # Singleton instance
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(Config, cls).__new__(cls)
+        return cls.instance
+
+    def __init__(self, config_dict: dict = None):
+        # If the instance attribute is not set, set it to the current instance
+        if not hasattr(self, '_initialized'):
+            self._initialized = True
+            self.set_config(config_dict)
+        elif config_dict:
+            self.set_config(config_dict)
+    
+    def set_config(self, config_dict: dict) -> None:
+        """
+        Set the configuration settings from a dictionary.
+
+        Args:
+            config_dict (dict): The configuration settings as a dictionary.
+
+        Returns:
+            None
+        """
+        if not config_dict:
+            config_dict = {}
+
+        self.ANNOTATOR = config_dict.get("ANNOTATOR", "annotator_name")
+        self.RANDOM_SEED = config_dict.get("RANDOM_SEED", -1)
+        self.TASKS_ID_COLUMN = config_dict.get("TASKS_ID_COLUMN", '_id')
+        self.TASKS_URL_COLUMN = config_dict.get("TASKS_URL_COLUMN", 'url')
+        self.WORKING_DIR = config_dict.get("WORKING_DIR", 'example_workdir')
+        self.TASKS_FILE = config_dict.get('TASKS_FILE', 'tasks.csv')
+        self.ANNOTATIONS_DB = config_dict.get('ANNOTATIONS_DB', 'annotations.sqlite')
+        self.RAW_TEXT_DIR = config_dict.get('RAW_TEXT_DIR', 'raw_text')
+        self.CLEANED_TEXT_DIR = config_dict.get('CLEANED_TEXT_DIR', 'cleaned_text')
+        self.HTML_DIR = config_dict.get('HTML_DIR', 'html')
+        self.LABELS = config_dict.get("LABELS", [])
+        self.URL_QUERY_PARAMS = get_env_set("URL_QUERY_PARAMS", set())
+        self.NOT_SEO_TITLES = get_env_set("NOT_SEO_TITLES", set())
+        self.COMMON_EXTENSIONS = get_env_set("COMMON_EXTENSIONS", set())
+        self.SPECIAL_CHARACTER_MAP = get_env_dict("SPECIAL_CHARACTER_MAP", {})
+    
+
 # Load the environment variables
 loaded = False
-def load_environment():
+def load_environment(file_path: str = '/home/anton/git/tagpag/.env', force: bool = False) -> Config:
     """
-    Load the environment only once to avoid unnecessary page reloads
+    Loads the environment variables once from the given .env file, unless forced, such that there are no unnecessary page reloads.
+
+
+    Args:
+        file_path (str): The path to the environment file (default: '.env')
+        force (bool): Force the environment to be loaded again (default: False)
+    
+    Returns:
+        Config: The configuration settings as a Config object.
+    """
+    global loaded
+    if not loaded or force: # only load the environment once, unless forced
+        if not os.path.exists(file_path):
+            # If the file is not found, copy the .env-example file to .env
+            shutil.copyfile('.env-example', '.env')
+            file_path = '.env'
+
+        # Load the environment from the given .env file
+        load_dotenv(dotenv_path=file_path, override=True)
+
+        loaded = True
+    
+    return load_environment_variables()
+
+def load_environment_variables():
+    """
+    Load the environment variables from os.environ and return them as a dictionary.
 
     Args:
         None
@@ -19,20 +93,32 @@ def load_environment():
     Returns:
         None
     """
-    global loaded
-    if not loaded:
-        try:
-            # Use the ENV_FILE variable
-            load_dotenv(ENV_FILE)
-        except:
-            # if .env does not exist, load 
-            if not os.path.exists('.env'):
-                # copy .env-example to .env using shutil
-                shutil.copyfile('.env-example', '.env')
+    # TODO: It maybe desirable to move this to the Config class, but I find that seperating this from the Config class leaves the possability
+    # of setting the Config fields via additional methods, without having to modify the Config class itself.
+    # For instance, someone may add a Streamlit Page which allows researchers to set the Config fields via a GUI.
+    # So we'll keep it like this for now.
 
-            load_dotenv()
-        
-        loaded = True
+    working_dir = os.getenv('WORKING_DIR', 'example_workdir')
+
+    config_dict = {
+        "ANNOTATOR": os.getenv("ANNOTATOR", "annotator_name"),
+        "RANDOM_SEED": int(os.getenv("RANDOM_SEED", '-1')) if os.getenv("RANDOM_SEED", 'None') != 'None' else -1,
+        "TASKS_ID_COLUMN": os.getenv("TASKS_ID_COLUMN", '_id'),
+        "TASKS_URL_COLUMN": os.getenv("TASKS_URL_COLUMN", 'url'),
+        "WORKING_DIR": working_dir,
+        "TASKS_FILE": join(working_dir, os.getenv('TASKS_FILE', 'tasks.csv')),
+        "ANNOTATIONS_DB": join(working_dir, os.getenv('ANNOTATIONS_DB', 'annotations.sqlite')),
+        "RAW_TEXT_DIR": join(working_dir, os.getenv('RAW_TEXT_DIR', 'raw_text')),
+        "CLEANED_TEXT_DIR": join(working_dir, os.getenv('CLEANED_TEXT_DIR', 'cleaned_text')),
+        "HTML_DIR": join(working_dir, os.getenv('HTML_DIR', 'html')),
+        "LABELS": os.getenv("LABELS", "").split(","),
+        "URL_QUERY_PARAMS": get_env_set("URL_QUERY_PARAMS", set()),
+        "NOT_SEO_TITLES": get_env_set("NOT_SEO_TITLES", set()),
+        "COMMON_EXTENSIONS": get_env_set("COMMON_EXTENSIONS", set()),
+        "SPECIAL_CHARACTER_MAP": get_env_dict("SPECIAL_CHARACTER_MAP", {})
+    }
+
+    return Config(config_dict)
 
 
 def read_json_file(file_path: str) -> dict:
@@ -71,7 +157,9 @@ def create_directories():
     Returns:
         None
     """
-    for directory in [RAW_TEXT_DIR, CLEANED_TEXT_DIR]:
+    env = load_environment()
+
+    for directory in [env.RAW_TEXT_DIR, env.CLEANED_TEXT_DIR]:
         if not os.path.exists(directory):
             os.makedirs(directory)
 
@@ -122,35 +210,6 @@ def get_env_dict(var_name, default_value):
         warnings.warn(f"Unexpected error parsing {var_name}: {e}. Using default value ({default_value}). See .env-example for more information.")
         return default_value
 
-
 load_environment()
 
-# Get the environment variables
-ANNOTATOR = os.getenv("ANNOTATOR", "annotator_name")
-RANDOM_SEED = int(os.getenv("RANDOM_SEED", '-1')) if os.getenv("RANDOM_SEED", 'None') != 'None' else -1
-
-## clip the random seed to -1 if it is less than 0
-RANDOM_SEED = RANDOM_SEED if RANDOM_SEED >= 0 else -1
-
-TASKS_ID_COLUMN = os.getenv("TASKS_ID_COLUMN", '_id')
-TASKS_URL_COLUMN = os.getenv("TASKS_URL_COLUMN", 'url')
-
-# set the directories
-WORKING_DIR = os.getenv('WORKING_DIR', 'data')
-TASKS_FILE = join(WORKING_DIR, os.getenv('TASKS_FILE', 'tasks.csv'))
-ANNOTATIONS_DB = join(WORKING_DIR, os.getenv('ANNOTATIONS_DB', 'annotations.sqlite'))
-RAW_TEXT_DIR = join(WORKING_DIR, os.getenv('RAW_TEXT_DIR', 'raw_text'))
-CLEANED_TEXT_DIR = join(WORKING_DIR, os.getenv('CLEANED_TEXT_DIR', 'cleaned_text'))
-HTML_DIR = join(WORKING_DIR, os.getenv('HTML_DIR', 'html'))
-
-# parse the labels for annotation
-LABELS = os.getenv("LABELS", "").split(",")
-
-# set the URL query parameters
-URL_QUERY_PARAMS = get_env_set("URL_QUERY_PARAMS", set())
-NOT_SEO_TITLES = get_env_set("NOT_SEO_TITLES", set())
-COMMON_EXTENSIONS = get_env_set("COMMON_EXTENSIONS", set())
-SPECIAL_CHARACTER_MAP = get_env_dict("SPECIAL_CHARACTER_MAP", {})
-
-# making a global variable for the session state
 STATE = st.session_state

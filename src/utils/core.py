@@ -9,6 +9,8 @@ from trafilatura import extract
 
 from utils.url_parser import explode_url
 
+# load the environment variables
+config = Config()
 
 def init():
     """
@@ -22,7 +24,7 @@ def init():
     """
     # create the tasks file if it doesn't exist
     try:
-        with open(TASKS_FILE, 'x') as f:
+        with open(config.TASKS_FILE, 'x') as f:
             pass
     except FileExistsError:
         pass
@@ -52,18 +54,19 @@ def load_annotator_tasks(annotator_id: str ):
     Returns:
         list[dict]: The tasks with the annotations made by the annotator.
     """
-    tasks = pd.read_csv(TASKS_FILE)
+    tasks = pd.read_csv(config.TASKS_FILE)
 
     # add annotations (as json)
-    tasks['annotations'] = tasks[TASKS_ID_COLUMN].apply(load_annotations)
+    tasks['annotations'] = tasks[config.TASKS_ID_COLUMN].apply(load_annotations)
 
     # only show the annotator's annotations
     tasks['annotations'] = tasks['annotations'].apply(lambda x: x.get(annotator_id) if x is not None else None)
 
     # randomize with randomization seed (-1 means no randomization)
-    if RANDOM_SEED >= 0:
+    print(config.RANDOM_SEED)
+    if config.RANDOM_SEED >= 0:
         # randomize
-        tasks = tasks.sample(frac=1, random_state=RANDOM_SEED);
+        tasks = tasks.sample(frac=1, random_state=config.RANDOM_SEED);
 
     # add order field to tasks -- this is the order in which the tasks will be displayed to the annotator (1-indexed)
     tasks['order'] = range(1, len(tasks) + 1)
@@ -83,10 +86,10 @@ def load_tasks():
     Returns:
         list[dict]: The tasks with all annotations from all annotators.
     """
-    tasks = pd.read_csv(TASKS_FILE)
+    tasks = pd.read_csv(config.TASKS_FILE)
 
     # add annotations (as json)
-    tasks['annotations'] = tasks[TASKS_ID_COLUMN].apply(load_annotations)
+    tasks['annotations'] = tasks[config.TASKS_ID_COLUMN].apply(load_annotations)
 
     # turn into dict
     tasks = tasks.to_dict(orient='records')
@@ -107,7 +110,7 @@ def update_task_annotations(annotator_id: str, task: dict, labels: list[str], co
         None
     """
     try:
-        annotation = load_annotation(task.get(TASKS_ID_COLUMN), annotator_id)
+        annotation = load_annotation(task.get(config.TASKS_ID_COLUMN), annotator_id)
         
         # add the selected labels to the annotation
         annotation['labels'] = labels
@@ -116,12 +119,12 @@ def update_task_annotations(annotator_id: str, task: dict, labels: list[str], co
         annotation['comment'] = comment
 
         # add random_seed column
-        annotation['random_seed'] = RANDOM_SEED if RANDOM_SEED >= 0 else None
+        annotation['random_seed'] = config.RANDOM_SEED if config.RANDOM_SEED >= 0 else None
 
         # add the order in which the task was annotated
         annotation['task_order'] = task.get('order')
 
-        save_annotation(task.get(TASKS_ID_COLUMN), annotator_id, annotation)
+        save_annotation(task.get(config.TASKS_ID_COLUMN), annotator_id, annotation)
 
     except (KeyError, TypeError) as e:
         print("An error occurred while updating the task annotations:", e)
@@ -141,10 +144,10 @@ def download_annotations():
     tasks = load_tasks()
 
     for task in tasks:
-        task_id = task.get(TASKS_ID_COLUMN)
+        task_id = task.get(config.TASKS_ID_COLUMN)
         task_annotations = load_annotations(task_id)
 
-        url = task.get(TASKS_URL_COLUMN)
+        url = task.get(config.TASKS_URL_COLUMN)
 
         if task_annotations is None:
             # empty annotations
@@ -161,7 +164,7 @@ def download_annotations():
             for annotator_id, annotation in task_annotations.items():
                 labels = None
                 comment = ""
-                random_seed = RANDOM_SEED
+                random_seed = config.RANDOM_SEED
                 task_order = None
 
                 if annotation is not None:
@@ -203,7 +206,7 @@ def get_page_content(id: str):
     """
     try:
         # Read the content of the page
-        with open(f"{HTML_DIR}/{id}.html", "r") as f:
+        with open(f"{config.HTML_DIR}/{id}.html", "r") as f:
             return f.read()
     except FileNotFoundError:
         return None
@@ -222,7 +225,7 @@ def extract_raw_text(id: str):
     # First check if there already is a parsed version in the selectolax directory
     try:
         # read the file content if it exists
-        with open(f'{RAW_TEXT_DIR}/{id}.txt', 'r') as f:
+        with open(f'{config.RAW_TEXT_DIR}/{id}.txt', 'r') as f:
             # return the content of the file
             return f.read()
     except FileNotFoundError:
@@ -249,7 +252,7 @@ def extract_raw_text(id: str):
         text = reduce_line_breaks(tree.body.text(separator='\n'))
 
         # Save the parsed selectolax text to a file
-        with open(f'{RAW_TEXT_DIR}/{id}.txt', 'w') as f:
+        with open(f'{config.RAW_TEXT_DIR}/{id}.txt', 'w') as f:
             f.write(text)
         
         # Return the extracted text
@@ -281,7 +284,7 @@ def extract_cleaned_text(id: str):
         return None
 
     # Save the parsed trafilatura text to a file
-    with open(f'{CLEANED_TEXT_DIR}/{id}.txt', 'w') as f:
+    with open(f'{config.CLEANED_TEXT_DIR}/{id}.txt', 'w') as f:
         f.write(text)
         
     # Return the extracted text
@@ -301,7 +304,7 @@ def load_cleaned_text(id: str):
     # First check if there already is a parsed version in the trafilatura directory
     try:
         # read the file content if it exists
-        with open(f'{CLEANED_TEXT_DIR}/{id}.txt', 'r') as f:
+        with open(f'{config.CLEANED_TEXT_DIR}/{id}.txt', 'r') as f:
             # return the content of the file
             return f.read()
     except FileNotFoundError:
@@ -320,7 +323,7 @@ def update_cleaned_text(task_id: str, text: str):
         None
     """
     
-    with open(f'{CLEANED_TEXT_DIR}/{task_id}.txt', 'w') as f:
+    with open(f'{config.CLEANED_TEXT_DIR}/{task_id}.txt', 'w') as f:
         f.write(text)
 
 def truncate_string(string: str, n=100):
@@ -336,7 +339,7 @@ def truncate_string(string: str, n=100):
     """
 
     # if the maximum length n is lower than one or no truncation is needed to meet the given length limit, return the entire string
-    if n <= 0 or len(string) < n:
+    if n <= 0 or len(string) <= n:
         return string
 
     # otherwise truncate
@@ -427,7 +430,7 @@ def highlight_url(exploded_url: dict | str, n=0):
     query = exploded_url["query"]
 
     if exploded_url["search_terms"]:
-        for param in URL_QUERY_PARAMS:
+        for param in config.URL_QUERY_PARAMS:
             query = highlight_query_param(param, query)
     else:
         query = html.escape(query)
