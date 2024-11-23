@@ -212,7 +212,46 @@ def get_page_content(id: str):
 
 def extract_raw_text(id: str):
     """
-    Extracts the text from an HTML document associated with a task (selectolax)
+    Extract the text from an HTML document associated with a task (selectolax)
+
+    Args:
+        id (str): The id of the task.
+    
+    Returns:
+        str: The text extracted from the HTML document.
+    """
+    # get page content
+    html_document = get_page_content(id)
+
+    # if the page content is None, there is nothing to extract
+    if html_document is None:
+        return None
+        
+    tree = HTMLParser(html_document)
+
+    # if the body is None, there is nothing to extract
+    if tree.body is None:
+        return None
+
+    # Remove scripts and styles
+    for tag in tree.css('script'):
+        tag.decompose()
+    for tag in tree.css('style'):
+        tag.decompose()
+
+    # Extract the text
+    text = reduce_line_breaks(tree.body.text(separator='\n'))
+
+    # Save the parsed selectolax text to a file
+    with open(f'{config.RAW_TEXT_DIR}/{id}.txt', 'w') as f:
+        f.write(text)
+        
+    # Return the extracted text
+    return text
+
+def load_raw_text(id: str):
+    """
+    Load the text from an HTML document associated with a task (selectolax)
     
     Args:
         id (str): The id of the task.
@@ -228,34 +267,7 @@ def extract_raw_text(id: str):
             # return the content of the file
             return f.read()
     except FileNotFoundError:
-        # get page content
-        html_document = get_page_content(id)
-
-        # if the page content is None, there is nothing to extract
-        if html_document is None:
-            return None
-        
-        tree = HTMLParser(html_document)
-
-        # if the body is None, there is nothing to extract
-        if tree.body is None:
-            return None
-
-        # Remove scripts and styles
-        for tag in tree.css('script'):
-            tag.decompose()
-        for tag in tree.css('style'):
-            tag.decompose()
-
-        # Extract the text
-        text = reduce_line_breaks(tree.body.text(separator='\n'))
-
-        # Save the parsed selectolax text to a file
-        with open(f'{config.RAW_TEXT_DIR}/{id}.txt', 'w') as f:
-            f.write(text)
-        
-        # Return the extracted text
-        return text
+        return extract_raw_text(id)
 
 def extract_cleaned_text(id: str):
     """
