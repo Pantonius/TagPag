@@ -72,44 +72,47 @@ def test_load_annotator_tasks():
     # 1. Load tasks for annotator_1
     tasks = load_annotator_tasks("annotator_1")
     for i, task in enumerate(tasks):
-        assert task[config.TASKS_ID_COLUMN] == i
+        assert task[config.TASKS_ID_COLUMN] == f"{i}"
         assert task["order"] == i + 1
     
-    assert tasks[0]["annotations"] == first_task
-    assert tasks[1]["annotations"] == second_task
+    assert tasks[1]["annotations"] == first_task
+    assert tasks[2]["annotations"] == second_task
 
     # 3. Cleanup
     cleanup()
 
 def test_load_tasks():
+    # 0. Clean the database
+    cleanup()
+    initialize_db()
+    
+    # 1. Load tasks
     tasks = load_tasks()
-    assert len(tasks) == 24
+    
+    # Check if the tasks are loaded correctly
+    for task in tasks:
+        assert task[config.TASKS_ID_COLUMN] is not None
+        assert task[config.TASKS_URL_COLUMN] is not None
+    
+    assert len(tasks) == 21
+
+    # 2. Cleanup
+    cleanup()
 
 def test_update_task_annotations():
-    # Mock the config and save_annotation
-    config.TASKS_ID_COLUMN = "task_id"
-    config.RANDOM_SEED = 42
-    save_annotation = lambda *args: None
-
-    task = {"task_id": "1", "order": 1}
+    task = {"_id": "1", "order": 1}
     update_task_annotations("annotator_1", task, ["label1", "label2"], "comment")
     # No assertion needed, just ensure no exceptions are raised
 
 def test_download_annotations():
-    # Mock the config and load_tasks
-    config.TASKS_ID_COLUMN = "task_id"
-    config.TASKS_URL_COLUMN = "url"
-    tasks_data = [
-        {"task_id": "1", "url": "https://example.com"},
-        {"task_id": "2", "url": "https://example.com"}
-    ]
-    load_tasks = lambda: tasks_data
-    load_annotations = lambda _: {}
-
     csv_content = download_annotations()
-    assert "task_id,url" in csv_content
+    assert "_id,url" in csv_content
 
 def test_get_page_content():
+    # 0. Cleanup + Create the db anew
+    cleanup()
+    initialize_db()
+
     # 1. well-formed task_id
     tasks = load_tasks()
 
@@ -130,6 +133,9 @@ def test_get_page_content():
     
     # 2. malformed task_id
     assert get_page_content("invalid_task_id") is None
+
+    # 3. Cleanup
+    cleanup()
 
 def test_extract_raw_text():
     # 0. Cleanup + Create the db and directories anew

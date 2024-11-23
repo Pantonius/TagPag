@@ -29,7 +29,6 @@ load_key_css()
 
 # load the environment variables
 config = Config()
-print(config.LABELS)
 
 # create the directories if they don't exist
 create_directories()
