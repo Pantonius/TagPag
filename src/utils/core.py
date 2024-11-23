@@ -63,7 +63,6 @@ def load_annotator_tasks(annotator_id: str ):
     tasks['annotations'] = tasks['annotations'].apply(lambda x: x.get(annotator_id) if x is not None else None)
 
     # randomize with randomization seed (-1 means no randomization)
-    print(config.RANDOM_SEED)
     if config.RANDOM_SEED >= 0:
         # randomize
         tasks = tasks.sample(frac=1, random_state=config.RANDOM_SEED);
