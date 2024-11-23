@@ -96,7 +96,6 @@ def extract_url_title(results: dict) -> str:
 
     # extract the steps
     steps = extract_steps(results["path"])
-    print(steps)
 
     # extract the dashed steps
     dashed_steps = extract_dashed_steps(steps)

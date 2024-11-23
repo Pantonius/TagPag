@@ -10,6 +10,16 @@ To start a complete testing run, simply run `pytest` in the project directory:
 pytest
 ```
 
+If you only want to run **all tests for a file** that's:
+```sh
+pytest path/to/test_file.py
+```
+
+If you want to run a **certain test for a file** that's:
+```sh
+pytest path/to/test_file.py::test_function_name
+```
+
 Pytest will look for files that match `*_test.py` or `test_*.py` when searching for tests.
 
 More detailed information about invoking pytest in the pytest docs: _["How to invoke pytest"](https://docs.pytest.org/en/stable/how-to/usage.html)_
