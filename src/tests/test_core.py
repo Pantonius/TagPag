@@ -159,6 +159,34 @@ def test_extract_raw_text():
     # 3. Cleanup
     cleanup()
 
+def test_load_raw_text():
+     # 0. Cleanup + Create the db and directories anew
+    cleanup()
+    initialize_db()
+    create_directories()
+
+    # 1. Load from a well-formed HTML file
+    tasks = load_tasks()
+
+    # for each task check that load_cleaned_text(task_id) matches
+    for task in tasks:
+        task_id = task[config.TASKS_ID_COLUMN]
+        text = load_raw_text(task_id)
+
+        # text should not be None
+        assert text is not None
+
+        # the text should match the content of the HTML file
+        with open(f"{config.WORKING_DIR}/correct_raw_text/{task_id}.txt", "r") as f:
+            assert text == f.read()
+    
+    # 2. Load from a malformed HTML file
+    text = load_raw_text("invalid_task_id")
+    assert text is None
+
+    # 3. Cleanup
+    cleanup()
+
 def test_extract_cleaned_text():
         # 0. Cleanup + Create the db and directories anew
     cleanup()
