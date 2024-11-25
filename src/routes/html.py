@@ -2,6 +2,8 @@ import streamlit as st
 from utils.core import *
 from utils.config import *
 
+config = Config()
+
 def return_home():
     st.switch_page("routes/main.py")
 
@@ -24,7 +26,7 @@ tasks = load_tasks()
 task = tasks[task_id]
 
 # get the task id (as given by its _id field)
-file_id = task[TASKS_ID_COLUMN]
+file_id = task[config.TASKS_ID_COLUMN]
 
 # load the html file
 html = get_page_content(file_id)
