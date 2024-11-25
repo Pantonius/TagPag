@@ -2,7 +2,7 @@ from utils.core import *
 from utils.config import *
 from utils.db import initialize_db
 
-load_environment('.env-test', force=True)
+load_environment('tests_data/.env-test', force=True)
 config = Config()
 
 def cleanup():

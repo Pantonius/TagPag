@@ -1,7 +1,7 @@
 from utils.config import *
 from utils.url_parser import *
 
-load_environment('.env-test', force=True)
+load_environment('tests_data/.env-test', force=True)
 config = Config()
 
 def test_extract_search_terms():

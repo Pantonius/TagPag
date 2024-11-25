@@ -3,7 +3,7 @@ from utils.config import *
 import os
 import sqlite3
 
-load_environment('.env-test', force=True)
+load_environment('tests_data/.env-test', force=True)
 config = Config()
 
 def cleanup():
