@@ -8,6 +8,7 @@ from selectolax.parser import HTMLParser
 from trafilatura import extract
 
 from utils.url_parser import explode_url
+from utils.html_truncator import HTMLTruncator
 
 # load the environment variables
 config = Config()
@@ -362,6 +363,21 @@ def truncate_string(string: str, n=100):
     # otherwise truncate
     return string[:n] + '...'
 
+def truncate_html(html: str, limit: int):
+    """
+    Truncates the given HTML content to a specified character limit while preserving HTML structure.
+
+    Args:
+        html (str): The HTML content to be truncated.
+        limit (int): The maximum number of characters to retain in the truncated HTML.
+
+    Returns:
+        str: The truncated HTML content with all tags properly closed.
+    """
+    parser = HTMLTruncator(limit)
+    parser.feed(html)
+    return parser.get_truncated_html()
+
 
 def highlight_substring(substring: str, string: str):
     """
@@ -462,4 +478,4 @@ def highlight_url(exploded_url: dict | str, n=0):
     
 
     # return the highlighted url
-    return f'{scheme}{fqdn}{path}{query}{fragment}'
+    return truncate_html(f'{scheme}{fqdn}{path}{query}{fragment}', n)

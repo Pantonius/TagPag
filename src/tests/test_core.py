@@ -20,17 +20,17 @@ def cleanup():
 def test_highlight_url_with_truncation():
     # Test cases for highlight_url with truncation
     
-    # 1. Truncate the URL to 20 characters
-    assert highlight_url('https://some.website.com/long/path/to_some_file.html', 20) == 'https://<strong>some...</strong>'
-    assert highlight_url('https://some.website.com/search?q=python', 20) == 'https://<strong>some...</strong>'
-    assert highlight_url('https://some.website.com/search?q=python&lang=en', 20) == 'https://<strong>some...</strong>'
-    assert highlight_url('https://some.website.com/search?q=python#section', 20) == 'https://<strong>some...</strong>'
+    # 1. Truncate the URL in the middle of the domain
+    assert highlight_url('https://some.website.com/long/path/to_some_file.html', 12) == 'https://<strong>some...</strong>'
+    assert highlight_url('https://some.website.com/search?q=python', 12) == 'https://<strong>some...</strong>'
+    assert highlight_url('https://some.website.com/search?q=python&lang=en', 12) == 'https://<strong>some...</strong>'
+    assert highlight_url('https://some.website.com/search?q=python#section', 12) == 'https://<strong>some...</strong>'
 
-    # 2. Truncate the URL to 30 characters
-    assert highlight_url('https://some.website.com/long/path/to_some_file.html', 30) == 'https://<strong>some.website.com</strong>/long...'
-    assert highlight_url('https://some.website.com/search?q=python', 30) == 'https://<strong>some.website.com</strong>/search...'
-    assert highlight_url('https://some.website.com/search?q=python&lang=en', 30) == 'https://<strong>some.website.com</strong>/search...'
-    assert highlight_url('https://some.website.com/search?q=python#section', 30) == 'https://<strong>some.website.com</strong>/search...'
+    # 2. Truncate the URL after the domain
+    assert highlight_url('https://some.website.com/long/path/to_some_file.html', 30) == 'https://<strong>some.website.com</strong>/long/...'
+    assert highlight_url('https://some.website.com/search?q=python', 31) == 'https://<strong>some.website.com</strong>/search...'
+    assert highlight_url('https://some.website.com/search?q=python&lang=en', 36) == 'https://<strong>some.website.com</strong>/search?q=<strong>py...</strong>'
+    assert highlight_url('https://some.website.com/search?lang=en&q=python#section', 36) == 'https://<strong>some.website.com</strong>/search?lang...'
 
 def test_reduce_line_breaks():
     assert reduce_line_breaks("Line1\n\n\nLine2\n\nLine3") == "Line1\nLine2\nLine3"
