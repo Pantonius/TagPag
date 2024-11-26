@@ -116,6 +116,14 @@ def test_update_task_annotations():
     cleanup()
 
 def test_download_annotations():
+
+    # 0. Clean the database
+    cleanup()
+    initialize_db()
+    
+    # 1. Load tasks
+    tasks = load_tasks()
+
     csv_content = download_annotations()
     assert "_id,url" in csv_content
 
