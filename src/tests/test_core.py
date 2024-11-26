@@ -100,9 +100,20 @@ def test_load_tasks():
     cleanup()
 
 def test_update_task_annotations():
+
+    # 0. Clean the database
+    cleanup()
+    initialize_db()
+    
+    # 1. Load tasks
+    tasks = load_tasks()
+
     task = {"_id": "1", "order": 1}
     update_task_annotations("annotator_1", task, ["label1", "label2"], "comment")
     # No assertion needed, just ensure no exceptions are raised
+
+    # 2. Cleanup
+    cleanup()
 
 def test_download_annotations():
     csv_content = download_annotations()
