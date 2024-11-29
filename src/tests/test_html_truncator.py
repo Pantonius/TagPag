@@ -23,10 +23,10 @@ def test_truncation_in_middle_of_text():
     that the text has been truncated.
     """
     
-    html = "<p>Hello, world!</p>"
+    html = '<p class="ignore">Hello, world!</p>'
     truncator = HTMLTruncator(limit=5)
     truncator.feed(html)
-    assert truncator.get_truncated_html() == "<p>Hello...</p>"
+    assert truncator.get_truncated_html() == '<p class="ignore">Hello...</p>'
 
 def test_truncation_at_end_of_tag():
     """
