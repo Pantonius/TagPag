@@ -124,6 +124,53 @@ def test_explode_url():
         'title': 'githubcopilot'
     }
     actual_exploded_url = explode_url(url)
-    print(actual_exploded_url)
+
+    assert actual_exploded_url == expected_exploded_url
+
+def test_explode_url_with_www():
+    url = 'https://www.github.com/microsoft/GitHubCopilot'
+    expected_exploded_url = {
+        'www': 'www',
+        'subdomain': '',
+        'domain': 'github',
+        'suffix': 'com',
+        'registered_domain': 'github.com',
+        'fqdn': 'www.github.com',
+        'scheme': 'https',
+        'netloc': 'www.github.com',
+        'hostname': 'www.github.com',
+        'path': '/microsoft/githubcopilot',
+        'params': '',
+        'query': '',
+        'fragment': '',
+        'query_dict': {},
+        'search_terms': '',
+        'title': 'githubcopilot'
+    }
+    actual_exploded_url = explode_url(url)
+
+    assert actual_exploded_url == expected_exploded_url
+
+def test_explode_url_with_www_in_subdomain():
+    url = 'https://www.subdomain.github.com/microsoft/GitHubCopilot'
+    expected_exploded_url = {
+        'www': 'www',
+        'subdomain': 'subdomain',
+        'domain': 'github',
+        'suffix': 'com',
+        'registered_domain': 'github.com',
+        'fqdn': 'www.subdomain.github.com',
+        'scheme': 'https',
+        'netloc': 'www.subdomain.github.com',
+        'hostname': 'www.subdomain.github.com',
+        'path': '/microsoft/githubcopilot',
+        'params': '',
+        'query': '',
+        'fragment': '',
+        'query_dict': {},
+        'search_terms': '',
+        'title': 'githubcopilot'
+    }
+    actual_exploded_url = explode_url(url)
 
     assert actual_exploded_url == expected_exploded_url
