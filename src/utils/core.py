@@ -466,21 +466,20 @@ def highlight_url(exploded_url: dict | str, n=0):
     fqdn = highlight_substring(exploded_url["hostname"], exploded_url["fqdn"])
     path = highlight_substring(exploded_url["title"], exploded_url["path"])
     query = exploded_url["query"]
+    fragment = exploded_url["fragment"]
 
-    if exploded_url["search_terms"]:
+    query = html.escape(query)
+    if exploded_url["search_terms"]:    
         for param in config.URL_QUERY_PARAMS:
             query = highlight_query_param(param, query)
-    else:
-        query = html.escape(query)
-
+    
     # add ? if query is not empty
     if query:
         query = f'?{query}'
 
-    fragment = html.escape(exploded_url["fragment"])
+    # add # if fragment is not empty
     if fragment:
         fragment = f'#{fragment}'
     
-
     # return the highlighted url
     return truncate_html(f'{scheme}{fqdn}{path}{query}{fragment}', n)

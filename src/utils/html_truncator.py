@@ -1,4 +1,5 @@
 from html.parser import HTMLParser
+import html
 from collections import deque
 
 class HTMLTruncator(HTMLParser):
@@ -85,7 +86,7 @@ class HTMLTruncator(HTMLParser):
             remaining = self.limit - self.current_length
             
             # Append truncated data with ellipsis
-            self.result.append(data[:remaining] + "...")
+            self.result.append(html.escape(data[:remaining]) + "...")
             
             # Update the current length to the limit
             self.current_length = self.limit
@@ -95,7 +96,7 @@ class HTMLTruncator(HTMLParser):
         else:
             
             # Append the data to the result
-            self.result.append(data)
+            self.result.append(html.escape(data))
             
             # Update the current length
             self.current_length += len(data)
