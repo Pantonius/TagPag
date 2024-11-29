@@ -374,8 +374,13 @@ def truncate_html(html: str, limit: int):
     Returns:
         str: The truncated HTML content with all tags properly closed.
     """
+    # create an HTML parser
     parser = HTMLTruncator(limit)
+
+    # feed the HTML content to the parser
     parser.feed(html)
+
+    # return the truncated HTML content
     return parser.get_truncated_html()
 
 
