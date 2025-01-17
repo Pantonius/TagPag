@@ -25,12 +25,12 @@ cd seek2judge-annotations
 For example install `pyenv` as per [their instructions](https://github.com/pyenv/pyenv#installation) and setup a virtual environment for the project:
 ```bash
 pyenv install 3.10.12
-pyenv virtualenv 3.10.12 seek2judge-env
+pyenv virtualenv 3.10.12 tagpag-env
 ```
 
 Then start the virtual environment:
 ```bash
-pyenv activate seek2judge-env
+pyenv activate tagpag-env
 ```
 
 ### 3. Install the Requirements
