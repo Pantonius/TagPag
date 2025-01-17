@@ -74,7 +74,7 @@ def extract_dashed_steps(steps) -> list:
     # let's check the dashed steps, if there is at least one
     else:
         return [
-            s for s in reversed(steps)
+            s for s in steps
             if ('-' in s or '_' in s) 
             and s not in env.NOT_SEO_TITLES 
         ]
@@ -106,7 +106,7 @@ def extract_url_title(results: dict) -> str:
         
         # remove the navigation related steps
         not_nav_dashed_steps = [
-            s for s in dashed_steps if s not in env.NOT_SEO_TITLES
+            s for s in reversed(dashed_steps) if s not in env.NOT_SEO_TITLES
 
             # this is done in the loop to make sure that the stripped is not empty
             and (s.replace('-', ' ').replace('_', ' ').strip())

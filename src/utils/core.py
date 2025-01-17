@@ -8,6 +8,7 @@ from selectolax.parser import HTMLParser
 from trafilatura import extract
 
 from utils.url_parser import explode_url
+from utils.html_truncator import HTMLTruncator
 
 # load the environment variables
 config = Config()
@@ -362,6 +363,26 @@ def truncate_string(string: str, n=100):
     # otherwise truncate
     return string[:n] + '...'
 
+def truncate_html(html: str, limit: int):
+    """
+    Truncates the given HTML content to a specified character limit while preserving HTML structure.
+
+    Args:
+        html (str): The HTML content to be truncated.
+        limit (int): The maximum number of characters to retain in the truncated HTML.
+
+    Returns:
+        str: The truncated HTML content with all tags properly closed.
+    """
+    # create an HTML parser
+    parser = HTMLTruncator(limit)
+
+    # feed the HTML content to the parser
+    parser.feed(html)
+
+    # return the truncated HTML content
+    return parser.get_truncated_html()
+
 
 def highlight_substring(substring: str, string: str):
     """
@@ -445,21 +466,20 @@ def highlight_url(exploded_url: dict | str, n=0):
     fqdn = highlight_substring(exploded_url["hostname"], exploded_url["fqdn"])
     path = highlight_substring(exploded_url["title"], exploded_url["path"])
     query = exploded_url["query"]
+    fragment = exploded_url["fragment"]
 
-    if exploded_url["search_terms"]:
+    query = html.escape(query)
+    if exploded_url["search_terms"]:    
         for param in config.URL_QUERY_PARAMS:
             query = highlight_query_param(param, query)
-    else:
-        query = html.escape(query)
-
+    
     # add ? if query is not empty
     if query:
         query = f'?{query}'
 
-    fragment = html.escape(exploded_url["fragment"])
+    # add # if fragment is not empty
     if fragment:
         fragment = f'#{fragment}'
     
-
     # return the highlighted url
-    return f'{scheme}{fqdn}{path}{query}{fragment}'
+    return truncate_html(f'{scheme}{fqdn}{path}{query}{fragment}', n)
