@@ -30,10 +30,7 @@ def test_extract_raw_text(task_id, description):
     Test that extract_raw_text does not raise an error for various cases.
     """
     cleanup()
-    load_environment('tests_data/.env-test', force=True)
-
-    config = Config()
-    config.HTML_DIR = 'corrupted_html'
+    load_environment('tests_data/.env-test-corrupted', force=True)
 
     initialize_db()
     create_directories()
@@ -60,11 +57,8 @@ def test_load_raw_text(task_id, description):
     Test that load_raw_text does not raise an error for various cases.
     """
     cleanup()
-    load_environment('tests_data/.env-test', force=True)
-
-    config = Config()
-    config.HTML_DIR = 'corrupted_html'
-
+    load_environment('tests_data/.env-test-corrupted', force=True)
+  
     initialize_db()
     create_directories()
 
@@ -90,10 +84,7 @@ def test_extract_cleaned_text(task_id, description):
     Test that extract_cleaned_text does not raise an error for various cases.
     """
     cleanup()
-    load_environment('tests_data/.env-test', force=True)
-
-    config = Config()
-    config.HTML_DIR = 'corrupted_html'
+    load_environment('tests_data/.env-test-corrupted', force=True)
 
     initialize_db()
     create_directories()
@@ -121,10 +112,7 @@ def test_load_cleaned_text(task_id, description):
     Test that load_cleaned_text does not raise an error for various cases.
     """
     cleanup()
-    load_environment('tests_data/.env-test', force=True)
-
-    config = Config()
-    config.HTML_DIR = 'corrupted_html'
+    load_environment('tests_data/.env-test-corrupted', force=True)
 
     initialize_db()
     create_directories()

@@ -131,9 +131,10 @@ def create_directories():
     Returns:
         None
     """
-    env = load_environment()
+    
+    config = Config()
 
-    for directory in [env.RAW_TEXT_DIR, env.CLEANED_TEXT_DIR]:
+    for directory in [config.RAW_TEXT_DIR, config.CLEANED_TEXT_DIR]:
         if not os.path.exists(directory):
             os.makedirs(directory)
 
