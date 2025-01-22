@@ -212,7 +212,8 @@ def get_page_content(id: str):
     """
     try:
         # Read the content of the page
-        with open(f"{config.HTML_DIR}/{id}.html", "r") as f:
+        html_path = os.path.join(config.HTML_DIR, f"{id}.html")
+        with open(html_path, "r") as f:
             return f.read()
     except FileNotFoundError:
         return None
@@ -250,7 +251,8 @@ def extract_raw_text(id: str):
     text = reduce_line_breaks(tree.body.text(separator='\n'))
 
     # Save the parsed selectolax text to a file
-    with open(f'{config.RAW_TEXT_DIR}/{id}.txt', 'w') as f:
+    text_path = os.path.join(config.RAW_TEXT_DIR, f"{id}.txt")
+    with open(text_path, 'w') as f:
         f.write(text)
         
     # Return the extracted text
@@ -270,7 +272,8 @@ def load_raw_text(id: str):
     # First check if there already is a parsed version in the selectolax directory
     try:
         # read the file content if it exists
-        with open(f'{config.RAW_TEXT_DIR}/{id}.txt', 'r') as f:
+        text_path = os.path.join(config.RAW_TEXT_DIR, f"{id}.txt")
+        with open(text_path, 'r') as f:
             # return the content of the file
             return f.read()
     except FileNotFoundError:
@@ -302,7 +305,8 @@ def extract_cleaned_text(id: str):
         return None
 
     # Save the parsed trafilatura text to a file
-    with open(f'{config.CLEANED_TEXT_DIR}/{id}.txt', 'w') as f:
+    text_path = os.path.join(config.CLEANED_TEXT_DIR, f"{id}.txt")
+    with open(text_path, 'w') as f:
         f.write(text)
         
     # Return the extracted text
@@ -322,7 +326,8 @@ def load_cleaned_text(id: str):
     # First check if there already is a parsed version in the trafilatura directory
     try:
         # read the file content if it exists
-        with open(f'{config.CLEANED_TEXT_DIR}/{id}.txt', 'r') as f:
+        text_path = os.path.join(config.CLEANED_TEXT_DIR, f"{id}.txt")
+        with open(text_path, 'r') as f:
             # return the content of the file
             return f.read()
     except FileNotFoundError:
@@ -341,7 +346,8 @@ def update_cleaned_text(task_id: str, text: str):
         None
     """
     
-    with open(f'{config.CLEANED_TEXT_DIR}/{task_id}.txt', 'w') as f:
+    text_path = os.path.join(config.CLEANED_TEXT_DIR, f"{task_id}.txt")
+    with open(text_path, 'w') as f:
         f.write(text)
 
 def truncate_string(string: str, n=100):
