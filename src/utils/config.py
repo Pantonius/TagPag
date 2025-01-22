@@ -126,6 +126,10 @@ def create_directories():
     config = Config()
 
     for directory in [config.RAW_TEXT_DIR, config.CLEANED_TEXT_DIR]:
+    
+    config = Config()
+
+    for directory in [config.RAW_TEXT_DIR, config.CLEANED_TEXT_DIR]:
         if not os.path.exists(directory):
             os.makedirs(directory)
 
