@@ -1,6 +1,11 @@
 # Testing
 Testing is accomplished via [pytest](https://docs.pytest.org/en/stable/index.html). For more detailed information refer to the [pytest documentation](https://docs.pytest.org/en/stable/index.html).
 
+To get started first install the latest version of pytest as per [their instructions](https://docs.pytest.org/en/stable/getting-started.html#get-started):
+```sh
+pip install -U pytest
+```
+
 ## Test Location
 Currently all tests are located in `src/tests`.
 

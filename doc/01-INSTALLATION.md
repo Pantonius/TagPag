@@ -3,8 +3,8 @@
 ## Clone the Repository
 Start by cloning the repository to your desired location and navigating into the local repository:
 ```bash
-git clone https://gitlab.inf.uni-konstanz.de/julian.schelb/seek2judge-annotations.git
-cd seek2judge-annotations
+git clone https://gitlab.inf.uni-konstanz.de/anton.pogrebnjak/tagpag.git
+cd tagpag
 ```
 
 ## Virtual Environment
@@ -16,14 +16,14 @@ It is best practice to run python applications in their own environments such th
 2. Create a virtual environment for this application using `pyenv`. Open your terminal and execute the following commands:
 
    ```bash
-   pyenv install 3.10.12
-   pyenv virtualenv 3.10.12 seek2judge-env
+   pyenv install 3.12.7
+   pyenv virtualenv 3.12.7 tagpag-env
    ```
 
 3. Activate the virtual environment:
 
    ```bash
-   pyenv activate seek2judge-env
+   pyenv activate tagpag-env
    ```
 
 3. Install the required dependencies:
