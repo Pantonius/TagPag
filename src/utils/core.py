@@ -25,7 +25,7 @@ def init():
     """
     # create the tasks file if it doesn't exist
     try:
-        with open(config.TASKS_FILE, 'x') as f:
+        with open(config.TASKS_FILE, 'x', encoding="utf8") as f:
             pass
     except FileExistsError:
         pass
@@ -273,7 +273,7 @@ def load_raw_text(id: str):
     try:
         # read the file content if it exists
         text_path = os.path.join(config.RAW_TEXT_DIR, f"{id}.txt")
-        with open(text_path, 'r') as f:
+        with open(text_path, 'r', encoding="utf8") as f:
             # return the content of the file
             return f.read()
     except FileNotFoundError:
@@ -306,7 +306,7 @@ def extract_cleaned_text(id: str):
 
     # Save the parsed trafilatura text to a file
     text_path = os.path.join(config.CLEANED_TEXT_DIR, f"{id}.txt")
-    with open(text_path, 'w') as f:
+    with open(text_path, 'w', encoding="utf8") as f:
         f.write(text)
         
     # Return the extracted text
@@ -327,7 +327,7 @@ def load_cleaned_text(id: str):
     try:
         # read the file content if it exists
         text_path = os.path.join(config.CLEANED_TEXT_DIR, f"{id}.txt")
-        with open(text_path, 'r') as f:
+        with open(text_path, 'r', encoding="utf8") as f:
             # return the content of the file
             return f.read()
     except FileNotFoundError:
@@ -347,7 +347,7 @@ def update_cleaned_text(task_id: str, text: str):
     """
     
     text_path = os.path.join(config.CLEANED_TEXT_DIR, f"{task_id}.txt")
-    with open(text_path, 'w') as f:
+    with open(text_path, 'w', encoding="utf8") as f:
         f.write(text)
 
 def truncate_string(string: str, n=100):
