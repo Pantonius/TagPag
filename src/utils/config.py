@@ -91,10 +91,16 @@ def load_environment_variables():
     # So we'll keep it like this for now.
 
     working_dir = os.getenv('WORKING_DIR', 'example_workdir')
+    random_seed = os.getenv('RANDOM_SEED', '-1')
+    
+    try:
+        random_seed = int(random_seed)
+    except ValueError:
+        random_seed = -1
 
     config_dict = {
         "ANNOTATOR": os.getenv("ANNOTATOR", "annotator_name"),
-        "RANDOM_SEED": int(os.getenv("RANDOM_SEED", '-1')) if os.getenv("RANDOM_SEED", 'None') != 'None' else -1,
+        "RANDOM_SEED": random_seed,
         "TASKS_ID_COLUMN": os.getenv("TASKS_ID_COLUMN", '_id'),
         "TASKS_URL_COLUMN": os.getenv("TASKS_URL_COLUMN", 'url'),
         "WORKING_DIR": working_dir,
