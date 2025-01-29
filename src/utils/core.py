@@ -213,7 +213,7 @@ def get_page_content(id: str):
     try:
         # Read the content of the page
         html_path = os.path.join(config.HTML_DIR, f"{id}.html")
-        with open(html_path, "r") as f:
+        with open(html_path, "r", encoding="utf8") as f:
             return f.read()
     except FileNotFoundError:
         return None
@@ -252,7 +252,7 @@ def extract_raw_text(id: str):
 
     # Save the parsed selectolax text to a file
     text_path = os.path.join(config.RAW_TEXT_DIR, f"{id}.txt")
-    with open(text_path, 'w') as f:
+    with open(text_path, 'w', encoding="utf8") as f:
         f.write(text)
         
     # Return the extracted text
