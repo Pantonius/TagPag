@@ -8,6 +8,7 @@ from selectolax.parser import HTMLParser
 from trafilatura import extract
 
 from utils.url_parser import explode_url
+from utils.html_truncator import HTMLTruncator
 
 # load the environment variables
 config = Config()
@@ -24,7 +25,7 @@ def init():
     """
     # create the tasks file if it doesn't exist
     try:
-        with open(config.TASKS_FILE, 'x') as f:
+        with open(config.TASKS_FILE, 'x', encoding="utf8") as f:
             pass
     except FileExistsError:
         pass
@@ -211,7 +212,8 @@ def get_page_content(id: str):
     """
     try:
         # Read the content of the page
-        with open(f"{config.HTML_DIR}/{id}.html", "r") as f:
+        html_path = os.path.join(config.HTML_DIR, f"{id}.html")
+        with open(html_path, "r", encoding="utf8") as f:
             return f.read()
     except FileNotFoundError:
         return None
@@ -249,7 +251,8 @@ def extract_raw_text(id: str):
     text = reduce_line_breaks(tree.body.text(separator='\n'))
 
     # Save the parsed selectolax text to a file
-    with open(f'{config.RAW_TEXT_DIR}/{id}.txt', 'w') as f:
+    text_path = os.path.join(config.RAW_TEXT_DIR, f"{id}.txt")
+    with open(text_path, 'w', encoding="utf8") as f:
         f.write(text)
         
     # Return the extracted text
@@ -269,7 +272,8 @@ def load_raw_text(id: str):
     # First check if there already is a parsed version in the selectolax directory
     try:
         # read the file content if it exists
-        with open(f'{config.RAW_TEXT_DIR}/{id}.txt', 'r') as f:
+        text_path = os.path.join(config.RAW_TEXT_DIR, f"{id}.txt")
+        with open(text_path, 'r', encoding="utf8") as f:
             # return the content of the file
             return f.read()
     except FileNotFoundError:
@@ -301,7 +305,8 @@ def extract_cleaned_text(id: str):
         return None
 
     # Save the parsed trafilatura text to a file
-    with open(f'{config.CLEANED_TEXT_DIR}/{id}.txt', 'w') as f:
+    text_path = os.path.join(config.CLEANED_TEXT_DIR, f"{id}.txt")
+    with open(text_path, 'w', encoding="utf8") as f:
         f.write(text)
         
     # Return the extracted text
@@ -321,7 +326,8 @@ def load_cleaned_text(id: str):
     # First check if there already is a parsed version in the trafilatura directory
     try:
         # read the file content if it exists
-        with open(f'{config.CLEANED_TEXT_DIR}/{id}.txt', 'r') as f:
+        text_path = os.path.join(config.CLEANED_TEXT_DIR, f"{id}.txt")
+        with open(text_path, 'r', encoding="utf8") as f:
             # return the content of the file
             return f.read()
     except FileNotFoundError:
@@ -340,7 +346,8 @@ def update_cleaned_text(task_id: str, text: str):
         None
     """
     
-    with open(f'{config.CLEANED_TEXT_DIR}/{task_id}.txt', 'w') as f:
+    text_path = os.path.join(config.CLEANED_TEXT_DIR, f"{task_id}.txt")
+    with open(text_path, 'w', encoding="utf8") as f:
         f.write(text)
 
 def truncate_string(string: str, n=100):
@@ -361,6 +368,26 @@ def truncate_string(string: str, n=100):
 
     # otherwise truncate
     return string[:n] + '...'
+
+def truncate_html(html: str, limit: int):
+    """
+    Truncates the given HTML content to a specified character limit while preserving HTML structure.
+
+    Args:
+        html (str): The HTML content to be truncated.
+        limit (int): The maximum number of characters to retain in the truncated HTML.
+
+    Returns:
+        str: The truncated HTML content with all tags properly closed.
+    """
+    # create an HTML parser
+    parser = HTMLTruncator(limit)
+
+    # feed the HTML content to the parser
+    parser.feed(html)
+
+    # return the truncated HTML content
+    return parser.get_truncated_html()
 
 
 def highlight_substring(substring: str, string: str):
@@ -445,21 +472,20 @@ def highlight_url(exploded_url: dict | str, n=0):
     fqdn = highlight_substring(exploded_url["hostname"], exploded_url["fqdn"])
     path = highlight_substring(exploded_url["title"], exploded_url["path"])
     query = exploded_url["query"]
+    fragment = exploded_url["fragment"]
 
-    if exploded_url["search_terms"]:
+    query = html.escape(query)
+    if exploded_url["search_terms"]:    
         for param in config.URL_QUERY_PARAMS:
             query = highlight_query_param(param, query)
-    else:
-        query = html.escape(query)
-
+    
     # add ? if query is not empty
     if query:
         query = f'?{query}'
 
-    fragment = html.escape(exploded_url["fragment"])
+    # add # if fragment is not empty
     if fragment:
         fragment = f'#{fragment}'
     
-
     # return the highlighted url
-    return f'{scheme}{fqdn}{path}{query}{fragment}'
+    return truncate_html(f'{scheme}{fqdn}{path}{query}{fragment}', n)

@@ -3,3 +3,4 @@ from .core import *
 from .db import *
 from .frontend_scripts import *
 from .url_parser import *
+from .html_truncator import *

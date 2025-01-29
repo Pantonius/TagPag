@@ -1,4 +1,4 @@
-# Seek2Judge: Webpage Annotations
+# TagPag: Webpage Annotations
 
 - [Description](#description)
 - [Quickstart](#quickstart)
@@ -17,20 +17,15 @@ For more information, see the next section "Further Documentation".
 
 ### 1. Clone the Repository
 ```bash
-git clone https://gitlab.inf.uni-konstanz.de/julian.schelb/seek2judge-annotations.git
-cd seek2judge-annotations
+git clone https://gitlab.inf.uni-konstanz.de/anton.pogrebnjak/tagpag.git
+cd tagpag
 ```
 
 ### 2. Setup a Virtual Environment
 For example install `pyenv` as per [their instructions](https://github.com/pyenv/pyenv#installation) and setup a virtual environment for the project:
 ```bash
-pyenv install 3.10.12
-pyenv virtualenv 3.10.12 seek2judge-env
-```
-
-Then start the virtual environment:
-```bash
-pyenv activate seek2judge-env
+pyenv install 3.12.7
+pyenv virtualenv 3.12.7 tagpag-env
 ```
 
 ### 3. Install the Requirements

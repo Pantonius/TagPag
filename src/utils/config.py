@@ -9,21 +9,13 @@ from os.path import join
 
 # Define the Config class to store the configuration settings
 class Config:
-    # Singleton instance
-    _instance = None
-
     def __new__(cls, *args, **kwargs):
         if not hasattr(cls, 'instance'):
             cls.instance = super(Config, cls).__new__(cls)
         return cls.instance
 
     def __init__(self, config_dict: dict = None):
-        # If the instance attribute is not set, set it to the current instance
-        if not hasattr(self, '_initialized'):
-            self._initialized = True
-            self.set_config(config_dict)
-        elif config_dict:
-            self.set_config(config_dict)
+        self.set_config(config_dict)
     
     def set_config(self, config_dict: dict) -> None:
         """
@@ -43,11 +35,11 @@ class Config:
         self.TASKS_ID_COLUMN = config_dict.get("TASKS_ID_COLUMN", '_id')
         self.TASKS_URL_COLUMN = config_dict.get("TASKS_URL_COLUMN", 'url')
         self.WORKING_DIR = config_dict.get("WORKING_DIR", 'example_workdir')
-        self.TASKS_FILE = config_dict.get('TASKS_FILE', 'tasks.csv')
-        self.ANNOTATIONS_DB = config_dict.get('ANNOTATIONS_DB', 'annotations.sqlite')
-        self.RAW_TEXT_DIR = config_dict.get('RAW_TEXT_DIR', 'raw_text')
-        self.CLEANED_TEXT_DIR = config_dict.get('CLEANED_TEXT_DIR', 'cleaned_text')
-        self.HTML_DIR = config_dict.get('HTML_DIR', 'html')
+        self.TASKS_FILE = config_dict.get('TASKS_FILE', join(self.WORKING_DIR, 'tasks.csv'))
+        self.ANNOTATIONS_DB = config_dict.get('ANNOTATIONS_DB', join(self.WORKING_DIR, 'annotations.sqlite'))
+        self.RAW_TEXT_DIR = config_dict.get('RAW_TEXT_DIR', join(self.WORKING_DIR, 'raw_text'))
+        self.CLEANED_TEXT_DIR = config_dict.get('CLEANED_TEXT_DIR', join(self.WORKING_DIR, 'cleaned_text'))
+        self.HTML_DIR = config_dict.get('HTML_DIR', join(self.WORKING_DIR, 'html'))
         self.LABELS = config_dict.get("LABELS", [])
         self.URL_QUERY_PARAMS = get_env_set("URL_QUERY_PARAMS", set())
         self.NOT_SEO_TITLES = get_env_set("NOT_SEO_TITLES", set())
@@ -57,7 +49,7 @@ class Config:
 
 # Load the environment variables
 loaded = False
-def load_environment(file_path: str = '/home/anton/git/tagpag/.env', force: bool = False) -> Config:
+def load_environment(file_path: str = '.env', force: bool = False) -> Config:
     """
     Loads the environment variables once from the given .env file, unless forced, such that there are no unnecessary page reloads.
 
@@ -120,33 +112,7 @@ def load_environment_variables():
 
     return Config(config_dict)
 
-
-def read_json_file(file_path: str) -> dict:
-    """
-    Read and parse a JSON file.
-
-    Args:
-        file_path (str): The path to the JSON file.
-
-    Returns:
-        dict: The parsed JSON data as a dictionary.
-
-    Raises:
-        FileNotFoundError: If the file specified by `file_path` is not found.
-        json.JSONDecodeError: If there is an error decoding the JSON data.
-        Exception: If any other error occurs while reading the JSON file.
-    """
-    try:
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-            return data
-    except FileNotFoundError:
-        raise FileNotFoundError(f"Error: File '{file_path}' not found.")
-    except json.JSONDecodeError:
-        raise json.JSONDecodeError(f"Error: Failed to decode JSON in file '{file_path}'.")
-    except Exception as e:
-        raise Exception(f"Error: An error occurred while reading the JSON file: {str(e)}")
-    
+   
 def create_directories():
     """
     Create the directories for the data if they don't exist.
@@ -157,9 +123,9 @@ def create_directories():
     Returns:
         None
     """
-    env = load_environment()
+    config = Config()
 
-    for directory in [env.RAW_TEXT_DIR, env.CLEANED_TEXT_DIR]:
+    for directory in [config.RAW_TEXT_DIR, config.CLEANED_TEXT_DIR]:
         if not os.path.exists(directory):
             os.makedirs(directory)
 

@@ -3,7 +3,7 @@ from utils.config import *
 import os
 import sqlite3
 
-load_environment('.env-test', force=True)
+load_environment('tests_data/.env-test', force=True)
 config = Config()
 
 def cleanup():
@@ -65,13 +65,13 @@ def test_load_annotations():
         'labels': ['label_1', 'label_2'],
         'comment': 'This is a comment.',
         'random_seed': '42',
-        'random_order': '1'
+        'task_order': '1'
     }
     annotation_02 = {
         'labels': ['label_2', 'label_3'],
         'comment': 'This is another comment.',
         'random_seed': '43',
-        'random_order': '1'
+        'task_order': '1'
     }
     
     save_annotation('1', 'annotator_1', None)
@@ -94,12 +94,12 @@ def test_load_annotations():
     assert result_03['annotator_1']['comment'] == annotation_01['comment']
     assert result_03['annotator_1']['labels'] == annotation_01['labels']
     assert result_03['annotator_1']['random_seed'] == annotation_01['random_seed']
-    assert result_03['annotator_1']['random_order'] == annotation_01['random_order']
+    assert result_03['annotator_1']['task_order'] == annotation_01['task_order']
 
     assert result_03['annotator_2']['comment'] == annotation_02['comment']
     assert result_03['annotator_2']['labels'] == annotation_02['labels']
     assert result_03['annotator_2']['random_seed'] == annotation_02['random_seed']
-    assert result_03['annotator_2']['random_order'] == annotation_02['random_order']
+    assert result_03['annotator_2']['task_order'] == annotation_02['task_order']
 
     # 5. Cleanup
     cleanup()
@@ -124,7 +124,7 @@ def test_load_annotation():
     result_01 = load_annotation('0', 'annotator')
     assert result_01['comment'] == ''
     assert result_01['labels'] == []
-    assert result_01['random_order'] == None
+    assert result_01['task_order'] == None
     assert result_01['random_seed'] == None 
 
     # 3. Visited, but no annotation

@@ -2,7 +2,7 @@ from utils.core import *
 from utils.config import *
 from utils.db import initialize_db
 
-load_environment('.env-test', force=True)
+load_environment('tests_data/.env-test', force=True)
 config = Config()
 
 def cleanup():
@@ -20,17 +20,17 @@ def cleanup():
 def test_highlight_url_with_truncation():
     # Test cases for highlight_url with truncation
     
-    # 1. Truncate the URL to 20 characters
-    assert highlight_url('https://some.website.com/long/path/to_some_file.html', 20) == 'https://<strong>some...</strong>'
-    assert highlight_url('https://some.website.com/search?q=python', 20) == 'https://<strong>some...</strong>'
-    assert highlight_url('https://some.website.com/search?q=python&lang=en', 20) == 'https://<strong>some...</strong>'
-    assert highlight_url('https://some.website.com/search?q=python#section', 20) == 'https://<strong>some...</strong>'
+    # 1. Truncate the URL in the middle of the domain
+    assert highlight_url('https://some.website.com/long/path/to_some_file.html', 12) == 'https://<strong>some...</strong>'
+    assert highlight_url('https://some.website.com/search?q=python', 12) == 'https://<strong>some...</strong>'
+    assert highlight_url('https://some.website.com/search?q=python&lang=en', 12) == 'https://<strong>some...</strong>'
+    assert highlight_url('https://some.website.com/search?q=python#section', 12) == 'https://<strong>some...</strong>'
 
-    # 2. Truncate the URL to 30 characters
-    assert highlight_url('https://some.website.com/long/path/to_some_file.html', 30) == 'https://<strong>some.website.com</strong>/long...'
-    assert highlight_url('https://some.website.com/search?q=python', 30) == 'https://<strong>some.website.com</strong>/search...'
-    assert highlight_url('https://some.website.com/search?q=python&lang=en', 30) == 'https://<strong>some.website.com</strong>/search...'
-    assert highlight_url('https://some.website.com/search?q=python#section', 30) == 'https://<strong>some.website.com</strong>/search...'
+    # 2. Truncate the URL after the domain
+    assert highlight_url('https://some.website.com/long/path/to_some_file.html', 30) == 'https://<strong>some.website.com</strong>/long/...'
+    assert highlight_url('https://some.website.com/search?q=python', 31) == 'https://<strong>some.website.com</strong>/search...'
+    assert highlight_url('https://some.website.com/search?q=python&lang=en', 36) == 'https://<strong>some.website.com</strong>/search?q=<strong>py...</strong>'
+    assert highlight_url('https://some.website.com/search?lang=en&q=python#section', 36) == 'https://<strong>some.website.com</strong>/search?lang...'
 
 def test_reduce_line_breaks():
     assert reduce_line_breaks("Line1\n\n\nLine2\n\nLine3") == "Line1\nLine2\nLine3"
@@ -100,11 +100,30 @@ def test_load_tasks():
     cleanup()
 
 def test_update_task_annotations():
+
+    # 0. Clean the database
+    cleanup()
+    initialize_db()
+    
+    # 1. Load tasks
+    tasks = load_tasks()
+
     task = {"_id": "1", "order": 1}
     update_task_annotations("annotator_1", task, ["label1", "label2"], "comment")
     # No assertion needed, just ensure no exceptions are raised
 
+    # 2. Cleanup
+    cleanup()
+
 def test_download_annotations():
+
+    # 0. Clean the database
+    cleanup()
+    initialize_db()
+    
+    # 1. Load tasks
+    tasks = load_tasks()
+
     csv_content = download_annotations()
     assert "_id,url" in csv_content
 
