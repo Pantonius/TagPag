@@ -217,6 +217,9 @@ def get_page_content(id: str):
             return f.read()
     except FileNotFoundError:
         return None
+    except UnicodeDecodeError as e:
+        print(f"An error occurred while reading the HTML content for task {id}: {e}")
+        return None
 
 def extract_raw_text(id: str):
     """
@@ -269,6 +272,8 @@ def load_raw_text(id: str):
         str: The text extracted from the HTML document.
     """
 
+    print(config, config.WORKING_DIR)
+
     # First check if there already is a parsed version in the selectolax directory
     try:
         # read the file content if it exists
@@ -278,6 +283,9 @@ def load_raw_text(id: str):
             return f.read()
     except FileNotFoundError:
         return extract_raw_text(id)
+    except UnicodeDecodeError as e:
+        print(f"An error occurred while reading the HTML content for task {id}: {e}")
+        return None
 
 def extract_cleaned_text(id: str):
     """
@@ -333,6 +341,9 @@ def load_cleaned_text(id: str):
     except FileNotFoundError:
         # extract the cleaned text
         return extract_cleaned_text(id)
+    except UnicodeDecodeError as e:
+        print(f"An error occurred while reading the HTML content for task {id}: {e}")
+        return None
 
 def update_cleaned_text(task_id: str, text: str):
     """
