@@ -9,10 +9,12 @@ from os.path import join
 
 # Define the Config class to store the configuration settings
 class Config:
+    _instance = None
+
     def __new__(cls, *args, **kwargs):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(Config, cls).__new__(cls)
-        return cls.instance
+        if cls._instance is None:
+            cls._instance = super(Config, cls).__new__(cls)
+        return cls._instance
 
     def __init__(self, config_dict: dict = None):
         self.set_config(config_dict)
@@ -27,8 +29,8 @@ class Config:
         Returns:
             None
         """
-        if not config_dict:
-            config_dict = {}
+        if not config_dict: # If no config_dict is provided, return the current instance
+            return self
 
         self.ANNOTATOR = config_dict.get("ANNOTATOR", "annotator_name")
         self.RANDOM_SEED = config_dict.get("RANDOM_SEED", -1)
