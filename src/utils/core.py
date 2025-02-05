@@ -55,7 +55,7 @@ def load_annotator_tasks(annotator_id: str ):
     Returns:
         list[dict]: The tasks with the annotations made by the annotator.
     """
-    tasks = pd.read_csv(config.TASKS_FILE, dtype={config.TASKS_ID_COLUMN: str, config.TASKS_URL_COLUMN: str}, encoding='utf-8')
+    tasks = pd.read_csv(config.TASKS_FILE, dtype={config.TASKS_ID_COLUMN: str, config.TASKS_URL_COLUMN: str})
 
     # filter tasks that do not have an id or url
     tasks = tasks[tasks[config.TASKS_ID_COLUMN].notnull() & tasks[config.TASKS_URL_COLUMN].notnull()]
@@ -89,7 +89,7 @@ def load_tasks():
     Returns:
         list[dict]: The tasks with all annotations from all annotators.
     """
-    tasks = pd.read_csv(config.TASKS_FILE, dtype={config.TASKS_ID_COLUMN: str, config.TASKS_URL_COLUMN: str}, encoding='utf-8')
+    tasks = pd.read_csv(config.TASKS_FILE, dtype={config.TASKS_ID_COLUMN: str, config.TASKS_URL_COLUMN: str})
 
     # filter tasks that do not have an id or url
     tasks = tasks[tasks[config.TASKS_ID_COLUMN].notnull() & tasks[config.TASKS_URL_COLUMN].notnull()]
