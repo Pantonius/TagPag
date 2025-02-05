@@ -43,10 +43,10 @@ class Config:
         self.CLEANED_TEXT_DIR = config_dict.get('CLEANED_TEXT_DIR', join(self.WORKING_DIR, 'cleaned_text'))
         self.HTML_DIR = config_dict.get('HTML_DIR', join(self.WORKING_DIR, 'html'))
         self.LABELS = config_dict.get("LABELS", [])
-        self.URL_QUERY_PARAMS = get_env_set("URL_QUERY_PARAMS", set())
-        self.NOT_SEO_TITLES = get_env_set("NOT_SEO_TITLES", set())
-        self.COMMON_EXTENSIONS = get_env_set("COMMON_EXTENSIONS", set())
-        self.SPECIAL_CHARACTER_MAP = get_env_dict("SPECIAL_CHARACTER_MAP", {})
+        self.URL_QUERY_PARAMS = config_dict.get("URL_QUERY_PARAMS", set())
+        self.NOT_SEO_TITLES = config_dict.get("NOT_SEO_TITLES", set())
+        self.COMMON_EXTENSIONS = config_dict.get("COMMON_EXTENSIONS", set())
+        self.SPECIAL_CHARACTER_MAP = config_dict.get("SPECIAL_CHARACTER_MAP", {})
     
 
 # Load the environment variables
@@ -87,38 +87,196 @@ def load_environment_variables():
     Returns:
         None
     """
-    # TODO: It maybe desirable to move this to the Config class, but I find that seperating this from the Config class leaves the possability
-    # of setting the Config fields via additional methods, without having to modify the Config class itself.
-    # For instance, someone may add a Streamlit Page which allows researchers to set the Config fields via a GUI.
-    # So we'll keep it like this for now.
 
-    working_dir = os.getenv('WORKING_DIR', 'example_workdir')
-    random_seed = os.getenv('RANDOM_SEED', '-1')
-    
-    try:
-        random_seed = int(random_seed)
-    except ValueError:
-        random_seed = -1
+    working_dir = validate_path('WORKING_DIR', 'example_workdir')
 
     config_dict = {
-        "ANNOTATOR": os.getenv("ANNOTATOR", "annotator_name"),
-        "RANDOM_SEED": random_seed,
-        "TASKS_ID_COLUMN": os.getenv("TASKS_ID_COLUMN", '_id'),
-        "TASKS_URL_COLUMN": os.getenv("TASKS_URL_COLUMN", 'url'),
+        "ANNOTATOR": validate_string("ANNOTATOR", "annotator_name"),
+        "RANDOM_SEED": validate_random_seed(),
+        "TASKS_ID_COLUMN": validate_string("TASKS_ID_COLUMN", '_id'),
+        "TASKS_URL_COLUMN": validate_string("TASKS_URL_COLUMN", 'url'),
         "WORKING_DIR": working_dir,
-        "TASKS_FILE": join(working_dir, os.getenv('TASKS_FILE', 'tasks.csv')),
-        "ANNOTATIONS_DB": join(working_dir, os.getenv('ANNOTATIONS_DB', 'annotations.sqlite')),
-        "RAW_TEXT_DIR": join(working_dir, os.getenv('RAW_TEXT_DIR', 'raw_text')),
-        "CLEANED_TEXT_DIR": join(working_dir, os.getenv('CLEANED_TEXT_DIR', 'cleaned_text')),
-        "HTML_DIR": join(working_dir, os.getenv('HTML_DIR', 'html')),
-        "LABELS": os.getenv("LABELS", "").split(","),
-        "URL_QUERY_PARAMS": get_env_set("URL_QUERY_PARAMS", set()),
-        "NOT_SEO_TITLES": get_env_set("NOT_SEO_TITLES", set()),
-        "COMMON_EXTENSIONS": get_env_set("COMMON_EXTENSIONS", set()),
-        "SPECIAL_CHARACTER_MAP": get_env_dict("SPECIAL_CHARACTER_MAP", {})
+        "TASKS_FILE": validate_path('TASKS_FILE', 'tasks.csv', working_dir),
+        "ANNOTATIONS_DB": join(working_dir, validate_string('ANNOTATIONS_DB', 'annotations.sqlite')),
+        "RAW_TEXT_DIR": join(working_dir, validate_string('RAW_TEXT_DIR', 'raw_text')),
+        "CLEANED_TEXT_DIR": join(working_dir, validate_string('CLEANED_TEXT_DIR', 'cleaned_text')),
+        "HTML_DIR": validate_path('HTML_DIR', 'html', working_dir),
+        "LABELS": validate_list("LABELS", ""),
+        "URL_QUERY_PARAMS": validate_set("URL_QUERY_PARAMS", set()),
+        "NOT_SEO_TITLES": validate_set("NOT_SEO_TITLES", set()),
+        "COMMON_EXTENSIONS": validate_set("COMMON_EXTENSIONS", set()),
+        "SPECIAL_CHARACTER_MAP": validate_dict("SPECIAL_CHARACTER_MAP", {})
     }
 
     return Config(config_dict)
+
+def validate_string(variable: str, default_value: str) -> str:
+    """
+    Validate the environment variable as a string.
+
+    Args:
+        variable (str): The environment variable to validate.
+        default_value (str): The default value to return if the environment variable is not set.
+
+    Returns:
+        str: The value of the environment variable, or the default value if the environment variable is not set.
+    """
+    value = os.getenv(variable, default_value)
+
+    # check if the value is a string
+    if not isinstance(value, str):
+        raise ValueError(f"{variable} must be a string. Check the configuration file.")
+    
+    return value
+
+
+def validate_path(variable: str, default_value: str, parent_dir: str = None) -> str:
+    """
+    Validate the environment variable as a existing path.
+
+    Args:
+        variable (str): The environment variable to validate.
+        default_value (str): The default value to return if the environment variable is not set.
+        parent_dir (str): The parent directory of the path (default: None).
+    
+    Returns:
+        str: The path if it exists.
+    """
+
+    path = validate_string(variable, default_value)
+
+    if parent_dir:
+        path = join(parent_dir, path)
+    
+    if not os.path.exists(path):
+        raise ValueError(f"{variable} does not exist ({path}). Check the configuration file.")
+    
+    return path
+
+
+def validate_parent_directory(variable: str, directory: str) -> str:
+    """
+    Validate the parent directory of the environment variable.
+
+    Args:
+        variable (str): The environment variable to validate.
+        directory (str): The directory to validate.
+    
+    Returns:
+        str: The directory if it exists.
+    """
+
+    try:
+        parent_dir = os.path.dirname(directory)
+        if not os.path.exists(parent_dir):
+            raise ValueError(f"{variable} parent directory does not exist ({parent_dir}). Check the configuration file.")
+    except Exception as e:
+        raise ValueError(f"Error validating {variable} parent directory: {e}")
+    
+    return directory
+
+def validate_random_seed():
+    """
+    Validate the random seed environment variable.
+
+    Args:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        ValueError: If the random seed is not a positive integer or 'None'.
+    """
+    random_seed = os.getenv('RANDOM_SEED', 'None')
+
+    if random_seed == 'None':
+        random_seed = -1
+    else:
+        try:
+            random_seed = int(random_seed)
+
+            if random_seed < 0:
+                raise ValueError()
+    
+        except ValueError:
+            raise ValueError("RANDOM_SEED must be a positive ingeger or 'None' to avoid randomization")
+   
+    
+    return random_seed
+
+
+def validate_set(var_name, default_value):
+    """
+    Validate and retrieves an environment variable and returns its value as a set.
+
+    Args:
+        var_name (str): The name of the environment variable to retrieve.
+        default_value (set): The default value to return if the environment variable is not set or cannot be parsed.
+
+    Returns:
+        set: The value of the environment variable as a set, or the default value if an error occurs.
+
+    Notes:
+        The environment variable is expected to be a comma-separated list of values.
+        If an error occurs while parsing the environment variable, a warning is raised and the default value is returned.
+    """
+
+    value = validate_string(var_name, "")
+
+    try:
+        return set(value.split(","))
+    except Exception as e:
+        raise ValueError(f"Error parsing {var_name}: {e}\n\nError parsing {var_name}. Check the configuration file.")
+    
+
+def validate_list(var_name, default_value):
+    """
+    Validate and retrieves an environment variable and returns its value as a list.
+
+    Args:
+        var_name (str): The name of the environment variable to retrieve.
+        default_value (list): The default value to return if the environment variable is not set or cannot be parsed.
+
+    Returns:
+        list: The value of the environment variable as a list, or the default value if an error occurs.
+
+    Notes:
+        The environment variable is expected to be a comma-separated list of values.
+        If an error occurs while parsing the environment variable, a warning is raised and the default value is returned.
+    """
+
+    value = validate_string(var_name, "")
+
+    try:
+        return value.split(",")
+    except Exception as e:
+        raise ValueError(f"Error parsing {var_name}: {e}\n\nError parsing {var_name}. Check the configuration file.")
+
+def validate_dict(var_name, default_value):
+    """
+    Retrieves an environment variable and returns its value as a dictionary.
+
+    Args:
+        var_name (str): The name of the environment variable to retrieve.
+        default_value (dict): The default value to return if the environment variable is not set or cannot be parsed.
+
+    Returns:
+        dict: The value of the environment variable as a dictionary, or the default value if an error occurs.
+
+    Notes:
+        The environment variable is expected to be a JSON-formatted string.
+        If an error occurs while parsing the environment variable, a warning is raised and the default value is returned.
+    """
+
+    value = validate_string(var_name, "")
+
+    try:
+        return json.loads(value)
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Error parsing {var_name}: JSON Decoding Error. Check the configuration file.")
+    except Exception as e:
+        raise ValueError(f"Error parsing {var_name}: {e}\n\nError parsing {var_name}. Check the configuration file.")
 
    
 def create_directories():
@@ -137,53 +295,10 @@ def create_directories():
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-def get_env_set(var_name, default_value):
-    """
-    Retrieves an environment variable and returns its value as a set.
-
-    Args:
-        var_name (str): The name of the environment variable to retrieve.
-        default_value (set): The default value to return if the environment variable is not set or cannot be parsed.
-
-    Returns:
-        set: The value of the environment variable as a set, or the default value if an error occurs.
-
-    Notes:
-        The environment variable is expected to be a comma-separated list of values.
-        If an error occurs while parsing the environment variable, a warning is raised and the default value is returned.
-    """
-
-    try:
-        return set(os.getenv(var_name, "").split(","))
-    except Exception as e:
-        warnings.warn(f"Error parsing {var_name}: {e}. Using default value ({default_value}). See .env-example for more information.")
-        return default_value
-
-def get_env_dict(var_name, default_value):
-    """
-    Retrieves an environment variable and returns its value as a dictionary.
-
-    Args:
-        var_name (str): The name of the environment variable to retrieve.
-        default_value (dict): The default value to return if the environment variable is not set or cannot be parsed.
-
-    Returns:
-        dict: The value of the environment variable as a dictionary, or the default value if an error occurs.
-
-    Notes:
-        The environment variable is expected to be a JSON-formatted string.
-        If an error occurs while parsing the environment variable, a warning is raised and the default value is returned.
-    """
-
-    try:
-        return json.loads(os.getenv(var_name, "{}"))
-    except json.JSONDecodeError as e:
-        warnings.warn(f"Error parsing {var_name}: {e}. Using default value ({default_value}). See .env-example for more information.")
-        return default_value
-    except Exception as e:
-        warnings.warn(f"Unexpected error parsing {var_name}: {e}. Using default value ({default_value}). See .env-example for more information.")
-        return default_value
-
-load_environment()
+try:
+    load_environment()
+except:
+    import streamlit as st
+    st.warning("Error loading environment variables. Please check the configuration file.")
 
 STATE = st.session_state
