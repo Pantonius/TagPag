@@ -149,57 +149,6 @@ def setup_invalid_env():
 
     cleanup_invalid_env()
 
-
-# @pytest.mark.parametrize("variable", [
-#    * "ANNOTATOR",
-#     *"RANDOM_SEED",
-#     "TASKS_ID_COLUMN",
-#     "TASKS_URL_COLUMN",
-#     * "WORKING_DIR", <--- dangerous to test
-#     *"TASKS_FILE",
-#     *"ANNOTATIONS_DB",
-#     *"RAW_TEXT_DIR",
-#     *"CLEANED_TEXT_DIR",
-#     *"HTML_DIR",
-
-#     "LABELS",
-#     "URL_QUERY_PARAMS",
-#     "NOT_SEO_TITLES",
-#     "COMMON_EXTENSIONS",
-#     "SPECIAL_CHARACTER_MAP"
-# ])
-# @pytest.mark.parametrize("invalid_value", [
-#     # "'INVALID_STRING'",  # String
-#     # "123456",            # Integer
-#     # "true",              # Boolean-like string
-#     "['item1', 'item2']"  # List
-# ])
-# def test_invalid_config_value(setup_invalid_env, variable, invalid_value):
-#     """
-#     Test that the Config class handles invalid environment variable values gracefully by loading the config successfully
-#     and that database operations do not fail after loading the config.
-#     """
-#     original_env, invalid_env = setup_invalid_env
-
-#     # Step 1: Create the invalid environment file
-#     create_invalid_env(original_env, invalid_env, variable, invalid_value)
-
-#     try:
-#         # Step 2: Load the invalid environment and initialize Config
-#         load_environment(invalid_env, force=True)
-#         config_instance = Config()
-#         assert config_instance is not None, f"Config should be loaded successfully even with invalid value for {variable}"
-
-#         # Step 3: Initialize the database
-#         initialize_db()
-
-#         # Step 4: Load tasks
-#         tasks = load_tasks()
-#         assert tasks is not None, "Loading tasks should return a valid list"
-#     except Exception as e:
-#         pytest.fail(
-#             f"Test failed for variable {variable} with value {invalid_value}: {e}")
-
 @pytest.mark.parametrize("variable", [
     "RANDOM_SEED",
 ])
