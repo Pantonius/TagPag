@@ -28,10 +28,22 @@ pyenv install 3.12.7
 pyenv virtualenv 3.12.7 tagpag-env
 ```
 
+For Windows, e.g., install `conda` as per [their instructions](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) and setup a virtual environment for the project:
+```bash
+conda create -n tagpag-env python=3.12.7
+conda activate tagpag-env
+```
+
 ### 3. Install the Requirements
 ```bash
 pip install -r requirements.txt
 ``` 
+
+or 
+
+```bash
+conda install --file requirements.txt
+```
 
 ### 4. Start the Project
 ```bash
@@ -43,23 +55,21 @@ Notice that a new `.env` file has been created from the `.env-example` file, whi
 At this point you can take a look around. Maybe the [usage documentation](doc/03-USAGE.md) can be of service.
 
 ## Quick Configuration
-### 1. Open the `.env` or copy and edit the `.env-example` to begin configuration
-```bash
-cp .env-example .env
-```
+### 1. Open the `.env` with any text editor. If the file does not exist, create one copying the content of `.env-example` into `.env` (e.g., use `cp .env-example .env`).
 
-### 2. Set up the `WORKING_DIR` and `LABELS`
+
+### 2. Set up a `WORKING_DIR` (i.e., a directory that will contain all the data of the project) and `LABELS` (i.e., the labels that will be used to tag the webpages).
 ```bash
 WORKING_DIR = '/PATH/TO/WORKING_DIRECTORY'
 LABELS = 'label_1,label_2,label_3'
 ```
 
 ### 3. Make sure that the `TASKS_FILE` and `HTML_DIR` are in the `WORKING_DIRECTORY`
-The `TASKS_FILE` should contain, at least, two columns which are defined by `TASKS_ID_COLUMN` and `TASKS_URL_COLUMN`.
+The `TASKS_FILE` should contain, at least, two columns which are defined by `TASKS_ID_COLUMN` (by default, `_id`) and `TASKS_URL_COLUMN` (by default, `url`).
 
 The `HTML_DIR` should contain the html files that are associated with the tasks. The following naming scheme should be used for the html files: `TASK_ID.html`, where `TASK_ID` is the value of the `TASKS_ID_COLUMN`.
 
-In general your folder structure should look like so:
+Your folder structure should look like this:
 ```
 WORKING_DIR/
 ├── TASKS_FILE
@@ -69,7 +79,7 @@ WORKING_DIR/
     └── ...
 ```
 
-If you use the `.env-example`, the program will assume the following naming
+If you copied `.env` from `.env-example`, the program will assume the following naming
 ```
 example_workdir
 ├── tasks.csv
@@ -77,6 +87,11 @@ example_workdir
     ├── FIRST_ID.html
     ├── SECOND_ID.html
     └── ...
+```
+
+### 4. (Re)-start TagPag
+```bash
+streamlit run src/app.py
 ```
 
 ## Further Documentation
