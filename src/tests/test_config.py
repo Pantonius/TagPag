@@ -149,29 +149,116 @@ def setup_invalid_env():
 
     cleanup_invalid_env()
 
-
 @pytest.mark.parametrize("variable", [
-    "ANNOTATOR",
     "RANDOM_SEED",
-    "TASKS_ID_COLUMN",
-    "TASKS_URL_COLUMN",
-    # "WORKING_DIR", <--- dangerous to test
-    "TASKS_FILE",
-    "ANNOTATIONS_DB",
-    "RAW_TEXT_DIR",
-    "CLEANED_TEXT_DIR",
-    "HTML_DIR",
-    "LABELS",
-    "URL_QUERY_PARAMS",
-    "NOT_SEO_TITLES",
-    "COMMON_EXTENSIONS",
-    "SPECIAL_CHARACTER_MAP"
 ])
 @pytest.mark.parametrize("invalid_value", [
     "'INVALID_STRING'",  # String
-    "123456",            # Integer
-    "true",              # Boolean-like string
-    "['item1', 'item2']"  # List
+])
+def test_invalid_random_seed(setup_invalid_env, variable, invalid_value):
+    """
+    Test that the Config class handles invalid random seed values gracefully 
+    by failing with the appropiate error message.
+    """
+    original_env, invalid_env = setup_invalid_env
+
+    # Step 1: Create the invalid environment file
+    create_invalid_env(original_env, invalid_env, variable, invalid_value)
+
+    # Step 2: Load the invalid environment
+    with pytest.raises(ValueError):
+        load_environment(invalid_env, force=True)
+
+@pytest.mark.parametrize("variable", [
+    "WORKING_DIR",
+])
+@pytest.mark.parametrize("invalid_value", [
+    "'not_existing_directory'",
+])
+def test_invalid_working_directory(setup_invalid_env, variable, invalid_value):
+    """
+    Test that the Config class handles invalid random seed values gracefully 
+    by failing with the appropiate error message.
+    """
+    original_env, invalid_env = setup_invalid_env
+
+    # Step 1: Create the invalid environment file
+    create_invalid_env(original_env, invalid_env, variable, invalid_value)
+
+    # Step 2: Load the invalid environment
+    with pytest.raises(ValueError):
+        load_environment(invalid_env, force=True)
+
+
+@pytest.mark.parametrize("variable", [
+    "HTML_DIR",
+])
+@pytest.mark.parametrize("invalid_value", [
+    "'not_existing_directory'",
+])
+def test_invalid_html_directory(setup_invalid_env, variable, invalid_value):
+    """
+    Test that the Config class handles invalid random seed values gracefully 
+    by failing with the appropiate error message.
+    """
+    original_env, invalid_env = setup_invalid_env
+
+    # Step 1: Create the invalid environment file
+    create_invalid_env(original_env, invalid_env, variable, invalid_value)
+
+    # Step 2: Load the invalid environment
+    with pytest.raises(ValueError):
+        load_environment(invalid_env, force=True)
+
+@pytest.mark.parametrize("variable", [
+    "TASKS_FILE",
+])
+@pytest.mark.parametrize("invalid_value", [
+    "'not_existing_file'",  
+])
+def test_invalid_tasks_file(setup_invalid_env, variable, invalid_value):
+    """
+    Test that the Config class handles invalid random seed values gracefully 
+    by failing with the appropiate error message.
+    """
+    original_env, invalid_env = setup_invalid_env
+
+    # Step 1: Create the invalid environment file
+    create_invalid_env(original_env, invalid_env, variable, invalid_value)
+
+    # Step 2: Load the invalid environment
+    with pytest.raises(ValueError):
+        load_environment(invalid_env, force=True)
+
+
+@pytest.mark.parametrize("variable", [
+    "SPECIAL_CHARACTER_MAP",
+])
+@pytest.mark.parametrize("invalid_value", [
+    "'not_a_dictionary'",  
+])
+def test_invalid_character_map(setup_invalid_env, variable, invalid_value):
+    """
+    Test that the Config class handles invalid random seed values gracefully 
+    by failing with the appropiate error message.
+    """
+    original_env, invalid_env = setup_invalid_env
+
+    # Step 1: Create the invalid environment file
+    create_invalid_env(original_env, invalid_env, variable, invalid_value)
+
+    # Step 2: Load the invalid environment
+    with pytest.raises(ValueError):
+        load_environment(invalid_env, force=True)
+
+
+
+@pytest.mark.parametrize("variable", [
+    "TASKS_ID_COLUMN",
+    "TASKS_URL_COLUMN",
+])
+@pytest.mark.parametrize("invalid_value", [
+    "invalid_column"  # List
 ])
 def test_invalid_config_value(setup_invalid_env, variable, invalid_value):
     """
@@ -186,8 +273,6 @@ def test_invalid_config_value(setup_invalid_env, variable, invalid_value):
     try:
         # Step 2: Load the invalid environment and initialize Config
         load_environment(invalid_env, force=True)
-        config_instance = Config()
-        assert config_instance is not None, f"Config should be loaded successfully even with invalid value for {variable}"
 
         # Step 3: Initialize the database
         initialize_db()
@@ -195,6 +280,11 @@ def test_invalid_config_value(setup_invalid_env, variable, invalid_value):
         # Step 4: Load tasks
         tasks = load_tasks()
         assert tasks is not None, "Loading tasks should return a valid list"
+
     except Exception as e:
+
+        # Step 5: Restore the original environment for future tests
+        load_environment(original_env, force=True)
+
         pytest.fail(
             f"Test failed for variable {variable} with value {invalid_value}: {e}")

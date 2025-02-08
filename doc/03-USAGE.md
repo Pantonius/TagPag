@@ -4,7 +4,7 @@ Once everything is installed as described in [01-INSTALLATION.md](01-INSTALLATIO
 First, ensure that you have activated your python environment:
 
 ```bash
-pyenv activate seek2judge-env
+pyenv activate tagpag-env
 ```
 
 Then you may proceed in starting the application with the following command:
