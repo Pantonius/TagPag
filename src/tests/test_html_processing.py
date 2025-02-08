@@ -25,7 +25,7 @@ def cleanup():
     ("4", "Multilingual character set"),
     ("5", "Unusual characters"),
 ])
-def test_extract_raw_text(task_id, description):
+def test_extract_corrupted_raw_text(task_id, description):
     """
     Test that extract_raw_text does not raise an error for various cases.
     """
@@ -55,7 +55,7 @@ def test_extract_raw_text(task_id, description):
     ("4", "Multilingual character set"),
     ("5", "Unusual characters"),
 ])
-def test_load_raw_text(task_id, description):
+def test_load_corrupted_raw_text(task_id, description):
     """
     Test that load_raw_text does not raise an error for various cases.
     """
@@ -85,7 +85,7 @@ def test_load_raw_text(task_id, description):
     ("4", "Multilingual character set"),
     ("5", "Unusual characters"),
 ])
-def test_extract_cleaned_text(task_id, description):
+def test_extract_corrupted_cleaned_text(task_id, description):
     """
     Test that extract_cleaned_text does not raise an error for various cases.
     """
@@ -116,7 +116,7 @@ def test_extract_cleaned_text(task_id, description):
     ("4", "Multilingual character set"),
     ("5", "Unusual characters"),
 ])
-def test_load_cleaned_text(task_id, description):
+def test_load_corrupted_cleaned_text(task_id, description):
     """
     Test that load_cleaned_text does not raise an error for various cases.
     """
