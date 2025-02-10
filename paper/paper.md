@@ -1,19 +1,33 @@
 ---
-title: 'Tag-Pag: An Efficient Tool for Systematic Web Page Annotation'
+title: 'Tag-Pag: A Dedicated Tool for Systematic Web Page Annotations'
 tags:
   - Paper
 authors:
-  - name: Author
+  - name: Anton Pogrebnjak
     equal-contrib: true
-    orcid: 0000-0000-0000-0000
+    orcid: 0009-0004-1219-337X
     affiliation: 1
-  - name: Author
+  - name: Julian Schelb
     equal-contrib: true
-    orcid: 0000-0000-0000-0000
+    orcid: 0000-0000-0000-0000 # TODO: Add this
     affiliation: 1
+  - name: Andreas Spitz
+    equal-contrib: true
+    orcid: 0000-0002-5282-6133
+    affiliation: 1
+  - name: Celina Kacperski
+    equal-contrib: true
+    orcid: 0000-0002-8844-5164
+    affiliation: 2
+  - name: Roberto Ulloa
+    orcid: 0000-0002-9870-5505
+    equal-contrib: true
+    affiliation: 2
 affiliations:
- - name: Affiliation
+ - name: Department of Computer Science, University of Konstanz, Germany
    index: 1
+ - name: Cluster of Excellence "The Politics of Inequalities", University of Konstanz, Germany
+   index: 2
 date: 26.08.2024
 bibliography: paper.bib
 ---
@@ -40,7 +54,7 @@ Despite this, no existing tools facilitate the annotation of such content, leavi
 
 Tag-Pag integrates the authors' previous experiences with webpage annotations into a single tool. It uses libraries to extract clean [@barbaresi_trafilatura_2021] and raw [@artem_golubin_selectolax_2023] content from HTML, enhancing the annotation process's efficiency. The tool parses URLs, which often contain relevant information about the page's content, adding another layer of contextual data for annotations. Users can easily open the scraped HTML, the live webpage, or the latest version stored in the Wayback Machine, facilitating a comprehensive examination of the content. For researchers creating training datasets, Tag-Pag allows easy text editing to retain only the relevant parts for classifiers, i.e., manually removing boilerplate that filters through the cleaned text, a valuable feature for refining datasets to improve machine learning models.
 
-Additionally, Tag-Pag includes functionality designed to speed up the annotation process: it is flexible and easy to configure, allows keybindings for rapid label assignment, supports automatic transitions for single-label annotations, and includes features to locate unannotated pages efficiently. The tool also supports multiple annotators, with the functionality to hide their annotations and randomize the tasks' order to avoid priming effects [@flaxman_filter_2016; @shen; @mathur]. Comments and annotations can be easily exported to CSV, ensuring compatibility with further steps of the analysis pipeline.
+Additionally, Tag-Pag includes functionality designed to speed up the annotation process: it is flexible and easy to configure, bind key to interfaces actions for rapid label assignment, supports automatic transitions for single-label annotations, and includes features to locate unannotated pages efficiently. The tool also supports multiple annotators, with the functionality to hide other's annotations and randomize the tasks' order to avoid priming effects [@flaxman_filter_2016; @shen; @mathur]. Comments and annotations can be easily exported to CSV, ensuring compatibility with further steps of the analysis pipeline.
 
 By integrating these features, Tag-Pag offers a systematic, efficient, and user-friendly approach to web page annotation, addressing the needs of researchers across various disciplines.
 
