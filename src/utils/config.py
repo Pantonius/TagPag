@@ -2,7 +2,7 @@ import streamlit as st
 import os
 import json
 import shutil
-import warnings
+import streamlit as st
 
 from dotenv import load_dotenv
 from os.path import join
@@ -319,10 +319,10 @@ def create_directories():
         if not os.path.exists(directory):
             os.makedirs(directory)
 
+
 try:
     load_environment()
 except:
-    import streamlit as st
-    st.warning("Error loading environment variables. Please check the configuration file.")
+    st.warning("Error loading environment variables. Please check the configuration file. More information below.")
 
 STATE = st.session_state
