@@ -1,8 +1,9 @@
+import pandas as pd
 import streamlit as st
 import os
 import json
 import shutil
-import warnings
+import streamlit as st
 
 from dotenv import load_dotenv
 from os.path import join
@@ -89,14 +90,15 @@ def load_environment_variables():
     """
 
     working_dir = validate_path('WORKING_DIR', 'example_workdir')
+    tasks_file = validate_path('TASKS_FILE', 'tasks.csv', working_dir)
 
     config_dict = {
         "ANNOTATOR": validate_string("ANNOTATOR", "annotator_name"),
         "RANDOM_SEED": validate_random_seed(),
-        "TASKS_ID_COLUMN": validate_string("TASKS_ID_COLUMN", '_id'),
-        "TASKS_URL_COLUMN": validate_string("TASKS_URL_COLUMN", 'url'),
         "WORKING_DIR": working_dir,
-        "TASKS_FILE": validate_path('TASKS_FILE', 'tasks.csv', working_dir),
+        "TASKS_FILE": tasks_file,
+        "TASKS_ID_COLUMN": validate_csv_column("TASKS_ID_COLUMN", '_id', tasks_file),
+        "TASKS_URL_COLUMN": validate_csv_column("TASKS_URL_COLUMN", 'url', tasks_file),
         "ANNOTATIONS_DB": join(working_dir, validate_string('ANNOTATIONS_DB', 'annotations.sqlite')),
         "RAW_TEXT_DIR": join(working_dir, validate_string('RAW_TEXT_DIR', 'raw_text')),
         "CLEANED_TEXT_DIR": join(working_dir, validate_string('CLEANED_TEXT_DIR', 'cleaned_text')),
@@ -205,6 +207,30 @@ def validate_random_seed():
     
     return random_seed
 
+def validate_csv_column(var_name: str, default_value: str, filepath: str) -> str:
+    """
+    Validate and retrieve a column name from the TASKS_FILE at filepath.
+
+    Args:
+        var_name (str): The name of the environment variable to retrieve.
+        default_value (str): The default value to return if the environment variable is not set properly.
+    
+    Returns:
+        str: The value of the environment variable, or the default value if an error occurs.
+    """
+    
+    value = validate_string(var_name, default_value)
+
+    try:
+        csv = pd.read_csv(filepath)
+        columns = csv.columns
+
+        if value not in columns:
+            raise ValueError(f"{value} not found in the tasks.csv file. Check the configuration file.")
+    except Exception as e:
+        raise ValueError(f"Error validating {var_name}: {e}\n\nError validating {var_name}. Check the configuration file.")
+    
+    return value
 
 def validate_set(var_name, default_value):
     """
@@ -295,10 +321,10 @@ def create_directories():
         if not os.path.exists(directory):
             os.makedirs(directory)
 
+
 try:
     load_environment()
 except:
-    import streamlit as st
-    st.warning("Error loading environment variables. Please check the configuration file.")
+    st.warning("Error loading environment variables. Please check the configuration file. More information below.")
 
 STATE = st.session_state

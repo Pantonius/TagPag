@@ -270,21 +270,6 @@ def test_invalid_config_value(setup_invalid_env, variable, invalid_value):
     # Step 1: Create the invalid environment file
     create_invalid_env(original_env, invalid_env, variable, invalid_value)
 
-    try:
+    with pytest.raises(ValueError):
         # Step 2: Load the invalid environment and initialize Config
         load_environment(invalid_env, force=True)
-
-        # Step 3: Initialize the database
-        initialize_db()
-
-        # Step 4: Load tasks
-        tasks = load_tasks()
-        assert tasks is not None, "Loading tasks should return a valid list"
-
-    except Exception as e:
-
-        # Step 5: Restore the original environment for future tests
-        load_environment(original_env, force=True)
-
-        pytest.fail(
-            f"Test failed for variable {variable} with value {invalid_value}: {e}")
