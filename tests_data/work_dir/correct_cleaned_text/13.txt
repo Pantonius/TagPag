@@ -1,25 +1,25 @@
 Erneuerbare-Energien-Gesetz
-Basisdaten | |
----|---|
-Titel: | Gesetz für den Ausbau erneuerbarer Energien |
-Kurztitel: | Erneuerbare-Energien-Gesetz |
-Früherer Titel: | Gesetz für den Vorrang Erneuerbarer Energien |
-Abkürzung: | EEG 2023 |
-Art: | Bundesgesetz, Einspruchsgesetz |
-Geltungsbereich: | Bundesrepublik Deutschland |
-Rechtsmaterie: | Wirtschaftsverwaltungsrecht, Energierecht |
-Fundstellennachweis: | 754-27 |
-Ursprüngliche Fassung vom: | 29. März 2000 (BGBl. I S. 305) |
-Inkrafttreten am: | 1. April 2000 |
-Letzte Neufassung vom: | Art. 1 G vom 21. Juli 2014 (BGBl. I S. 1066) |
-Inkrafttreten der Neufassung am: |
+| Basisdaten | |
+|---|---|
+| Titel: | Gesetz für den Ausbau erneuerbarer Energien |
+| Kurztitel: | Erneuerbare-Energien-Gesetz |
+| Früherer Titel: | Gesetz für den Vorrang Erneuerbarer Energien |
+| Abkürzung: | EEG 2023 |
+| Art: | Bundesgesetz, Einspruchsgesetz |
+| Geltungsbereich: | Bundesrepublik Deutschland |
+| Rechtsmaterie: | Wirtschaftsverwaltungsrecht, Energierecht |
+| Fundstellennachweis: | 754-27 |
+| Ursprüngliche Fassung vom: | 29. März 2000 (BGBl. I S. 305) |
+| Inkrafttreten am: | 1. April 2000 |
+| Letzte Neufassung vom: | Art. 1 G vom 21. Juli 2014 (BGBl. I S. 1066) |
+| Inkrafttreten der Neufassung am: |
 1. August 2014 (Art. 23 G vom 21. Juli 2014) |
-Letzte Änderung durch: | Art. 3 G vom 22. Mai 2023 (BGBl. I Nr. 133) |
-Inkrafttreten der letzten Änderung: |
+| Letzte Änderung durch: | Art. 3 G vom 22. Mai 2023 (BGBl. I Nr. 133) |
+| Inkrafttreten der letzten Änderung: |
 27. Mai 2023 (Art. 6 G vom 22. Mai 2023) |
-GESTA: | E024 |
-Weblink: | Text des EEG |
-Bitte den Hinweis zur geltenden Gesetzesfassung beachten. |
+| GESTA: | E024 |
+| Weblink: | Text des EEG |
+| Bitte den Hinweis zur geltenden Gesetzesfassung beachten. |
 Das deutsche Erneuerbare-Energien-Gesetz (EEG 2023) regelt die bevorzugte Einspeisung von Strom aus erneuerbaren Quellen ins Stromnetz und garantiert deren Erzeugern feste Einspeisevergütungen. Seit 2000 erweiterte es schrittweise das vorangehende Stromeinspeisungsgesetz. Während das EEG in Bezug auf den Ausbau der erneuerbaren Energien von der Bundesregierung als erfolgreich eingestuft wurde,[1] werden dessen ökonomische und ökologische Effizienz sowie Teilaspekte wie Ausnahmeregelungen für die Industrie kontrovers diskutiert.
 Ziele, Prinzip und Struktur[Bearbeiten | Quelltext bearbeiten]
 Es soll gemäß Legaldefinition (§ 1 Abs. 1 EEG) im Interesse des Klima- und Umweltschutzes
@@ -164,46 +164,48 @@ Durch die Vergütungspflicht entstehen Netzbetreibern Kosten. Durch den Verkauf 
 Mit der Vermarktung des EEG-Stroms sind seit 2010 die vier deutschen Übertragungsnetzbetreiber (ÜNB) auf Grundlage der Ausgleichsmechanismus-Verordnung betraut (§ 3 AusglMechV). Sie ermittelten zum 15. Oktober die Höhe der EEG-Umlage für das Folgejahr als Prognose, die anhand der erwarteten Ausgaben für EEG-Vergütungen und der voraussichtlichen Einnahmen aus dem Verkauf des EEG-Stroms an der Strombörse EPEX Spotmarkt aufgestellt wurde.[3]
 Ausgaben fielen zumeist für Einspeise-Vergütungen und für die im EEG 2012 eingeführte Marktprämie an. (Summe aus beiden Teilbeträgen 2012: 17,97 Mrd. Euro, 2013: 18,5 Mrd. Euro). Außerdem fielen weitere Kosten an, darunter ein Liquiditätsausgleich von 3 % der Ausgaben (2013: 1,61 Mrd. Euro), der größte Einzelposten unter den „Sonstigen Kosten“. Ende September eines laufenden Jahres fand ein Kontoausgleich statt, der den Ausgleich zwischen den prognostizierten und tatsächlichen Ergebnissen schaffte. Er war für 2013 mit 2,59 Mrd. Euro verbucht und machte rund 11 % der Ausgaben aus.[107]
 Die Ausgaben bei der Förderung der Stromerzeugung nach EEG lagen für 2013 bei 19,4 Mrd. Euro[108] (zum Vergleich 2012: 19,43 Mrd. Euro; siehe Tabelle). Im Februar 2017 ist der Überschuss des EEG-Kontos um einen Rekordwert von etwa einer Milliarde Euro auf 4,57 Mrd. Euro gewachsen. Bereits im Januar 2017 lag der Überschuss mit 674 Mio. Euro sehr hoch. Grund dafür sind gestiegene Einnahmen durch eine erhöhte EEG-Umlage an der Strombörse. Gleichzeitig sanken die Ausgaben aufgrund höherer Börsenstrompreise. So lagen die Einnahmen für Februar 2017 bei 2,42 Mrd. Euro und die Ausgaben bei 1,4 Mrd. Euro.[109]
-Posten | Gesamt- kostenin Mio. Euro |
+| Posten | Gesamt- kosten in Mio. Euro |
 Kosten in ct/kWh |
 Kosten- anteil |
----|---|---|---|
-Photovoltaik | 8.528 | 2,2 | 41,8 % |
-Biomasse | 4.191 | 1,1 | 20,6 % |
-Wind onshore | 2.708 | 0,7 | 13,3 % |
-Wind offshore | 343 | 0,19 | 1,7 % |
-Wasser | 171 | 0,04 | 0,8 % |
-Gase, Geothermie | 41 | 0,01 | 0,2 % |
-Verrechnung negativer Kontostand(1) |
+|---|---|---|---|
+| Photovoltaik | 8.528 | 2,2 | 41,8 % |
+| Biomasse | 4.191 | 1,1 | 20,6 % |
+| Wind onshore | 2.708 | 0,7 | 13,3 % |
+| Wind offshore | 343 | 0,19 | 1,7 % |
+| Wasser | 171 | 0,04 | 0,8 % |
+| Gase, Geothermie | 41 | 0,01 | 0,2 % |
+| Verrechnung negativer Kontostand(1) |
 2.589 | 0,67 | 12,7 % |
-Liquiditätsreserve 10 %(2) | 1.614 | 0,42 | 7,9 % |
-Nachrüstung Photovoltaik (3) |
+| Liquiditätsreserve 10 %(2) | 1.614 | 0,42 | 7,9 % |
+| Nachrüstung Photovoltaik (3) |
 105 | 0,03 | 0,51 % |
-Effekt Grünstromprivileg | 52 | 0,01 | 0,25 % |
-EEG-Direktvermarktung | 50 | 0,01 | 0,25 % |
-Gesamt | 20.393 | 5,277 | 100 % |
-(1) Die Differenz zwischen Börsenpreis und garantierterEinspeisevergütung brachte das Umlagenkonto ins Minus.Zum 30. Sep. 2012 wurde der Stand inkl. Zinsen ausgeglichenund in die EEG-Umlage 2013 übernommen.(2) Zur Vermeidung erneuter Differenzbeträge wurde eineLiquiditätsreserve von 10 % eingeführt.(3) Nachrüstungskosten für Photovoltaikanlagen zurEntschärfung des 50,2-Hertz-Problems nach System-stabilitätsverordnung (SysStabV) |
-2012 (PrognoseOkt. 2011)[102] |
-2013 (PrognoseOkt. 2012)[107] | |
----|---|---|
-Prognostizierte Kosten | Mrd. € | Mrd. € |
-EEG-Vergütung nach § 23-33 EEG | 16,61 | 12,67 |
-Marktprämie(4) | 1,36 | 5,83 |
-Übrige Kosten(5) | 0,75 | 1,85 |
-Kontoausgleich im September | 0,71 | 2,59 |
-Summe prognostizierte Kosten | 19,43 | 22,94 |
-Einnahmen aus Vermarktung | −4,95 | −2,54 |
-Vermiedene Netzentgelte(6) | −0,44 | −0,50 |
-Summe prognostizierte Erlöse | −5,39 | −3,04 |
-Prognostizierter Umlagebetrag | 14,10 | 19,90 |
-Stromabsatz | TWh/a | TWh/a |
-Endverbraucher mit EEG-Umlage-Verpflichtung(7) | 392,8 | 384,7 |
-Umlagebetrag je kWh | ct/kWh | ct/kWh |
-Kernumlage | 3,31 | 4,19 |
-Umlage für Liquiditätsreserve | 0,10 | 0,42 |
-Umlage Kontoverrechnung September | 0,18 | 0,67 |
-EEG-Umlagebetrag je kWh | 3,59 | 5,28 |
-(4) für Anlagen, die Strom direkt vermarkten (§ 33b EEG)(5) für Profilserviceaufwand und Liquiditätsreserve(6) von den Übertragungsnetzbetreibern getragen(7) 2012: Gesamt 477,5 TWh/a, davon 88,7 TWh/a privil. Verbrauch (rd. 19 %)2013: Gesamt 480,9 TWh/a, davon 96,2 TWh/a privil. Verbrauch (20 %)(ohne EEG-Umlagepflicht) |
+| Effekt Grünstromprivileg | 52 | 0,01 | 0,25 % |
+| EEG-Direktvermarktung | 50 | 0,01 | 0,25 % |
+| Gesamt | 20.393 | 5,277 | 100 % |
+|
+(1) Die Differenz zwischen Börsenpreis und garantierter Einspeisevergütung brachte das Umlagenkonto ins Minus. Zum 30. Sep. 2012 wurde der Stand inkl. Zinsen ausgeglichen und in die EEG-Umlage 2013 übernommen. (2) Zur Vermeidung erneuter Differenzbeträge wurde eine Liquiditätsreserve von 10 % eingeführt. (3) Nachrüstungskosten für Photovoltaikanlagen zur Entschärfung des 50,2-Hertz-Problems nach System- stabilitätsverordnung (SysStabV) |
+| 2012 (Prognose Okt. 2011)[102] |
+2013 (Prognose Okt. 2012)[107] | |
+|---|---|---|
+| Prognostizierte Kosten | Mrd. € | Mrd. € |
+| EEG-Vergütung nach § 23-33 EEG | 16,61 | 12,67 |
+| Marktprämie(4) | 1,36 | 5,83 |
+| Übrige Kosten(5) | 0,75 | 1,85 |
+| Kontoausgleich im September | 0,71 | 2,59 |
+| Summe prognostizierte Kosten | 19,43 | 22,94 |
+| Einnahmen aus Vermarktung | −4,95 | −2,54 |
+| Vermiedene Netzentgelte(6) | −0,44 | −0,50 |
+| Summe prognostizierte Erlöse | −5,39 | −3,04 |
+| Prognostizierter Umlagebetrag | 14,10 | 19,90 |
+| Stromabsatz | TWh/a | TWh/a |
+| Endverbraucher mit EEG-Umlage-Verpflichtung(7) | 392,8 | 384,7 |
+| Umlagebetrag je kWh | ct/kWh | ct/kWh |
+| Kernumlage | 3,31 | 4,19 |
+| Umlage für Liquiditätsreserve | 0,10 | 0,42 |
+| Umlage Kontoverrechnung September | 0,18 | 0,67 |
+| EEG-Umlagebetrag je kWh | 3,59 | 5,28 |
+|
+(4) für Anlagen, die Strom direkt vermarkten (§ 33b EEG) (5) für Profilserviceaufwand und Liquiditätsreserve (6) von den Übertragungsnetzbetreibern getragen (7) 2012: Gesamt 477,5 TWh/a, davon 88,7 TWh/a privil. Verbrauch (rd. 19 %) 2013: Gesamt 480,9 TWh/a, davon 96,2 TWh/a privil. Verbrauch (20 %) (ohne EEG-Umlagepflicht) |
 Die wesentlichen Einnahmen werden aus dem Verkauf eingespeisten Stroms gewonnen, dessen Vermarktung seit 2010 die Ausgleichsmechanismus-Verordnung (AusglMechV) regelt.[3] Die vier bundesweiten Übertragungsnetzbetreiber vermarkten den EEG-Strom an der Strombörse EPEX Spotmarkt, die von der Firma EPEX SPOT SE (Sitz in Paris) betrieben wird. EEG-Strom wird im Spotmarkt mit Tagesvorlauf (Day ahead) oder im Tagesverlauf (Intraday) als „Graustrom“ vermarktet.[4] Die Börsenpreise werden von EPEX SPOT SE im Internet veröffentlicht.[110] Diese Einnahmen aus der Vermarktung am Spotmarkt flossen in die EEG-Umlage ein. Der Börsenpreis wird auch bei der Bewertung des Stroms angesetzt, der im Marktprämienmodell direkt vermarktet wird. Die verbleibende Differenz zur EEG-Vergütung wurde als Marktprämie im Zuge der EEG-Umlage ausgeglichen (siehe Ausgaben), ebenso die organisatorischen Aufwendungen (Profilservicekosten, Managementprämie).[102]
 Auf die Höhe der EEG-Umlage wirkten sich Sonderregelungen aus, wie die Sonderregelungen für stromintensive Unternehmen, die teilweise von der EEG-Umlage befreit waren.
 Der Unterschied zwischen Prognosewert und dem realen Ergebnis wurde im Folgejahr mit der „Nachholung“ durch Kontoausgleich mit Stichtag Ende September ausgeglichen. Die Zahlung des Umlagebetrags erfolgte von den Verbrauchern über die Stromversorger (Verteilnetzbetreiber) an die vier deutschen Übertragungsnetzbetreiber (ÜNB).[111]
@@ -211,26 +213,27 @@ Die verbleibende Differenz, die „EEG-Differenzkosten“ (für 2013 prognostizi
 Da die Einspeisevergütung für 20 Jahre zzgl. dem Jahr der Inbetriebnahme garantiert ist, entstehen langfristige Zahlungsverpflichtungen. Deren Summe wurde als implizite Verschuldung des EEG Ende 2014 auf nominal 290 Mrd. Euro geschätzt, was einem Barwert von 228 Mrd. Euro entspricht.[112]
 Der Solarenergie-Förderverein Deutschland e. V. (SFV) machte darauf aufmerksam, dass es möglich ist, dass Kohlekraftwerksbetreiber Brennstoffkosten sparen können, indem sie langfristige Lieferverträge mit dem Weiterverkauf von preiswertem Strom aus Erneuerbaren Energien vom Spotmarkt bedienen. Daher forderte der SFV, Strom nur am Spotmarkt zu handeln.[113]
 Der Strompreis an der Strombörse stieg bis zum Jahr 2008 kontinuierlich und erreichte 2008 das Maximum von 8,279 Cent/kWh. Danach wurde dieser Anstieg unter anderem durch erneuerbare Energien begrenzt.[114][115] Im ersten Halbjahr 2013 betrug der mittlere Strompreis an der Strombörse nur noch 3,75 Cent/kWh. Für den Terminmarkt 2014 lag dieser im Juli 2013 bei 3,661 Cent/kWh.[116][117] Somit ist der Strompreis an der Strombörse bereits mehr als 4 Cent/kWh gefallen. Daher wirken die erneuerbaren Energien nicht nur verteuernd, sondern auch verbilligend, was man beides gegeneinander aufwiegen müsste.
-Energieträger | Wind | Biomasse | Photovoltaik (Solar) | Wasser GeothermieGase |
+| Energieträger | Wind | Biomasse | Photovoltaik (Solar) | Wasser Geothermie Gase |
 Sonstiges | Nachholung und Liquiditätsreserve[119] |
 gesamt |
----|---|---|---|---|---|---|---|
-Stand 2012 | 0,482 | 0,839 | 1,860 | 0,040 | 0,091 | 0,280 | 3,592 |
-Erhöhung 2013 | 0,30 | 0,25 | 0,35 | 0,00 | 0,00 | 0,785 | + 1,685 |
-Stand 2013 | 0,782 | 1,089 | 2,210 | 0,040 | 0,091 | 1,065 | 5,277 |
+|---|---|---|---|---|---|---|---|
+| Stand 2012 | 0,482 | 0,839 | 1,860 | 0,040 | 0,091 | 0,280 | 3,592 |
+| Erhöhung 2013 | 0,30 | 0,25 | 0,35 | 0,00 | 0,00 | 0,785 | + 1,685 |
+| Stand 2013 | 0,782 | 1,089 | 2,210 | 0,040 | 0,091 | 1,065 | 5,277 |
 Zum 1. Juli 2022 wurde die EEG-Umlage durch eine Subvention aus dem Bundeshaushalt ersetzt.
 Sonderregelungen für stromintensive Unternehmen[Bearbeiten | Quelltext bearbeiten]
 Stromintensive Unternehmen des produzierenden Gewerbes sowie Schienenbahnen sind durch die besondere Ausgleichsregelung im EEG zum Schutz ihrer internationalen und intermodalen Wettbewerbsfähigkeit von der EEG-Umlage teilweise befreit (§ 40 EEG sowie zugehörige Regelungen §§ 41–44 EEG). Antragsberechtigt sind Unternehmen des produzierenden Gewerbes mit einem Stromverbrauch über 1 GWh/a (bis 31. Dezember 2011: 10 GWh/a) und einem Verhältnis der Stromkosten zur Bruttowertschöpfung des Unternehmens von mindestens 14 %. Sind diese Voraussetzungen erfüllt, wird die EEG-Umlage für das Unternehmen wie folgt begrenzt: Für den Stromanteil bis 1 GWh/a wird die EEG-Umlage nicht begrenzt. Für den Stromanteil zwischen 1 und 10 GWh/a sind 10 % der EEG-Umlage zu bezahlen. Für den Stromanteil zwischen 10 und 100 GWh/a sind 1 % der EEG-Umlage zu bezahlen. Für den Stromanteil über 100 GWh/a beträgt die EEG-Umlage 0,05 Cent/kWh. Für Betriebe mit einem Strombezug über 100 GWh/a und einem Verhältnis der Stromkosten zur Bruttowertschöpfung von mindestens 20 % ist die EEG-Umlage auf 0,05 Cent/kWh begrenzt. Für Schienenbahnen gilt ein Stromverbrauch von 10 GWh/a als Voraussetzung. Ist diese Voraussetzung erfüllt, wird die EEG-Umlage wie folgt begrenzt: Für 10 % des Stromverbrauchs wird die EEG-Umlage nicht begrenzt. Für den übrigen Verbrauch beträgt die EEG-Umlage 0,05 Cent/kWh.
-Reduzierung der Umlage für Verbrauch |
+| Reduzierung der Umlage für Verbrauch |
 EEG-Umlage |
----|---|
-bis 1 GWh/a | 100 % |
-über 1 GWh/a bis 10 GWh/a | 10 % |
-über 10 GWh/a bis 100 GWh/a | 1 % |
-über 100 GWh/a | 0,05 ct/kWh |
-Sonderregelung bei Verbrauch über 100 GWh/a und Stromkostenmin. 20 % der Bruttowertschöpfung |
+|---|---|
+| bis 1 GWh/a | 100 % |
+| über 1 GWh/a bis 10 GWh/a | 10 % |
+| über 10 GWh/a bis 100 GWh/a | 1 % |
+| über 100 GWh/a | 0,05 ct/kWh |
+| Sonderregelung bei Verbrauch über 100 GWh/a und Stromkosten min. 20 % der Bruttowertschöpfung |
 0,05 ct/kWh |
-(8) Voraussetzungen:min. 1 GWh/a Stromverbrauch,Stromkosten min. 14 % der Bruttowertschöpfung(9) Eigenerzeugung ist von EEG-Umlage befreit |
+|
+(8) Voraussetzungen: min. 1 GWh/a Stromverbrauch, Stromkosten min. 14 % der Bruttowertschöpfung (9) Eigenerzeugung ist von EEG-Umlage befreit |
 Nach Angaben des Bundesumweltministeriums vom März 2012 war durch diese Regelungen zu diesem Zeitpunkt etwa die Hälfte des industriellen Stromverbrauchs ganz oder teilweise von der EEG-Umlage befreit, wodurch sich die EEG-Umlage für die Endverbraucher 2011 um etwa 0,9 ct/kWh erhöht hat.[3] Die Zahl der befreiten Unternehmen hat nach der EEG-Novelle 2012 erheblich zugenommen. Die Bundesregierung erwartete, dass 2013 voraussichtlich etwa zweieinhalb Mal so viele Unternehmen wie bisher von der Sonderregelung profitieren konnten.[120] Im Jahr 2013 profitierten 1691 stromintensive Unternehmen von der Sonderregelung. Dies entsprach einem Anteil von 1,29 Cent/kWh oder ca. 25 % der Gesamthöhe (5,28 Cent/kWh) an der EEG-Umlage.[121] Bei voller Veranlagung hätten sie vier Milliarden Euro entrichten müssen.[122] Im Jahr 2014 profitierten 2098 Unternehmen bzw. Unternehmensteile von der besonderen Ausgleichsregelung des EEG. Die privilegierte Strommenge dieser Unternehmen lag bei 107.101 GWh. Der Liste der betroffenen Unternehmen ist zu entnehmen, dass viele dieser Unternehmen keinen Handel mit dem Ausland betreiben.[123][124] Für 2015 wurden Anträge auf Entlastung in Höhe von 4,8 Mrd. Euro gestellt.[125]
 Diese Entlastung stieß mit Blick auf Wettbewerbsverzerrungen, Mehrbelastungen für Privatverbraucher und ökologisch fragwürdige Anreizeffekte auf breite Kritik.[126][127][128] Die Europäische Kommission leitete ein Beihilfeverfahren gegen Deutschland ein, um die Subventionierung von Unternehmen durch die Teilbefreiung von der EEG-Umlage wettbewerbsrechtlich zu prüfen.[129]
 Im Mai 2012 veröffentlichte die Bundesnetzagentur einen Evaluierungsbericht, in dem die Ausnahmeregelungen für die Großindustrie kritisiert werden. So betrachte die Netzagentur die „Reduktion des EEG-umlagepflichtigen Letztverbrauchs aufgrund der Ausweitung der Privilegierungsregelungen mit Sorge“, da mit den derzeit geltenden Regelungen die privilegierten Unternehmen zwar ca. 18 % des Stroms verbrauchten, allerdings nur 0,3 % der EEG-Umlage trügen. Zukünftig gelte es, eine bessere Balance zwischen Großverbrauchern sowie kleineren und mittleren Unternehmen sowie Haushaltskunden zu finden. Durch die Privilegierung der stromintensiven Industrie würde diese um ca. 2,5 Mrd. Euro jährlich entlastet, die Kosten würden auf nichtprivilegierte Unternehmen sowie Privathaushalte abgewälzt.[130][131] Für die Produktion einer einzelnen Aluminiumhütte wurden so nach journalistischen Recherchen im Jahr 2014 rund 450 Mio. Euro Strompreisvergünstigungen gewährt. Da das betreffende Unternehmen jedoch nur eintausend Beschäftigte habe, ergab das eine Subvention von 440.000 Euro pro Jahr und Arbeitsplatz.[132]
@@ -279,19 +282,20 @@ Die Grundzüge der Vergütungen für Anlagen zur Stromerzeugung aus erneuerbaren
 Das EEG 2012 regelt die Vergütungen für Anlagen, die ab dem 1. Januar 2012 in Betrieb genommen werden (§§ 23–33 EEG 2012). Für bereits in Betrieb befindliche Anlagen gilt grundsätzlich die bisherige Rechtslage fort – vorbehaltlich einiger Übergangsbestimmungen (§ 66 EEG). Für Strom aus solarer Strahlungsenergie ist eine Ausnahme mit der Photovoltaik-Novelle eingeführt worden, wonach neben dem regulären Absinken zu Jahresbeginn bei hohem Zubau im Vergleich zum Vorjahr auch zum 1. Juli eine weitere Absenkung erfolgen kann („atmender Deckel“) (§ 20b EEG 2012).
 Für die einzelnen Energiearten sieht das EEG angepasste Vergütungen je nach Ausbauleistung vor. Die sprungartigen Unterschiede an den Übergängen dieser Vergütungsgruppen werden ausgeglichen, indem die Ausbauleistung einer Anlage in die einzelnen Leistungsgruppen aufgeteilt wird und die Vergütung anteilig errechnet wird (s. nachfolgendes Beispiel Wasserkraft).[3]
 Wasserkraft[Bearbeiten | Quelltext bearbeiten]
-Anlagen- leistung |
+| Anlagen- leistung |
 EEG 2012(10) |
 EEG 2009 | EEG 2004 | |
----|---|---|---|---|
-bis 5 MW | über 5 MW | |||
-bis 500 kW | 12,7 | 12,67(11)/11,67(12) | 7,29 | 9,67 |
-bis 2 MW | 8,3 | 8,65 | 7,29 | 6,65 |
-bis 5 MW | 6,3 | 7,65(11)/8,65(12) | 7,29 | 6,65 |
-bis 10 MW | 5,5 | 6,32 | 6,32 | |
-bis 20 MW | 5,3 | 5,80 | 5,80 | |
-bis 50 MW | 4,2 | 4,34 | 4,34 | |
-über 50 MW | 3,4 | 3,50 | 3,50 | |
-(10) Neubau und Modernisierung(11) Neubau(12) Modernisierung |
+|---|---|---|---|---|
+| bis 5 MW | über 5 MW | |||
+| bis 500 kW | 12,7 | 12,67(11)/11,67(12) | 7,29 | 9,67 |
+| bis 2 MW | 8,3 | 8,65 | 7,29 | 6,65 |
+| bis 5 MW | 6,3 | 7,65(11)/8,65(12) | 7,29 | 6,65 |
+| bis 10 MW | 5,5 | 6,32 | 6,32 | |
+| bis 20 MW | 5,3 | 5,80 | 5,80 | |
+| bis 50 MW | 4,2 | 4,34 | 4,34 | |
+| über 50 MW | 3,4 | 3,50 | 3,50 | |
+|
+(10) Neubau und Modernisierung (11) Neubau (12) Modernisierung |
 Mit dem EEG 2012 ist die Vergütungsdauer auch für Wasserkraftanlagen einheitlich auf 20 Jahre zzgl. Inbetriebnahmejahr angehoben worden (vorher 15 Jahre für Anlagen über 5 MW) (§ 23 EEG). Auch die Unterscheidung von kleiner und großer Wasserkraft bei 5 MW – mit unterschiedlichen Vergütungsregelungen (s. Tab.) – wurde aufgehoben. Die Degression liegt bei einem Prozent pro späterem Jahr der Inbetriebnahme. Für die Erweiterung oder den Neubau sind eine Reihe umwelttechnischer und wasserrechtlicher Voraussetzungen – besonders zum Fischaufstieg – zu erfüllen, die entsprechend behördlich oder gutachterlich nachgewiesen werden müssen (§§ 33 bis 35 und 6 Absatz 1 Satz 1 Nummer 1 und 2 des Wasserhaushaltsgesetzes).
 Die im Gesetz genannten Vergütungen sind in Leistungsgruppen unterteilt, die bei der Vergütungsberechnung für den Einzelfall entsprechend der Bemessungsleistung angesetzt werden. Als Bemessungsleistung einer Anlage ist im EEG (§ 3, Abs. 2a) der Quotient aus der Summe der in dem jeweiligen Kalenderjahr erzeugten Kilowattstunden und der Summe der vollen Zeitstunden des jeweiligen Kalenderjahres definiert. Beispiel: Eine Wasserkraftanlage mit 2 MW Anlagenleistung erzeugt bei 4800 Volllaststunden im Jahr 9.600.000 kWh. Die Bemessungsleistung beträgt 1.096 kW (Jahresvolllaststunden* Nennleistung / 8760 h). Hiervon werden 500 kW, also 45,6 %, der Vergütungsgruppe bis 500 kW und die weitere Leistung der Vergütungsgruppe bis 2 MW zugeordnet. Die Durchschnittsvergütung errechnet sich zu 0,456 × 12,7 ct/kWh + 0,544 × 8,3 ct/kWh = 10,31 ct/kWh. Bei einer Inbetriebnahme nach 2012 ist die Degression von 1 % pro Jahr zu berücksichtigen. Eine Anlage, die 2013 in Betrieb genommen wurde, bekommt statt 12,7 ct/kWh noch 12,57 ct/kWh in der Gruppe bis 500 kW.
 -
@@ -311,13 +315,13 @@ Die Degression für Grundvergütung und Boni beträgt 1,5 % pro späterem Jahr d
 Grubengas stellt keine erneuerbare, sondern eine fossile Energiequelle dar. Die Verbrennung von Grubengas (beispielsweise in einer Stromerzeugungsanlage) stellt aber dennoch ein Klimaschutzmaßnahme dar, da unverbrannt in die Atmosphäre entweichendes Grubengas ein höheres Treibhauspotential als das bei der Verbrennung entstehende Kohlenstoffdioxid. Die Förderung der Grubengasverstromung wurde eingeführt, da sich das Auffangen und die energetische Nutzung von Grubengas ohne finanzielle Förderung nicht lohnt.
 Biomasse[Bearbeiten | Quelltext bearbeiten]
 Die Grundvergütung ist der nachfolgenden Tabelle zu entnehmen.
-Leistungsanteil | EEG 2012[193] | EEG 2009 | EEG 2004[194] |
----|---|---|---|
-bis 150 kWel | 14,3 | 11,67 auch für Altanlagen |
+| Leistungsanteil | EEG 2012[193] | EEG 2009 | EEG 2004[194] |
+|---|---|---|---|
+| bis 150 kWel | 14,3 | 11,67 auch für Altanlagen |
 11,50 |
-150 kWel bis 500 kWel | 12,3 | 9,18 | 9,90 |
-500 kWel bis 5 MWel | 11 | 8,25 | 8,90 |
-5 MWel bis 20 MWel | 6 nur bei KWK |
+| 150 kWel bis 500 kWel | 12,3 | 9,18 | 9,90 |
+| 500 kWel bis 5 MWel | 11 | 8,25 | 8,90 |
+| 5 MWel bis 20 MWel | 6 nur bei KWK |
 7,79 nur bei KWK |
 8,40 nur bei KWK |
 Um von den umfangreichen Boni von bis zu 18 Ct/kWh[195] für die Stromerzeugung aus Biomasse zu profitieren, müssen folgende Bedingungen erfüllt sein:
@@ -330,32 +334,32 @@ Die jährliche Degression auf der Grundvergütung und der Boni wurde im EEG 2009
 In der EEG-2012-Novelle, die am 30. Juni 2011 beschlossen wurde, wurden folgende Prämien für Biogasanlagen eingeführt:
 Ab dem 1. Januar 2012 wurden neu auch kleine Biogasanlagen bis 75 kW mit 25 ct/kWh vergütet.[198]
 Geothermie[Bearbeiten | Quelltext bearbeiten]
-Leistungsanteil | EEG 2012[199] | EEG 2009 | EEG 2004 |
----|---|---|---|
-bis 5 MWel | 25 | 20 | 15 |
-bis 10 MWel | 25 | 20 | 14 |
-bis 20 MWel | 25 | 14,50 | 8,95 |
-ab 20 MWel | 25 | 14,50 | 7,16 |
+| Leistungsanteil | EEG 2012[199] | EEG 2009 | EEG 2004 |
+|---|---|---|---|
+| bis 5 MWel | 25 | 20 | 15 |
+| bis 10 MWel | 25 | 20 | 14 |
+| bis 20 MWel | 25 | 14,50 | 8,95 |
+| ab 20 MWel | 25 | 14,50 | 7,16 |
 Im EEG 2009 wurde die Grundvergütung für den Leistungsanteil bis 10 MWel auf 16 ct/kWh und für den Leistungsanteil über 10 MWel auf 10,5 ct/kWh angehoben. Zudem wurden ein Wärmenutzungsbonus in Höhe von 3 ct/kWh und ein Technologiebonus in Höhe von 4 ct/kWh für nicht-hydrothermale Systeme (beispielsweise Hot-Dry-Rock) eingeführt.[200] Die bis 2011 geltenden Boni für Kraftwärmekopplung und Frühzeitigkeit entfielen durch die Anhebung der Vergütungssätze im EEG 2012. Der Technologie-Bonus für petrothermale Projekte wurde beibehalten und von 4 auf 5 ct/kWh erhöht.
 Die jährliche Absenkung der Grundvergütung und des Technologie-Bonus wird im EEG 2012 auf das Jahr 2018 verschoben und beträgt 5 % pro Jahr (EEG 2004/2009: 1 % ab 2010).
 Windkraft Festland (onshore)[Bearbeiten | Quelltext bearbeiten]
-Phase | Anfangsvergütung | Grundvergütung |
----|---|---|
-ct/kWh | ct/kWh | |
-EEG 2000 | 9,10 | 6,19 |
-EEG 2004 | 8,70 | 5,50 |
-EEG 2009 | 9,20 | 5,02 |
-EEG 2012 | 8,93 | 4,87 |
-EEG 2014 ab 1. August 2014 | 8,90 | 4,95 |
-EEG 2017[201] ab 1. Januar 2017 | 8,38 | 4,66 |
-EEG 2017 ab 1. März 2017 | 8,29 | 4,61 |
-EEG 2017 ab 1. April 2017 | 8,20 | 4,56 |
-EEG 2017 ab 1. Mai 2017 | 8,12 | 4,51 |
-EEG 2017 ab 1. Juni 2017 | 8,03 | 4,47 |
-EEG 2017 ab 1. Juli 2017 | 7,95 | 4,42 |
-EEG 2017 ab 1. August 2017 | 7,87 | 4,37 |
-EEG 2017 ab 1. Oktober 2017[202] | 7,68 | 4,27 |
-EEG 2017 ab 1. Januar 2018[202] | 7,49 | 4,17 |
+| Phase | Anfangsvergütung | Grundvergütung |
+|---|---|---|
+| ct/kWh | ct/kWh | |
+| EEG 2000 | 9,10 | 6,19 |
+| EEG 2004 | 8,70 | 5,50 |
+| EEG 2009 | 9,20 | 5,02 |
+| EEG 2012 | 8,93 | 4,87 |
+| EEG 2014 ab 1. August 2014 | 8,90 | 4,95 |
+| EEG 2017[201] ab 1. Januar 2017 | 8,38 | 4,66 |
+| EEG 2017 ab 1. März 2017 | 8,29 | 4,61 |
+| EEG 2017 ab 1. April 2017 | 8,20 | 4,56 |
+| EEG 2017 ab 1. Mai 2017 | 8,12 | 4,51 |
+| EEG 2017 ab 1. Juni 2017 | 8,03 | 4,47 |
+| EEG 2017 ab 1. Juli 2017 | 7,95 | 4,42 |
+| EEG 2017 ab 1. August 2017 | 7,87 | 4,37 |
+| EEG 2017 ab 1. Oktober 2017[202] | 7,68 | 4,27 |
+| EEG 2017 ab 1. Januar 2018[202] | 7,49 | 4,17 |
 Die Vergütungsstruktur für Strom aus Windkraft auf dem Festland ist abhängig vom Ertrag des Standorts gestaltet (§ 49 EEG 2014). Nach einer zunächst fünfjährigen Anfangsvergütung wird der anfangs erzielte Ertrag in das Verhältnis zu einer (theoretischen) Referenzanlage gesetzt und daraus für den einzelnen Standort errechnet, wie lange die Anfangsvergütung zusätzlich gewährt wird. Je wind- und damit ertragreicher ein Standort ist, umso kürzer wird diese Vergütungsphase. Die zugehörige Regelung lautete im EEG 2012: „Diese Frist verlängert sich um zwei Monate je 0,75 Prozent des Referenzertrags, um den der Ertrag der Anlage 150 Prozent des Referenzertrags unterschreitet“ (§ 64 Abs. 2 EEG 2012). Mit dem EEG 2014 wurde die Regelung zur Anfangsvergütung wie folgt angepasst: „Diese Frist verlängert sich um einen Monat pro 0,36 Prozent des Referenzertrags, um den der Ertrag der Anlage 130 Prozent des Referenzertrags unterschreitet. Zusätzlich verlängert sich die Frist um einen Monat pro 0,48 Prozent des Referenzertrags, um den der Ertrag der Anlage 100 Prozent des Referenzertrags unterschreitet“ (§ 49 Abs. 2 EEG 2014).
 Sie führt für küstennahe Standorte, die beispielsweise 120 % des Referenzertrages erreichen, zu einer Verlängerung um 27 Monate, so dass die Anfangsvergütung von 8,79 Cent/kWh (Inbetriebnahme Januar 2016) insgesamt 7,25 Jahre gewährt wird. Für Standorte im Binnenland kann eine Unterschreitung des Referenzertrags eintreten, so dass ein Standort mit beispielsweise 90 % des Referenzertrags eine Verlängerung um fast 11 Jahre auf dann insgesamt 16 Jahre erhält. Nach Ablauf dieses Zeitraums wird nur noch die sog. Grundvergütung von 4,89 Cent/kWh gewährt (§ 49 Abs. 1 EEG 2014 mit Degression bei einer Inbetriebnahme im Januar 2016). Diese standortabhängige Vergütungsstruktur für Windkraft auf dem Festland führt im Verlauf des 20-jährigen EEG-Vergütungszeitraums zu deutlich unterschiedlichen mittleren Vergütungen.
 Die Anfangsvergütung unterliegt nach EEG 2012 einer Degression von 1,5 % pro Jahr, je später die Inbetriebnahme erfolgt (§ 20 Abs. 2 EEG 2012). Nach EEG 2014 findet ab dem 1. Januar 2016 eine quartalsweise Anpassung der Vergütungssätze statt (§ 29 EEG 2014). Die Höhe der Anpassung hängt vom erfolgten Zubau in einem vorangegangenen 12-Monats-Zeitraum ab. Wurde ein besonders starker Zubau festgestellt, so erhöht sich die Degression auf bis zu 1,2 % pro Quartal, während bei besonders schwachem Zubau auch eine Erhöhung der Vergütung um bis zu 0,4 % möglich ist. Für den Zubau wird ein Zielkorridor von 2,4 GW bis 2,6 GW pro Jahr angestrebt.
@@ -382,173 +386,173 @@ Bei der Novellierung des Gesetzes 2011 wurde die bestehende Degressionsregelung 
 - Anfang 2012 galt folgende Regelung: Zum Jahreswechsel wird die Vergütung je nach installierter Leistung im Vorjahreszeitraum (1. Oktober bis 30. September) zwischen 1,5 % (bei unter 1.500 MWp) und 24 % (bei über 7.500 MWp) gesenkt. Abhängig von dem Zubau zwischen 1. Oktober und 30. April werden bis zu 15 % dieser Vergütungskürzung auf den 1. Juli vorgezogen.[227] Zwischen dem 1. Oktober 2010 und dem 30. September 2011 wurden 5.200 MWp[228] neu installiert, was eine Kürzung für 2012 von 15 % bedeutete. Im Zeitraum 1. Oktober 2011 bis 30. April 2012 lag der Zubau bei ca. 6.273 MWp[229]; damit sänke die Vergütung zum 1. Juli 2012 um 15 %.
 - Vergütungssätze 2000–2003
 - Die Vergütungssätze für Photovoltaik betrugen ab dem 1. April 2000 für das Jahr 2000 und 2001 0,99 DM/kWh, ab 1. Januar 2002 48,1 ct/kWh, ab 1. Januar 2003 45,7 ct/kWh.[230]
-Anlagentyp | 2004 | 2005 | 2006 | 2007 | 2008 | 2009 | Jan. 2010 |
+| Anlagentyp | 2004 | 2005 | 2006 | 2007 | 2008 | 2009 | Jan. 2010 |
 Jul. 2010 |
 Okt. 2010 |
 2011 | Jan. 2012 | |
----|---|---|---|---|---|---|---|---|---|---|---|---|
-auf einem Gebäude oder einer Lärmschutzwand |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| auf einem Gebäude oder einer Lärmschutzwand |
 bis 30 kWp | 57,4 | 54,53 | 51,80 | 49,21 | 46,75 | 43,01 | 39,14 | 34,05 | 33,03 | 28,74 | 24,43 |
-ab 30 kWp | 54,6 | 51,87 | 49,28 | 46,82 | 44,48 | 40,91 | 37,23 | 32,39 | 31,42 | 27,33 | 23,23 | |
-ab 100 kWp | 54,0 | 51,30 | 48,74 | 46,30 | 43,99 | 39,58 | 35,23 | 30,65 | 29,73 | 25,86 | 21,98 | |
-ab 1 MWp | 33,00 | 29,37 | 25,55 | 24,79 | 21,56 | 18,33 | ||||||
-Freiflächenanlagen (leistungsunabhängig) |
+| ab 30 kWp | 54,6 | 51,87 | 49,28 | 46,82 | 44,48 | 40,91 | 37,23 | 32,39 | 31,42 | 27,33 | 23,23 | |
+| ab 100 kWp | 54,0 | 51,30 | 48,74 | 46,30 | 43,99 | 39,58 | 35,23 | 30,65 | 29,73 | 25,86 | 21,98 | |
+| ab 1 MWp | 33,00 | 29,37 | 25,55 | 24,79 | 21,56 | 18,33 | ||||||
+| Freiflächenanlagen (leistungsunabhängig) |
 vorbelastete Flächen | 45,7 | 43,4 | 40,6 | 37,96 | 35,49 | 31,94 | 28,43 | 26,16 | 25,37 | 22,07 | 18,76 |
-Sonstige Freiflächen | 25,02 | 24,26 | 21,11 | 17,94 | ||||||||
-Ackerflächen | - | - | - | - | ||||||||
-Selbstverbrauchs- vergütungfür Anlagen auf Gebäuden[231] |
+| Sonstige Freiflächen | 25,02 | 24,26 | 21,11 | 17,94 | ||||||||
+| Ackerflächen | - | - | - | - | ||||||||
+| Selbstverbrauchs- vergütung für Anlagen auf Gebäuden[231] |
 bis 30 kWp bis 30 % Selbstverbrauch | 25,01 | 22,76 | 17,67 | 16,65 | 12,36 | 8,05 | |||||
-bis 30 kWp ab 30 % Selbstverbrauch | 25,01 | 22,76 | 22,05 | 21,03 | 16,74 | 12,43 | ||||||
-30 bis 100 kWp bis 30 % Selbstverbrauch | - | - | 16,01 | 15,04 | 10,95 | 6,85 | ||||||
-30 bis 100 kWp ab 30 % Selbstverbrauch | - | - | 20,39 | 19,42 | 15,33 | 11,23 | ||||||
-100 bis 500 kWp bis 30 % Selbstverbrauch | - | - | 14,27 | 13,35 | 9,48 | 5,60 | ||||||
-100 bis 500 kWp ab 30 % Selbstverbrauch | - | - | 18,65 | 17,73 | 13,86 | 9,98 |
+| bis 30 kWp ab 30 % Selbstverbrauch | 25,01 | 22,76 | 22,05 | 21,03 | 16,74 | 12,43 | ||||||
+| 30 bis 100 kWp bis 30 % Selbstverbrauch | - | - | 16,01 | 15,04 | 10,95 | 6,85 | ||||||
+| 30 bis 100 kWp ab 30 % Selbstverbrauch | - | - | 20,39 | 19,42 | 15,33 | 11,23 | ||||||
+| 100 bis 500 kWp bis 30 % Selbstverbrauch | - | - | 14,27 | 13,35 | 9,48 | 5,60 | ||||||
+| 100 bis 500 kWp ab 30 % Selbstverbrauch | - | - | 18,65 | 17,73 | 13,86 | 9,98 |
 - Kürzungen zum 1. April 2012
 - Im März beschloss der Bundestag eine Novelle zum EEG, nach der die PV-Vergütungen nochmals gekürzt würden. Zu dieser beschloss der Bundesrat am 11. Mai 2012 die Einberufung des Vermittlungsausschusses mit dem Ziel der grundlegenden Überarbeitung des Gesetzes, nachdem zuvor Solarbranche und Bundesländer gegen den Entwurf protestiert hatten.
 Ende Juni 2012 wurde daraufhin eine etwas abgeschwächte EEG-Novelle von Bundestag und Bundesrat angenommen (siehe auch nachfolgende Tabelle).[232][233] Je nach Anlagentyp verringerte sich danach die Vergütung für Anlagen, die zum oder nach dem 1. April 2012 in Betrieb genommen wurden (Definition: siehe § 3 Nr. 5 EEG 2012) um etwa 30 %.[234] Für Dachanlagen, für die vor dem 24. Februar 2012 beim Netzbetreiber ein Netzanschlussbegehren gestellt wurde, gelten Förderungen nach den alten Regeln, sofern die Anlage vor dem 30. Juni in Betrieb ging. Laut Übergangsregelung stehen die alten Vergütungen Freiflächenanlagen zu, bei denen das Planungsverfahren vor dem 1. März begonnen wurde und die spätestens zum 30. Juni ans Netz gehen. Für Freiflächenanlagen auf Konversionsflächen, die mit aufwändigen Planungsverfahren verbunden sind, galt die Förderung nach den alten Regeln noch bis zum 30. September.
 Zum 1. April 2012 wurde die Eigenverbrauchsvergütung abgeschafft, da der Vergütungssatz für eingespeisten Solarstrom mittlerweile unter den dem privaten Endverbraucher von den Energieversorgungsunternehmen in Rechnung gestellten Bezugspreis gefallen war und damit der Eigenverbrauch von solar erzeugtem Strom auch ohne Förderung günstiger ist als Einspeisung mit anschließendem Netzbezug.
 - Übergangsregelung
 - Geltung der Vergütungssätze des EEG 2012 in der bisherigen Fassung für Anlagen, die nach dem 31. März und vor dem 1. Juli 2012 nach der neuen Inbetriebnahmedefinition in Betrieb genommen wurden, wenn vor dem 24. Februar 2012 ein schriftliches oder elektronisches Netzanschlussbegehren unter Angabe des Standortes und der zu installierenden Anlagenleistung gestellt wurde (§ 66 Abs. 18 S. 2 EEG 2012 n.F.)[234] Für neu errichtete Dachanlagen zwischen 10 und 1000 kWp gilt künftig: Nur noch 90 % des produzierten Stroms werden vergütet. Den Rest soll der Besitzer selbst verbrauchen oder vermarkten. Die Bundesregierung hat das Ziel, den jährlichen Zubau möglichst auf 2.500 bis 3.500 Megawatt zu begrenzen. Die Vergütungsdegression greift monatlich: je nach Zubau in den vorangegangenen Monaten beträgt sie monatlich −0,5 bis 2,8 %, gestaffelt nach einem im EEG vorgegebenen Schema.
-Jahr | Monat | monatliche Degression |
+| Jahr | Monat | monatliche Degression |
 Dachanlagen | vorbelastete und sonstige Freiflächen bis 10 MWp | |||
----|---|---|---|---|---|---|---|
-bis 10 kWp | bis 40 kWp | bis 1 MWp | bis 10 MWp | ||||
-2012 | April | – | 19,50 | 18,50 | 16,50 | 13,50 | 13,50 |
-Mai | 1,0 % | 19,31 | 18,32 | 16,34 | 13,37 | 13,37 | |
-Juni | 19,11 | 18,13 | 16,17 | 13,23 | 13,23 | ||
-Juli | 18,92 | 17,95 | 16,01 | 13,10 | 13,10 | ||
-August | 18,73 | 17,77 | 15,85 | 12,97 | 12,97 | ||
-September | 18,54 | 17,59 | 15,69 | 12,84 | 12,84 | ||
-Oktober | 18,36 | 17,42 | 15,53 | 12,71 | 12,71 | ||
-November | 2,5 % | 17,90 | 16,98 | 15,15 | 12,39 | 12,39 | |
-Dezember | 17,45 | 16,56 | 14,77 | 12,08 | 12,08 | ||
-2013 | Januar | 17,02 | 16,14 | 14,40 | 11,78 | 11,78 | |
-Februar | 2,2 % | 16,64 | 15,79 | 14,08 | 11,52 | 11,52 | |
-März | 16,28 | 15,44 | 13,77 | 11,27 | 11,27 | ||
-April | 15,92 | 15,10 | 13,47 | 11,02 | 11,02 | ||
-Mai | 1,8 % | 15,63 | 14,83 | 13,23 | 10,82 | 10,82 | |
-Juni | 15,35 | 14,56 | 12,99 | 10,63 | 10,63 | ||
-Juli | 15,07 | 14,30 | 12,75 | 10,44 | 10,44 | ||
-August | 14,80 | 14,04 | 12,52 | 10,25 | 10,25 | ||
-September | 14,54 | 13,79 | 12,30 | 10,06 | 10,06 | ||
-Oktober | 14,27 | 13,54 | 12,08 | 9,88 | 9,88 | ||
-November | 1,4 % | 14,07 | 13,35 | 11,91 | 9,74 | 9,74 | |
-Dezember | 13,88 | 13,17 | 11,74 | 9,61 | 9,61 | ||
-2014 | Januar | 13,68 | 12,98 | 11,58 | 9,47 | 9,47 | |
-Februar | 1,0 % | 13,55 | 12,85 | 11,46 | 9,38 | 9,38 | |
-März | 13,41 | 12,72 | 11,35 | 9,28 | 9,28 | ||
-April | 13,28 | 12,60 | 11,23 | 9,19 | 9,19 | ||
-Mai | 13,14 | 12,47 | 11,12 | 9,10 | 9,10 | ||
-Juni | 13,01 | 12,34 | 11,01 | 9,01 | 9,01 | ||
-Juli | 12,88 | 12,22 | 10,90 | 8,92 | 8,92 | ||
-Vergütungsfähiger Anteil[236] | 100 % | 90 % | 90 % | 100 % | 100 % |
+|---|---|---|---|---|---|---|---|
+| bis 10 kWp | bis 40 kWp | bis 1 MWp | bis 10 MWp | ||||
+| 2012 | April | – | 19,50 | 18,50 | 16,50 | 13,50 | 13,50 |
+| Mai | 1,0 % | 19,31 | 18,32 | 16,34 | 13,37 | 13,37 | |
+| Juni | 19,11 | 18,13 | 16,17 | 13,23 | 13,23 | ||
+| Juli | 18,92 | 17,95 | 16,01 | 13,10 | 13,10 | ||
+| August | 18,73 | 17,77 | 15,85 | 12,97 | 12,97 | ||
+| September | 18,54 | 17,59 | 15,69 | 12,84 | 12,84 | ||
+| Oktober | 18,36 | 17,42 | 15,53 | 12,71 | 12,71 | ||
+| November | 2,5 % | 17,90 | 16,98 | 15,15 | 12,39 | 12,39 | |
+| Dezember | 17,45 | 16,56 | 14,77 | 12,08 | 12,08 | ||
+| 2013 | Januar | 17,02 | 16,14 | 14,40 | 11,78 | 11,78 | |
+| Februar | 2,2 % | 16,64 | 15,79 | 14,08 | 11,52 | 11,52 | |
+| März | 16,28 | 15,44 | 13,77 | 11,27 | 11,27 | ||
+| April | 15,92 | 15,10 | 13,47 | 11,02 | 11,02 | ||
+| Mai | 1,8 % | 15,63 | 14,83 | 13,23 | 10,82 | 10,82 | |
+| Juni | 15,35 | 14,56 | 12,99 | 10,63 | 10,63 | ||
+| Juli | 15,07 | 14,30 | 12,75 | 10,44 | 10,44 | ||
+| August | 14,80 | 14,04 | 12,52 | 10,25 | 10,25 | ||
+| September | 14,54 | 13,79 | 12,30 | 10,06 | 10,06 | ||
+| Oktober | 14,27 | 13,54 | 12,08 | 9,88 | 9,88 | ||
+| November | 1,4 % | 14,07 | 13,35 | 11,91 | 9,74 | 9,74 | |
+| Dezember | 13,88 | 13,17 | 11,74 | 9,61 | 9,61 | ||
+| 2014 | Januar | 13,68 | 12,98 | 11,58 | 9,47 | 9,47 | |
+| Februar | 1,0 % | 13,55 | 12,85 | 11,46 | 9,38 | 9,38 | |
+| März | 13,41 | 12,72 | 11,35 | 9,28 | 9,28 | ||
+| April | 13,28 | 12,60 | 11,23 | 9,19 | 9,19 | ||
+| Mai | 13,14 | 12,47 | 11,12 | 9,10 | 9,10 | ||
+| Juni | 13,01 | 12,34 | 11,01 | 9,01 | 9,01 | ||
+| Juli | 12,88 | 12,22 | 10,90 | 8,92 | 8,92 | ||
+| Vergütungsfähiger Anteil[236] | 100 % | 90 % | 90 % | 100 % | 100 % |
 - Änderungen durch das EEG 2014
 - Aus dem EEG 2014 ergibt sich einerseits eine Erlös-Obergrenze nach dem Marktprämienmodell, das für Anlagen ab 500 kWp (ab 1. Januar 2016 ab 100 kWp[237]) Leistung verpflichtend ist, und andererseits eine feste Einspeisevergütung für Kleinanlagen bis einschließlich 500 kWp (ab 1. Januar 2016 bis einschließlich 100 kWp[237]) Leistung ohne Teilnahme am Marktprämienmodell. Die mit dem EEG 2012 eingeführte Begrenzung der Vergütung auf 90 % des produzierten Stroms für Dachanlagen zwischen 10 und 1000 kWp wurde nicht ins EEG 2014 übernommen. Damit sind für alle nach dem EEG 2014 in Betrieb genommenen Anlagen 100 % des produzierten Stroms vergütungsfähig.
-Jahr | Monat | monatliche Degression |
+| Jahr | Monat | monatliche Degression |
 Erlös-Obergrenze Marktprämienmodell |
 Feste Einspeisevergütung | ||||||
----|---|---|---|---|---|---|---|---|---|---|
-Dachanlagen | Nichtwohngebäude im Außenbereich sowie Dachanlagen und Freiflächen bis 10 MWp |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Dachanlagen | Nichtwohngebäude im Außenbereich sowie Dachanlagen und Freiflächen bis 10 MWp |
 Dachanlagen | Nichtwohngebäude im Außenbereich und Freiflächen bis 500 kWp | |||||||
-bis 10 kWp | bis 40 kWp | bis 1 MWp | bis 10 kWp | bis 40 kWp | bis 500 kWp | |||||
-2014 | August[238] | – | 13,15 | 12,80 | 11,49 | 9,23 | 12,75 | 12,40 | 11,09 | 8,83 |
-September[238] | 0,5 % | 13,08 | 12,74 | 11,43 | 9,18 | 12,69 | 12,34 | 11,03 | 8,79 | |
-Oktober[239] | 0,25 % | 13,05 | 12,70 | 11,40 | 9,16 | 12,65 | 12,31 | 11,01 | 8,76 | |
-November[239] | 13,02 | 12,67 | 11,38 | 9,14 | 12,62 | 12,28 | 10,98 | 8,74 | ||
-Dezember[239] | 12,99 | 12,64 | 11,35 | 9,12 | 12,59 | 12,25 | 10,95 | 8,72 | ||
-2015 | Januar[240] | 12,95 | 12,61 | 11,32 | 9,09 | 12,56 | 12,22 | 10,92 | 8,70 | |
-Februar[240] | 12,92 | 12,58 | 11,29 | 9,07 | 12,53 | 12,18 | 10,90 | 8,68 | ||
-März[240] | 12,89 | 12,55 | 11,26 | 9,05 | 12,50 | 12,15 | 10,87 | 8,65 | ||
-April[241] | 12,86 | 12,51 | 11,23 | 9,02 | 12,47 | 12,12 | 10,84 | 8,63 | ||
-Mai[241] | 12,82 | 12,48 | 11,21 | 9,00 | 12,43 | 12,09 | 10,82 | 8,61 | ||
-Juni[241] | 12,79 | 12,45 | 11,18 | 8,98 | 12,40 | 12,06 | 10,79 | 8,59 | ||
-Juli[242] | 12,76 | 12,42 | 11,15 | 8,96 | 12,37 | 12,03 | 10,76 | 8,57 | ||
-August[242] | 12,73 | 12,39 | 11,12 | 8,93 | 12,34 | 12,00 | 10,73 | 8,55 | ||
-September[242] | 12,70 | 12,36 | 11,09 | 8,91 | 12,31 | 11,97 | 10,71 | 8,53 | ||
-Okt.–Dez.[243] | – |
+| bis 10 kWp | bis 40 kWp | bis 1 MWp | bis 10 kWp | bis 40 kWp | bis 500 kWp | |||||
+| 2014 | August[238] | – | 13,15 | 12,80 | 11,49 | 9,23 | 12,75 | 12,40 | 11,09 | 8,83 |
+| September[238] | 0,5 % | 13,08 | 12,74 | 11,43 | 9,18 | 12,69 | 12,34 | 11,03 | 8,79 | |
+| Oktober[239] | 0,25 % | 13,05 | 12,70 | 11,40 | 9,16 | 12,65 | 12,31 | 11,01 | 8,76 | |
+| November[239] | 13,02 | 12,67 | 11,38 | 9,14 | 12,62 | 12,28 | 10,98 | 8,74 | ||
+| Dezember[239] | 12,99 | 12,64 | 11,35 | 9,12 | 12,59 | 12,25 | 10,95 | 8,72 | ||
+| 2015 | Januar[240] | 12,95 | 12,61 | 11,32 | 9,09 | 12,56 | 12,22 | 10,92 | 8,70 | |
+| Februar[240] | 12,92 | 12,58 | 11,29 | 9,07 | 12,53 | 12,18 | 10,90 | 8,68 | ||
+| März[240] | 12,89 | 12,55 | 11,26 | 9,05 | 12,50 | 12,15 | 10,87 | 8,65 | ||
+| April[241] | 12,86 | 12,51 | 11,23 | 9,02 | 12,47 | 12,12 | 10,84 | 8,63 | ||
+| Mai[241] | 12,82 | 12,48 | 11,21 | 9,00 | 12,43 | 12,09 | 10,82 | 8,61 | ||
+| Juni[241] | 12,79 | 12,45 | 11,18 | 8,98 | 12,40 | 12,06 | 10,79 | 8,59 | ||
+| Juli[242] | 12,76 | 12,42 | 11,15 | 8,96 | 12,37 | 12,03 | 10,76 | 8,57 | ||
+| August[242] | 12,73 | 12,39 | 11,12 | 8,93 | 12,34 | 12,00 | 10,73 | 8,55 | ||
+| September[242] | 12,70 | 12,36 | 11,09 | 8,91 | 12,31 | 11,97 | 10,71 | 8,53 | ||
+| Okt.–Dez.[243] | – |
 Das EEG 2014 sieht zudem ein Pilotmodell zur Erprobung von Ausschreibungen für Photovoltaik-Freiflächenanlagen vor.[244] Die erste Ausschreibungsrunde endete am 15. April 2015. Es gingen insgesamt 170 Gebote ein, so dass das Ausschreibungsvolumen von 150 MW mehrfach überzeichnet ist.[245] Der BEE befürchtet, dass Bürgergenossenschaften und -anlagen vom Markt verdrängt werden, da sie aufgrund geringerer Kapitalstärke weniger Vorleistungen auf sich nehmen und weniger Risiken tragen können.[246][247]
 - Änderungen ab 1. Januar 2016
 - Ab dem 1. Januar 2016 ist oberhalb einer Größe von 100 kWp immer eine Direktvermarktung nach dem Marktprämienmodell erforderlich.[248]
-Jahr | Monat | monatliche Degression |
+| Jahr | Monat | monatliche Degression |
 Erlös-Obergrenze Marktprämienmodell |
 Feste Einspeisevergütung | ||||||
----|---|---|---|---|---|---|---|---|---|---|
-Dachanlagen | Nichtwohngebäude im Außenbereich sowie Dachanlagen und Freiflächen bis 10 MWp |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Dachanlagen | Nichtwohngebäude im Außenbereich sowie Dachanlagen und Freiflächen bis 10 MWp |
 Dachanlagen | Nichtwohngebäude im Außenbereich und Freiflächen bis 100 kWp | |||||||
-bis 10 kWp | bis 40 kWp | bis 1 MWp | bis 10 kWp | bis 40 kWp | bis 100 kWp | |||||
-2016 | Jan.–Dez. [249][250][251][252] |
+| bis 10 kWp | bis 40 kWp | bis 1 MWp | bis 10 kWp | bis 40 kWp | bis 100 kWp | |||||
+| 2016 | Jan.–Dez. [249][250][251][252] |
 - | 12,70 | 12,36 | 11,09 | 8,91 | 12,31 | 11,97 | 10,71 | 8,53 |
-2017 | Jan.–Apr. [253][254] |
+| 2017 | Jan.–Apr. [253][254] |
 12,30 | 11,96 | 10,69 | 8,51 | |||||
-Mai[255] | 0,25 % | 12,67 | 12,33 | 11,06 | 8,89 | 12,27 | 11,93 | 10,66 | 8,49 | |
-Juni[255] | 12,64 | 12,30 | 11,03 | 8,87 | 12,24 | 11,90 | 10,63 | 8,47 | ||
-Juli[255] | 12,61 | 12,27 | 11,00 | 8,85 | 12,21 | 11,87 | 10,60 | 8,45 | ||
-Aug.–Dez. [256][257] |
+| Mai[255] | 0,25 % | 12,67 | 12,33 | 11,06 | 8,89 | 12,27 | 11,93 | 10,66 | 8,49 | |
+| Juni[255] | 12,64 | 12,30 | 11,03 | 8,87 | 12,24 | 11,90 | 10,63 | 8,47 | ||
+| Juli[255] | 12,61 | 12,27 | 11,00 | 8,85 | 12,21 | 11,87 | 10,60 | 8,45 | ||
+| Aug.–Dez. [256][257] |
 - | |||||||||
-2018 | Jan.–Jul. [257][258][259] | |||||||||
-August[260] | 1 % | 12,48 | 12,14 | 10,90 | 8,75 | 12,08 | 11,74 | 10,50 | 8,35 | |
-September[260] | 12,35 | 12,02 | 10,79 | 8,67 | 11,95 | 11,62 | 10,39 | 8,27 | ||
-Oktober[260] | 12,23 | 11,90 | 10,68 | 8,58 | 11,83 | 11,50 | 10,28 | 8,18 | ||
-November[261] | 12,11 | 11,78 | 10,57 | 8,41 | 11,71 | 11,38 | 10,17 | 8,09 | ||
-Dezember[261] | 11,99 | 11,67 | 10,47 | 8,33 | 11,59 | 11,27 | 10,07 | 8,01 | ||
-2019 | Januar[261] | 11,87 | 11,55 | 10,36 | 8,33 | 11,47 | 11,15 | 9,96 | 7,93 | |
-Februar[262] | 11,75 | 11,43 | 9,87 | 8,24 | 11,35 | 11,03 | 9,47 | 7,84 | ||
-März[262] | 11,63 | 11,32 | 9,39 | 8,16 | 11,23 | 10,92 | 8,99 | 7,76 | ||
-April[262] | 11,51 | 11,21 | 8,90 | 8,08 | 11,11 | 10,81 | 8,50 | 7,68 | ||
-Mai[263] | 1,4 % | 11,35 | 11,05 | 8,78 | 7,97 | 10,95 | 10,65 | 8,38 | 7,57 | |
-Juni[263] | 11,19 | 10,90 | 8,65 | 7,85 | 10,79 | 10,50 | 8,25 | 7,45 | ||
-Juli[263] | 11,04 | 10,74 | 8,53 | 7,74 | 10,64 | 10,34 | 8,13 | 7,34 | ||
-August[264] | 10,88 | 10,59 | 8,41 | 7,64 | 10,48 | 10,19 | 8,01 | 7,24 | ||
-September[264] | 10,73 | 10,44 | 8,29 | 7,53 | 10,33 | 10,04 | 7,89 | 7,13 | ||
-Oktober[264] | 10,58 | 10,30 | 8,18 | 7,42 | 10,18 | 9,90 | 7,78 | 7,02 | ||
-November[265] | 1 % | 10,48 | 10,19 | 8,10 | 7,35 | 10,08 | 9,79 | 7,70 | 6,95 | |
-Dezember[265] | 10,37 | 10,09 | 8,02 | 7,28 | 9,97 | 9,69 | 7,62 | 6,88 | ||
-2020 | Januar[265] | 10,27 | 9,99 | 7,94 | 7,20 | 9,87 | 9,59 | 7,54 | 6,80 | |
-Februar[266] | 1,4 % | 10,12 | 9,85 | 7,82 | 7,10 | 9,72 | 9,45 | 7,42 | 6,70 | |
-März[266] | 9,98 | 9,71 | 7,71 | 7,00 | 9,58 | 9,31 | 7,31 | 6,60 | ||
-April[266] | 9,84 | 9,58 | 7,61 | 6,90 | 9,44 | 9,18 | 7,21 | 6,50 | ||
-Mai[267] | 9,70 | 9,44 | 7,50 | 6,81 | 9,30 | 9,04 | 7,10 | 6,41 | ||
-Juni[267] | 9,57 | 9,31 | 7,40 | 6,71 | 9,17 | 8,91 | 7,00 | 6,31 | ||
-Juli[267] | 9,43 | 9,18 | 7,29 | 6,62 | 9,03 | 8,78 | 6,89 | 6,22 | ||
-August[268] | 9,30 | 9,05 | 7,19 | 6,53 | 8,90 | 8,65 | 6,79 | 6,13 | ||
-September[268] | 9,17 | 8,93 | 7,09 | 6,43 | 8,77 | 8,53 | 6,69 | 6,03 | ||
-Oktober[268] | 9,04 | 8,80 | 6,99 | 6,34 | 8,64 | 8,40 | 6,59 | 5,94 | ||
-November[269] | 1,8 % | 8,88 | 8,64 | 6,86 | 6,23 | 8,48 | 8,24 | 6,46 | 5,83 | |
-Dezember[269] | 8,72 | 8,49 | 6,74 | 6,12 | 8,32 | 8,09 | 6,34 | 5,72 | ||
-2021 | Januar[269] | 8,56 | 8,33 | 6,62 | 6,01 | 8,16 | 7,93 | 6,22 | 5,61 | |
-Februar[270] | 1,4 % | 8,44 | 8,21 | 6,53 | 5,93 | 8,04 | 7,81 | 6,13 | 5,53 | |
-März[270] | 8,32 | 8,10 | 6,44 | 5,84 | 7,92 | 7,70 | 6,04 | 5,44 | ||
-April[270] | 8,21 | 7,99 | 6,35 | 5,76 | 7,81 | 7,59 | 5,95 | 5,36 | ||
-Mai[271] | 8,09 | 7,87 | 6,26 | 5,68 | 7,69 | 7,47 | 5,86 | 5,28 | ||
-Juni[271] | 7,98 | 7,76 | 6,17 | 5,60 | 7,58 | 7,36 | 5,77 | 5,20 | ||
-Juli[271] | 7,87 | 7,65 | 6,08 | 5,52 | 7,47 | 7,25 | 5,68 | 5,12 | ||
-August[272] | 7,76 | 7,55 | 6,00 | 5,45 | 7,36 | 7,15 | 5,60 | 5,05 | ||
-September[272] | 7,65 | 7,44 | 5,91 | 5,37 | 7,25 | 7,04 | 5,51 | 4,97 | ||
-Oktober[272] | 7,54 | 7,34 | 5,83 | 5,29 | 7,14 | 6,94 | 5,43 | 4,89 | ||
-November[273] | 7,43 | 7,23 | 5,75 | 5,22 | 7,03 | 6,83 | 5,35 | 4,82 | ||
-Dezember[273] | 7,33 | 7,13 | 5,67 | 5,15 | 6,93 | 6,73 | 5,27 | 4,75 | ||
-2022 | Januar[273] | 7,23 | 7,03 | 5,59 | 5,07 | 6,83 | 6,63 | 5,19 | 4,67 | |
-Februar[274] | 7,13 | 6,93 | 5,51 | 5,00 | 6,73 | 6,53 | 5,11 | 4,60 | ||
-März[274] | 7,03 | 6,84 | 5,43 | 4,93 | 6,63 | 6,44 | 5,03 | 4,53 | ||
-April[274] | 6,93 | 6,74 | 5,36 | 4,86 | 6,53 | 6,34 | 4,96 | 4,46 | ||
-Mai[275] | 6,83 | 6,65 | 5,28 | 4,80 | 6,43 | 6,25 | 4,88 | 4,40 | ||
-Juni[275] | 6,74 | 6,55 | 5,21 | 4,73 | 6,34 | 6,15 | 4,81 | 4,33 | ||
-Juli[275] | 6,64 | 6,46 | 5,14 | 4,66 | 6,24 | 6,06 | 4,74 | 4,26 | ||
-ab 30. Juli[276] | 8,60 | 7,50 | 6,20 | 4,59 | 8,20 | 7,10 | 5,80 | 4,20 | ||
-September[276] | 8,60 | 7,50 | 6,20 | 4,53 | 8,20 | 7,10 | 5,80 | 4,13 | ||
-Oktober[276] | 8,60 | 7,50 | 6,20 | 4,47 | 8,20 | 7,10 | 5,80 | 4,07 | ||
-November[277] | 1,8 % | 8,60 | 7,50 | 6,20 | 4,39 | 8,20 | 7,10 | 5,80 | 3,99 | |
-Dezember[277] | 8,60 | 7,50 | 6,20 | 4,31 | 8,20 | 7,10 | 5,80 | 3,91 |
+| 2018 | Jan.–Jul. [257][258][259] | |||||||||
+| August[260] | 1 % | 12,48 | 12,14 | 10,90 | 8,75 | 12,08 | 11,74 | 10,50 | 8,35 | |
+| September[260] | 12,35 | 12,02 | 10,79 | 8,67 | 11,95 | 11,62 | 10,39 | 8,27 | ||
+| Oktober[260] | 12,23 | 11,90 | 10,68 | 8,58 | 11,83 | 11,50 | 10,28 | 8,18 | ||
+| November[261] | 12,11 | 11,78 | 10,57 | 8,41 | 11,71 | 11,38 | 10,17 | 8,09 | ||
+| Dezember[261] | 11,99 | 11,67 | 10,47 | 8,33 | 11,59 | 11,27 | 10,07 | 8,01 | ||
+| 2019 | Januar[261] | 11,87 | 11,55 | 10,36 | 8,33 | 11,47 | 11,15 | 9,96 | 7,93 | |
+| Februar[262] | 11,75 | 11,43 | 9,87 | 8,24 | 11,35 | 11,03 | 9,47 | 7,84 | ||
+| März[262] | 11,63 | 11,32 | 9,39 | 8,16 | 11,23 | 10,92 | 8,99 | 7,76 | ||
+| April[262] | 11,51 | 11,21 | 8,90 | 8,08 | 11,11 | 10,81 | 8,50 | 7,68 | ||
+| Mai[263] | 1,4 % | 11,35 | 11,05 | 8,78 | 7,97 | 10,95 | 10,65 | 8,38 | 7,57 | |
+| Juni[263] | 11,19 | 10,90 | 8,65 | 7,85 | 10,79 | 10,50 | 8,25 | 7,45 | ||
+| Juli[263] | 11,04 | 10,74 | 8,53 | 7,74 | 10,64 | 10,34 | 8,13 | 7,34 | ||
+| August[264] | 10,88 | 10,59 | 8,41 | 7,64 | 10,48 | 10,19 | 8,01 | 7,24 | ||
+| September[264] | 10,73 | 10,44 | 8,29 | 7,53 | 10,33 | 10,04 | 7,89 | 7,13 | ||
+| Oktober[264] | 10,58 | 10,30 | 8,18 | 7,42 | 10,18 | 9,90 | 7,78 | 7,02 | ||
+| November[265] | 1 % | 10,48 | 10,19 | 8,10 | 7,35 | 10,08 | 9,79 | 7,70 | 6,95 | |
+| Dezember[265] | 10,37 | 10,09 | 8,02 | 7,28 | 9,97 | 9,69 | 7,62 | 6,88 | ||
+| 2020 | Januar[265] | 10,27 | 9,99 | 7,94 | 7,20 | 9,87 | 9,59 | 7,54 | 6,80 | |
+| Februar[266] | 1,4 % | 10,12 | 9,85 | 7,82 | 7,10 | 9,72 | 9,45 | 7,42 | 6,70 | |
+| März[266] | 9,98 | 9,71 | 7,71 | 7,00 | 9,58 | 9,31 | 7,31 | 6,60 | ||
+| April[266] | 9,84 | 9,58 | 7,61 | 6,90 | 9,44 | 9,18 | 7,21 | 6,50 | ||
+| Mai[267] | 9,70 | 9,44 | 7,50 | 6,81 | 9,30 | 9,04 | 7,10 | 6,41 | ||
+| Juni[267] | 9,57 | 9,31 | 7,40 | 6,71 | 9,17 | 8,91 | 7,00 | 6,31 | ||
+| Juli[267] | 9,43 | 9,18 | 7,29 | 6,62 | 9,03 | 8,78 | 6,89 | 6,22 | ||
+| August[268] | 9,30 | 9,05 | 7,19 | 6,53 | 8,90 | 8,65 | 6,79 | 6,13 | ||
+| September[268] | 9,17 | 8,93 | 7,09 | 6,43 | 8,77 | 8,53 | 6,69 | 6,03 | ||
+| Oktober[268] | 9,04 | 8,80 | 6,99 | 6,34 | 8,64 | 8,40 | 6,59 | 5,94 | ||
+| November[269] | 1,8 % | 8,88 | 8,64 | 6,86 | 6,23 | 8,48 | 8,24 | 6,46 | 5,83 | |
+| Dezember[269] | 8,72 | 8,49 | 6,74 | 6,12 | 8,32 | 8,09 | 6,34 | 5,72 | ||
+| 2021 | Januar[269] | 8,56 | 8,33 | 6,62 | 6,01 | 8,16 | 7,93 | 6,22 | 5,61 | |
+| Februar[270] | 1,4 % | 8,44 | 8,21 | 6,53 | 5,93 | 8,04 | 7,81 | 6,13 | 5,53 | |
+| März[270] | 8,32 | 8,10 | 6,44 | 5,84 | 7,92 | 7,70 | 6,04 | 5,44 | ||
+| April[270] | 8,21 | 7,99 | 6,35 | 5,76 | 7,81 | 7,59 | 5,95 | 5,36 | ||
+| Mai[271] | 8,09 | 7,87 | 6,26 | 5,68 | 7,69 | 7,47 | 5,86 | 5,28 | ||
+| Juni[271] | 7,98 | 7,76 | 6,17 | 5,60 | 7,58 | 7,36 | 5,77 | 5,20 | ||
+| Juli[271] | 7,87 | 7,65 | 6,08 | 5,52 | 7,47 | 7,25 | 5,68 | 5,12 | ||
+| August[272] | 7,76 | 7,55 | 6,00 | 5,45 | 7,36 | 7,15 | 5,60 | 5,05 | ||
+| September[272] | 7,65 | 7,44 | 5,91 | 5,37 | 7,25 | 7,04 | 5,51 | 4,97 | ||
+| Oktober[272] | 7,54 | 7,34 | 5,83 | 5,29 | 7,14 | 6,94 | 5,43 | 4,89 | ||
+| November[273] | 7,43 | 7,23 | 5,75 | 5,22 | 7,03 | 6,83 | 5,35 | 4,82 | ||
+| Dezember[273] | 7,33 | 7,13 | 5,67 | 5,15 | 6,93 | 6,73 | 5,27 | 4,75 | ||
+| 2022 | Januar[273] | 7,23 | 7,03 | 5,59 | 5,07 | 6,83 | 6,63 | 5,19 | 4,67 | |
+| Februar[274] | 7,13 | 6,93 | 5,51 | 5,00 | 6,73 | 6,53 | 5,11 | 4,60 | ||
+| März[274] | 7,03 | 6,84 | 5,43 | 4,93 | 6,63 | 6,44 | 5,03 | 4,53 | ||
+| April[274] | 6,93 | 6,74 | 5,36 | 4,86 | 6,53 | 6,34 | 4,96 | 4,46 | ||
+| Mai[275] | 6,83 | 6,65 | 5,28 | 4,80 | 6,43 | 6,25 | 4,88 | 4,40 | ||
+| Juni[275] | 6,74 | 6,55 | 5,21 | 4,73 | 6,34 | 6,15 | 4,81 | 4,33 | ||
+| Juli[275] | 6,64 | 6,46 | 5,14 | 4,66 | 6,24 | 6,06 | 4,74 | 4,26 | ||
+| ab 30. Juli[276] | 8,60 | 7,50 | 6,20 | 4,59 | 8,20 | 7,10 | 5,80 | 4,20 | ||
+| September[276] | 8,60 | 7,50 | 6,20 | 4,53 | 8,20 | 7,10 | 5,80 | 4,13 | ||
+| Oktober[276] | 8,60 | 7,50 | 6,20 | 4,47 | 8,20 | 7,10 | 5,80 | 4,07 | ||
+| November[277] | 1,8 % | 8,60 | 7,50 | 6,20 | 4,39 | 8,20 | 7,10 | 5,80 | 3,99 | |
+| Dezember[277] | 8,60 | 7,50 | 6,20 | 4,31 | 8,20 | 7,10 | 5,80 | 3,91 |
 - Änderungen ab 1. Januar 2023
-Jahr | Monat | monatliche Degression |
+| Jahr | Monat | monatliche Degression |
 Erlös-Obergrenze Marktprämienmodell (bei Volleinspeisung) |
 Feste Einspeisevergütung (bei Volleinspeisung) | ||||||||
----|---|---|---|---|---|---|---|---|---|---|---|---|
-Dachanlagen | Nichtwohngebäude im Außenbereich sowie Dachanlagen und Freiflächen bis 10 MWp |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Dachanlagen | Nichtwohngebäude im Außenbereich sowie Dachanlagen und Freiflächen bis 10 MWp |
 Dachanlagen | Nichtwohngebäude im Außenbereich und Freiflächen bis 100 kWp | |||||||||
-bis 10 kWp | bis 40 kWp | bis 100 kWp | bis 400 kWp | bis 1 MWp | bis 10 kWp | bis 40 kWp | bis 100 kWp | |||||
-2023 | Jan.–Dez.[277] | - | 8,60 (13,40) | 7,50 (11,30) | 6,20 (11,30) | 6,20 (9,40) | 6,20 (8,10) | 7,00 (7,00) | 8,20 (13,00) | 7,10 (10,90) | 5,80 (10,90) | 6,60 (6,60) |
-2024 | Januar[277] | - | 8,60 (13,40) | 7,50 (11,30) | 6,20 (11,30) | 6,20 (9,40) | 6,20 (8,10) | 7,00 (7,00) | 8,20 (13,00) | 7,10 (10,90) | 5,80 (10,90) | 6,60 (6,60) |
+| bis 10 kWp | bis 40 kWp | bis 100 kWp | bis 400 kWp | bis 1 MWp | bis 10 kWp | bis 40 kWp | bis 100 kWp | |||||
+| 2023 | Jan.–Dez.[277] | - | 8,60 (13,40) | 7,50 (11,30) | 6,20 (11,30) | 6,20 (9,40) | 6,20 (8,10) | 7,00 (7,00) | 8,20 (13,00) | 7,10 (10,90) | 5,80 (10,90) | 6,60 (6,60) |
+| 2024 | Januar[277] | - | 8,60 (13,40) | 7,50 (11,30) | 6,20 (11,30) | 6,20 (9,40) | 6,20 (8,10) | 7,00 (7,00) | 8,20 (13,00) | 7,10 (10,90) | 5,80 (10,90) | 6,60 (6,60) |
 Kosten und Nutzen[Bearbeiten | Quelltext bearbeiten]
 EEG-Umlage (Differenzkosten)[Bearbeiten | Quelltext bearbeiten]
 Die EEG-Umlage 2016 steigt um 3 Prozent gegenüber dem Vorjahr an und beträgt damit 6,354 Cent je Kilowattstunde.[278][279] Die EEG-Umlage 2015 sank noch gegenüber dem Vorjahr auf 6,17 Cent je Kilowattstunde[280][281][282] (2014: 6,24 Cent; 2013: 5,28 Cent; 2012: 3,59 Cent; 2011: 3,53 Cent). Die Mehrkosten speisen sich größtenteils aus der steigenden Differenz zwischen den sinkenden Börsenstrompreisen und der fixen Einspeisevergütung sowie den zunehmenden Ausnahmeregelungen für die Industrie. Der Ausbau der erneuerbaren Energien trug währenddessen 15 % zur letzten Erhöhung 2014 bei.[283][284][285][286][287] Die Einspeisevergütungen insbesondere für Solarstrom wurden in den letzten Jahren fortlaufend abgesenkt. Studien des Bundesumweltministeriums sowie der Netzbetreiber erwarten, dass die Umlage sich trotz fortschreitendem Ausbau in den kommenden Jahren stabilisieren und anschließend wegen sinkender Vergütungssätze fallen wird.[283][288][289][290] Analysen zeigen, dass auch eine Verlangsamung der Energiewende die Kosten der Erneuerung des Kraftwerksparks nicht mindern würden, sofern an den Klimazielen festgehalten wird.[291]
@@ -581,42 +585,44 @@ Neben seinen ökologischen Zielsetzungen wird das EEG explizit auch als strategi
 Dem gegenüberzustellen ist jedoch der mögliche Wegfall von Arbeitsplätzen im Bereich der konventionellen Energien aufgrund der Konkurrenz von vorrangig eingespeistem Ökostrom, sowie in Teilen der übrigen Wirtschaft aufgrund der erhöhten Stromkosten.[359][360][361] Allerdings können Unternehmen des verarbeitenden Gewerbes unter bestimmten Bedingungen Ausnahmen von der EEG-Umlage beantragen, weswegen für sie dann nur relativ geringe Mehrkosten entstehen. 2013 taten dies etwa 2000 Unternehmen mit zusammen 300.000 bis 400.000 Beschäftigten.[362] Diese Unternehmen stellen zusammen 0,1 % aller Unternehmen in Deutschland dar und beschäftigen etwa 1 % aller Beschäftigten. Größere Unternehmen, die ihren Strom direkt an der Börse kaufen, profitieren zudem von deutlich niedrigeren Strompreisen an der Börse.[348]
 Einspeisemengen und Vergütungszahlungen[Bearbeiten | Quelltext bearbeiten]
 Die Entwicklung des EEG lässt sich von Beginn an mit den Jahresabrechnungen nachvollziehen, die von den vier deutschen Übertragungsnetzbetreibern (ÜNB) vorgelegt werden, die mit der Vermarktung des EEG-Stroms betraut sind.[363] Darin sind die jährlich erzeugten EEG-Strommengen, die dafür gezahlten Vergütungen an die Betreiber und die jeweilige EEG-Umlage dokumentiert (s. nachfolgende Tabellen). Aus der EEG-Strommenge und aus den dafür gezahlten Vergütungen ergibt sich die durchschnittliche Vergütung für EEG-Strom aus den unterschiedlichen erneuerbaren Energiequellen.
-Energiequelle | 2000(15) | 2001 | 2002 | 2003 | 2004 | 2005 | 2006 | 2007 | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | Verteilung 2021 (%) | |
----|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-Wasser | – | 6.088 | 6.579 | 5.908 | 4.616 | 4.953 | 4.924 | 5.547 | 4.982 | 4.877 | 5.665 | 4.843 | 5.417 | 6.265 | 5.646 | 5.347 | 5.949 | 5.777 | 4.857 | 5.548 | 5.048 | 5.592 | 2,7 | |
-Gas | – | – | – | – | 2.589 | 3.136 | 2.789 | 2.751 | 2.208 | 2.020 | 1.963 | 1.815 | 1.769 | 1.776 | 1.648 | 1.438 | 1.434 | 1.319 | 1.170 | 1.063 | 1.089 | 765 | 0,4 | |
-Biomasse | – | 1.471 | 2.442 | 3.484 | 5.241 | 7.367 | 10.902 | 15.924 | 18.947 | 22.980 | 25.155 | 27.977 | 34.321 | 36.258 | 38.313 | 40.628 | 41.016 | 41.056 | 40.480 | 40.152 | 40.948 | 40.016 | 19,7 | |
-Geothermie | – | – | – | – | – | – | – | – | 18 | 19 | 28 | 19 | 25 | 80 | 98 | 133 | 175 | 163 | 165 | 187 | 197 | 210 | 0,1 | |
-Wind onshore | – | 10.509 | 15.786 | 18.713 | 25.509 | 27.229 | 30.710 | 39.713 | 40.574 | 38.542 | 37.619 | 48.315 | 49.949 | 50.803 | 55.908 | 70.922 | 66.324 | 86.293 | 88.710 | 99.166 | 102.741 | 88.502 | 43,5 | |
-Wind offshore | – | – | – | – | – | – | – | – | – | 38 | 174 | 568 | 722 | 905 | 1.449 | 8.162 | 12.092 | 17.414 | 19.179 | 24.379 | 26.903 | 24.015 | 11,8 | |
-Solar(16) | – | 76 | 162 | 313 | 557 | 1.282 | 2.220 | 3.075 | 4.420 | 6.578 | 11.683 | 19.340 | 25.394 | 28.785 | 33.001 | 35.212 | 34.490 | 35.428 | 40.806 | 41.379 | 45.024 | 44.252 | 21,8 | |
-Summe | 10.391 | 18.145 | 24.970 | 28.417 | 38.511 | 43.966 | 51.545 | 67.010 | 71.148 | 75.053 | 82.286 | 102.877 | 117.597 | 124.872 | 136.063 | 161.842 | 161.480 | 187.450 | 195.367 | 211.875 | 221.950 | 203.352 | 100 | |
-(15) Rumpfjahr 1. April bis 31. Dezember 2000(16) einschließlich Eigenbedarf |
+| Energiequelle | 2000(15) | 2001 | 2002 | 2003 | 2004 | 2005 | 2006 | 2007 | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | Verteilung 2021 (%) | |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Wasser | – | 6.088 | 6.579 | 5.908 | 4.616 | 4.953 | 4.924 | 5.547 | 4.982 | 4.877 | 5.665 | 4.843 | 5.417 | 6.265 | 5.646 | 5.347 | 5.949 | 5.777 | 4.857 | 5.548 | 5.048 | 5.592 | 2,7 | |
+| Gas | – | – | – | – | 2.589 | 3.136 | 2.789 | 2.751 | 2.208 | 2.020 | 1.963 | 1.815 | 1.769 | 1.776 | 1.648 | 1.438 | 1.434 | 1.319 | 1.170 | 1.063 | 1.089 | 765 | 0,4 | |
+| Biomasse | – | 1.471 | 2.442 | 3.484 | 5.241 | 7.367 | 10.902 | 15.924 | 18.947 | 22.980 | 25.155 | 27.977 | 34.321 | 36.258 | 38.313 | 40.628 | 41.016 | 41.056 | 40.480 | 40.152 | 40.948 | 40.016 | 19,7 | |
+| Geothermie | – | – | – | – | – | – | – | – | 18 | 19 | 28 | 19 | 25 | 80 | 98 | 133 | 175 | 163 | 165 | 187 | 197 | 210 | 0,1 | |
+| Wind onshore | – | 10.509 | 15.786 | 18.713 | 25.509 | 27.229 | 30.710 | 39.713 | 40.574 | 38.542 | 37.619 | 48.315 | 49.949 | 50.803 | 55.908 | 70.922 | 66.324 | 86.293 | 88.710 | 99.166 | 102.741 | 88.502 | 43,5 | |
+| Wind offshore | – | – | – | – | – | – | – | – | – | 38 | 174 | 568 | 722 | 905 | 1.449 | 8.162 | 12.092 | 17.414 | 19.179 | 24.379 | 26.903 | 24.015 | 11,8 | |
+| Solar(16) | – | 76 | 162 | 313 | 557 | 1.282 | 2.220 | 3.075 | 4.420 | 6.578 | 11.683 | 19.340 | 25.394 | 28.785 | 33.001 | 35.212 | 34.490 | 35.428 | 40.806 | 41.379 | 45.024 | 44.252 | 21,8 | |
+| Summe | 10.391 | 18.145 | 24.970 | 28.417 | 38.511 | 43.966 | 51.545 | 67.010 | 71.148 | 75.053 | 82.286 | 102.877 | 117.597 | 124.872 | 136.063 | 161.842 | 161.480 | 187.450 | 195.367 | 211.875 | 221.950 | 203.352 | 100 | |
+|
+(15) Rumpfjahr 1. April bis 31. Dezember 2000 (16) einschließlich Eigenbedarf |
 Die Strommenge aus erneuerbaren Energiequellen ist seit Einführung des EEG im Jahr 2000 auf mehr als das 13fache von rd. 10.000 GWh/a auf 136.000 GWh/a im Jahr 2014 gestiegen (Stand Juli 2015). Bis 2010 wurde die sogenannte EEG-Quote angegeben, die den Anteil der EEG-geförderter Strommenge an dem nicht-privilegierten Letztverbrauch an Strom kennzeichnet. Sie lag 2010 bei 20 %.
-Vergütung für Energie aus: |
+| Vergütung für Energie aus: |
 2000(17) | 2001 | 2002 | 2003 | 2004 | 2005 | 2006 | 2007 | 2008 | 2009 | 2010 | 2011 | 2012(18) | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | Verteilung 2021 (%) | |
----|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-Wasser | – | – | 477 | 427 | 338 | 364 | 367 | 418 | 379 | 382 | 421 | 231 | 347 | 420 | 401 | 407 | 467 | 440 | 348 | 400 | 386 | 302 | 1,6 | |
-Gas | – | – | – | – | 182 | 219 | 196 | 193 | 156 | 143 | 83 | 36 | 46 | 48 | 83 | 73 | 72 | 60 | 45 | 45 | 51 | 12 | 0,1 | |
-Biomasse | – | – | 232 | 327 | 508 | 795 | 1.337 | 2.162 | 2.699 | 3.700 | 4.240 | 4.476 | 5.841 | 6.190 | 6.382 | 6.712 | 6.846 | 6.691 | 6.278 | 6.445 | 6.790 | 4.567 | 23,5 | |
-Geothermie | – | – | – | – | – | – | – | – | 3 | 4 | 6 | 4 | 6 | 18 | 23 | 29 | 39 | 35 | 35 | 40 | 43 | 32 | 0,2 | |
-Wind onshore | – | – | 1.435 | 1.696 | 2.300 | 2.441 | 2.734 | 3.508 | 3.561 | 3.389 | 3.316 | 4.165 | 3.625 | 3.522 | 4.046 | 5.083 | 4.693 | 5.720 | 4.859 | 5.817 | 6.674 | 2.334 | 12,0 | |
-Wind offshore | – | – | – | – | – | – | – | – | – | 6 | 26 | 85 | 95 | 123 | 212 | 1.262 | 1.948 | 2.770 | 2.850 | 3.731 | 4.246 | 2.259 | 11,6 | |
-Solar | – | – | 82 | 154 | 283 | 679 | 1.177 | 1.597 | 2.219 | 3.157 | 5.090 | 7.766 | 9.156 | 9.346 | 10.230 | 10.640 | 10.226 | 10.236 | 11.176 | 10.996 | 11.456 | 9.926 | 51,1 | |
-Summe | 883 | 1.577 | 2.225 | 2.604 | 3.611 | 4.498 | 5.810 | 7.879 | 9.016 | 10.780 | 13.182 | 16.763 | 19.118 | 19.636 | 21.394 | 24.206 | 24.291 | 25.952 | 25.591 | 27.474 | 29.646 | 19.431 | 100 | |
-EEG-Umlage | 989 | 1.138 | 1.664 | 1.765 | 2.464 | 2.863 | 3.300 | 4.350[364] | 4.500[364] | 5.300[365] | 8.200[365] | 13.195 | ||||||||||||
-(17) Rumpfjahr 1. April bis 31. Dezember 2000(18) Ab 2012 einschließlich Markt- und Flexibilitätsprämie |
-Vergütung für Energie aus: |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Wasser | – | – | 477 | 427 | 338 | 364 | 367 | 418 | 379 | 382 | 421 | 231 | 347 | 420 | 401 | 407 | 467 | 440 | 348 | 400 | 386 | 302 | 1,6 | |
+| Gas | – | – | – | – | 182 | 219 | 196 | 193 | 156 | 143 | 83 | 36 | 46 | 48 | 83 | 73 | 72 | 60 | 45 | 45 | 51 | 12 | 0,1 | |
+| Biomasse | – | – | 232 | 327 | 508 | 795 | 1.337 | 2.162 | 2.699 | 3.700 | 4.240 | 4.476 | 5.841 | 6.190 | 6.382 | 6.712 | 6.846 | 6.691 | 6.278 | 6.445 | 6.790 | 4.567 | 23,5 | |
+| Geothermie | – | – | – | – | – | – | – | – | 3 | 4 | 6 | 4 | 6 | 18 | 23 | 29 | 39 | 35 | 35 | 40 | 43 | 32 | 0,2 | |
+| Wind onshore | – | – | 1.435 | 1.696 | 2.300 | 2.441 | 2.734 | 3.508 | 3.561 | 3.389 | 3.316 | 4.165 | 3.625 | 3.522 | 4.046 | 5.083 | 4.693 | 5.720 | 4.859 | 5.817 | 6.674 | 2.334 | 12,0 | |
+| Wind offshore | – | – | – | – | – | – | – | – | – | 6 | 26 | 85 | 95 | 123 | 212 | 1.262 | 1.948 | 2.770 | 2.850 | 3.731 | 4.246 | 2.259 | 11,6 | |
+| Solar | – | – | 82 | 154 | 283 | 679 | 1.177 | 1.597 | 2.219 | 3.157 | 5.090 | 7.766 | 9.156 | 9.346 | 10.230 | 10.640 | 10.226 | 10.236 | 11.176 | 10.996 | 11.456 | 9.926 | 51,1 | |
+| Summe | 883 | 1.577 | 2.225 | 2.604 | 3.611 | 4.498 | 5.810 | 7.879 | 9.016 | 10.780 | 13.182 | 16.763 | 19.118 | 19.636 | 21.394 | 24.206 | 24.291 | 25.952 | 25.591 | 27.474 | 29.646 | 19.431 | 100 | |
+| EEG-Umlage | 989 | 1.138 | 1.664 | 1.765 | 2.464 | 2.863 | 3.300 | 4.350[364] | 4.500[364] | 5.300[365] | 8.200[365] | 13.195 | ||||||||||||
+|
+(17) Rumpfjahr 1. April bis 31. Dezember 2000 (18) Ab 2012 einschließlich Markt- und Flexibilitätsprämie |
+| Vergütung für Energie aus: |
 2000 | 2001 | 2002 | 2003 | 2004 | 2005 | 2006 | 2007 | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 |
----|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-Wasser | – | – | 7,2 | 7,2 | 7,3 | 7,4 | 7,4 | 7,5 | 7,6 | 7,8 | 7,4 | 4,8 | 6,4 | 6,7 | 7,1 | 7,6 | 7,9 | 7,6 | 7,2 | 7,2 | 7,7 | 5,4 |
-Gas | – | – | – | – | 7,0 | 7,0 | 7,0 | 7,0 | 7,1 | 7,1 | 4,2 | 2,0 | 2,6 | 2,7 | 5,0 | 5,1 | 5,0 | 4,5 | 3,8 | 4,3 | 4,7 | 1,6 |
-Biomasse | – | – | 9,5 | 9,4 | 9,7 | 10,8 | 12,3 | 13,6 | 14,2 | 16,1 | 16,9 | 16,0 | 17,0 | 17,0 | 16,7 | 16,5 | 16,7 | 16,3 | 15,5 | 16,1 | 16,6 | 11,4 |
-Geothermie | – | – | – | – | – | – | – | – | 15,0 | 19,8 | 20,6 | 20,7 | 24,0 | 23,4 | 23,2 | 21,8 | 22,3 | 21,7 | 21,1 | 21,3 | 21,8 | 15,2 |
-Wind onshore | – | – | 9,1 | 9,1 | 9,0 | 9,0 | 8,9 | 8,8 | 8,8 | 8,8 | 8,8 | 8,6 | 7,3 | 6,9 | 7,2 | 7,2 | 7,1 | 6,6 | 5,5 | 5,9 | 6,5 | 2,6 |
-Wind offshore | – | – | – | – | – | – | – | – | – | 15,0 | 15,0 | 15,0 | 13,2 | 13,5 | 14,7 | 15,5 | 16,1 | 15,9 | 14,9 | 15,3 | 15,8 | 9,4 |
-Solar | – | – | 50,3 | 49,0 | 50,8 | 53,0 | 53,0 | 52,0 | 50,2 | 48,0 | 43,6 | 40,2 | 36,1 | 32,5 | 31,0 | 30,2 | 29,6 | 28,9 | 27,4 | 26,6 | 25,4 | 22,4 |
-jährl. Mittelwert | 8,5 | 8,7 | 8,9 | 9,2 | 9,4 | 10,0 | 10,9 | 11,4 | 12,3 | 13,9 | 15,8 | 17,9 | 16,3 | 15,7 | 15,7 | 15,0 | 15,0 | 13,8 | 13,1 | 13,0 | 13,4 | 9,6 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Wasser | – | – | 7,2 | 7,2 | 7,3 | 7,4 | 7,4 | 7,5 | 7,6 | 7,8 | 7,4 | 4,8 | 6,4 | 6,7 | 7,1 | 7,6 | 7,9 | 7,6 | 7,2 | 7,2 | 7,7 | 5,4 |
+| Gas | – | – | – | – | 7,0 | 7,0 | 7,0 | 7,0 | 7,1 | 7,1 | 4,2 | 2,0 | 2,6 | 2,7 | 5,0 | 5,1 | 5,0 | 4,5 | 3,8 | 4,3 | 4,7 | 1,6 |
+| Biomasse | – | – | 9,5 | 9,4 | 9,7 | 10,8 | 12,3 | 13,6 | 14,2 | 16,1 | 16,9 | 16,0 | 17,0 | 17,0 | 16,7 | 16,5 | 16,7 | 16,3 | 15,5 | 16,1 | 16,6 | 11,4 |
+| Geothermie | – | – | – | – | – | – | – | – | 15,0 | 19,8 | 20,6 | 20,7 | 24,0 | 23,4 | 23,2 | 21,8 | 22,3 | 21,7 | 21,1 | 21,3 | 21,8 | 15,2 |
+| Wind onshore | – | – | 9,1 | 9,1 | 9,0 | 9,0 | 8,9 | 8,8 | 8,8 | 8,8 | 8,8 | 8,6 | 7,3 | 6,9 | 7,2 | 7,2 | 7,1 | 6,6 | 5,5 | 5,9 | 6,5 | 2,6 |
+| Wind offshore | – | – | – | – | – | – | – | – | – | 15,0 | 15,0 | 15,0 | 13,2 | 13,5 | 14,7 | 15,5 | 16,1 | 15,9 | 14,9 | 15,3 | 15,8 | 9,4 |
+| Solar | – | – | 50,3 | 49,0 | 50,8 | 53,0 | 53,0 | 52,0 | 50,2 | 48,0 | 43,6 | 40,2 | 36,1 | 32,5 | 31,0 | 30,2 | 29,6 | 28,9 | 27,4 | 26,6 | 25,4 | 22,4 |
+| jährl. Mittelwert | 8,5 | 8,7 | 8,9 | 9,2 | 9,4 | 10,0 | 10,9 | 11,4 | 12,3 | 13,9 | 15,8 | 17,9 | 16,3 | 15,7 | 15,7 | 15,0 | 15,0 | 13,8 | 13,1 | 13,0 | 13,4 | 9,6 |
 Die durchschnittliche Vergütung für EEG-Strom stieg seit dem Jahr 2000 von 8,5 ct/kWh auf 17,9 ct/kWh im Jahr 2011. Der Anstieg betrug in den Anfangsjahren bis 2004 nur rund 2,5 % pro Jahr, in der Folgejahren bis 2008 bereits rund 7 % pro Jahr und von 2009 bis 2011 gut 13 %, was insgesamt einen Mittelwert von rund 7 % im Jahr ergab. Die mittleren Vergütungen pro Energiequelle reichten 2011 von 2 ct/kWh für „Gas“, 4,8 ct/kWh für „Wasser“ und 8,6 ct/kWh für „Wind onshore“ über 15 ct/kWh für „Wind offshore“, 16 ct/kWh für „Biomasse“ und 20,7 ct/kWh für „Geothermie“ bis 40,2 ct/kWh für „Solar“. Die mittlere Vergütung für Solar-EEG-Strom ist in den letzten Jahren deutlich rückläufig nach dem Höchstwert im Jahr 2005 mit 53 ct/kWh.
 Mit dem EEG sind den vier deutschen Übertragungsnetzbetreibern (ÜNB) auch Pflichten zur Erstellung von Prognosen übertragen worden. Neben der jährlich vorausgreifenden Prognose für die EEG-Umlage werden mittelfristige Prognosen über einen Zeitraum von fünf Jahren erstellt.
 Die durchschnittliche Einspeisevergütung für im Jahr 2013 neu ans Netz gegangene Anlagen lag bei 12,5 Ct (gegenüber 25 Ct im Jahr 2010).[366]
