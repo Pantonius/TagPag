@@ -1,3 +1,4 @@
+import pandas as pd
 import streamlit as st
 import os
 import json
@@ -221,10 +222,11 @@ def validate_csv_column(var_name: str, default_value: str, filepath: str) -> str
     value = validate_string(var_name, default_value)
 
     try:
-        with open(filepath, 'r') as file:
-            columns = file.readline().strip().split(",")
-            if value not in columns:
-                raise ValueError(f"{value} not found in the tasks.csv file. Check the configuration file.")
+        csv = pd.read_csv(filepath)
+        columns = csv.columns
+
+        if value not in columns:
+            raise ValueError(f"{value} not found in the tasks.csv file. Check the configuration file.")
     except Exception as e:
         raise ValueError(f"Error validating {var_name}: {e}\n\nError validating {var_name}. Check the configuration file.")
     
