@@ -1,4 +1,4 @@
-# TagPag: Webpage Annotations
+# Tag-Pag: A Dedicated Tool for Systematic Web Page Annotations
 
 - [Description](#description)
 - [Quickstart](#quickstart)

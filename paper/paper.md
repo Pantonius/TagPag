@@ -4,24 +4,24 @@ tags:
   - Paper
 authors:
   - name: Anton Pogrebnjak
-    equal-contrib: false
+    equal-contrib: true
     orcid: 0009-0004-1219-337X
     affiliation: 1
   - name: Julian Schelb
-    equal-contrib: false
-    orcid: 0000-0000-0000-0000 # TODO: Add this
+    equal-contrib: true
+    orcid: 0009-0002-8034-7364
     affiliation: 1
   - name: Andreas Spitz
-    equal-contrib: false
+    equal-contrib: true
     orcid: 0000-0002-5282-6133
     affiliation: 1
   - name: Celina Kacperski
-    equal-contrib: false
+    equal-contrib: true
     orcid: 0000-0002-8844-5164
     affiliation: 2
   - name: Roberto Ulloa
     orcid: 0000-0002-9870-5505
-    equal-contrib: false
+    equal-contrib: true
     affiliation: 2
 affiliations:
  - name: Department of Computer Science, University of Konstanz, Germany
@@ -36,49 +36,32 @@ bibliography: paper.bib
 
 <!-- possible names Tagweb|WebAnnotator|Tagpag|Tag-Pag  -->
 
-Tag-Pag is an application designed to simplify the categorization of web pages, a task increasingly common for researchers who scrape webpages to analyze individuals' browsing patterns or train machine learning classifiers. Unlike existing tools that focus on annotating sections of text, Tag-Pag systematizes broad-level annotations, allowing users to determine whether an entire document relates to a particular topic. It offers an intuitive interface that integrates the experiences of several research projects into a ready-to-use tool with broad applications.
+Tag-Pag is an application designed to simplify the categorization of web pages, a task increasingly common for researchers who scrape webpages to analyze individuals' browsing patterns or train machine learning classifiers. Unlike existing tools that focus on annotating sections of text, Tag-Pag systematizes broad-level annotations, allowing users to determine whether an entire document relates to one or multiple predefined topics. 
 
-Tag-Pag allows for configuring web pages and labels, integrating libraries to extract clean and raw content from the HTML and URL indicators that aid the annotation process. It provides direct access to both scraped and live version of the webpage. Our tool is designed to enhance the annotation process through features like quick navigation, label assignment, and export functionality, making it a versatile and efficient tool for various research applications.
-
+Tag-Pag offers an intuitive interface to configure the input web pages and annotation labels. It integrates libraries to extract content from the HTML and URL indicators to aid the annotation process. It provides direct access to both scraped and live versions of the webpage. Our tool is designed to expedite the annotation process with features like quick navigation, label assignment, and export functionality, making it a versatile and efficient tool for various research applications.
 
 # Statement of need
 
 
-The annotation of web data is increasingly common across multiple disciplines, serving purposes such as analyzing online behavioral patterns [@stier_populist_2020; @guess_almost_2021; @ulloa_search_2023, @flaxman_filter_2016], auditing the performance of online platforms [@makhortykh_how_2020], or training and evaluating machine learning classifiers [@schelb_assessing_2024]. As researchers collect vast amounts of web data, the need for systematic and efficient tools to annotate and categorize this content becomes critical.
+The annotation of web data is increasingly common across multiple disciplines, serving purposes such as analyzing online behavioral patterns [@stier_populist_2020; @guess_almost_2021; @wojcieszak_non-news_2024; @ulloa_search_2023], auditing the performance of online platforms [@makhortykh_how_2020; @kacperski_examining_2024], or training and evaluating machine learning classifiers [@schelb_assessing_2024]. As the need for processing web data grows, researchers have turned to systematic and efficient methodologies that span the entire process—from data collection to categorization—to ensure robust results.
 
-Existing tools often focus on annotating specific sections within a text [@rampin_taguette_2021; @meister_tact_2023; huang_rqda_2016], where the user selects a portion of text and assigns a label or establishes connections between parts of speech [@strippel_brat_2022].These tools fall short when the goal is to annotate entire pages to determine, for example, if the content corresponds to very specific topics [@schelb_assessing_2024], misinformation [@urman_where_2022], or, more broadly, political content [@stier_populist_2020; @guess_almost_2021], news articles [flaxman_filter_2016; @ulloa_search_2023] or pages that restrict access such as logins [@dahlke_quantifying_2023]. Tag-Pag addresses this gap by allowing broad-level annotations of entire web pages, offering a dedicated solution for a straightforward need that integrates previous research experiences.
+Online behavioral researchers have recently investigated limitations of web scraping, such as reliance on external environments that differ from individuals' computers [@ulloa_beyond_2024] and changes due to time delays in scraping [@ulloa_beyond_2024; @dahlke_quantifying_2023]. To improve reliability and validity, researchers attempt to scrape data from web pages as close to the visit time of participants as possible and uniformly distribute the delay between the visit and the webpage collection. Such limitations have, more recently, been addressed by developing new web tools that collect content directly from an individual's browser [e.g., @adam_improving_2024; @gesis_panel_team_gesis_2025]. Other researchers have gone to the effort of standardizing web data collections for algorithm auditings to avoid for, example, noise stemming from search engine personalization [@ulloa_scaling_2024]. 
 
-Researchers typically obtain web content by scraping it from dedicated servers. Despite its limitations related to the use of external environments that do not reflect individuals' computers [@ulloa_insitu_2024] and changes due to time delays in the scraping [@ulloa_insitu_2024; @dahlke_quantifying_2023], we argue that systematically scraping the content is the best alternative as it can be done closest to the time in which the individual visited the content and the delays can be uniformly distributed across visits by ensuring consistency. Recently, new tracking tools that collect content directly from an individual's browser have emerged [e.g., @adam_improving_2024], strengthening the argument of prioritizing systematically collected data for annotation purposes instead of encouraging the annotators to gather the content by their means (i.e., visiting the URLs using their browsers).
+These academic efforts illustrate the importance placed on collecting high-quality data for annotation purposes; so far, however, there has been a lack of tools to facilitate the manual annotation process. This has led researchers to instead use inefficient methods such as relying on the URL, rarely accessing the systematically scraped content, or manually visiting (and revisiting) the related webpage at different times. As a result, promising lines of inquiry — especially those requiring large-scale and consistent annotations — might be left unexplored. 
 
-Despite this, no existing tools facilitate the annotation of such content, leaving researchers to rely on disparate and often inefficient methods. For example, researchers may depend on URL information, manually visit (and revisit) the webpage at different times, or rarely access the HTML content that was systematically collected, as manually locating the content imposes a barrier unless a dedicated tool like Tag-Pag is available.
+Existing tools often focus on annotating specific sections within a text [@rampin_taguette_2021; @meister_tact_2023; @huang_rqda_2016], where the user selects a portion of text and assigns a label or establishes connections between parts of speech [@strippel_brat_2022].These tools fall short when the goal is to annotate entire pages to determine, for example, if the content corresponds to very specific topics [@schelb_assessing_2024], misinformation [@urman_where_2022], or, more broadly, political content [@stier_populist_2020; @guess_almost_2021], news articles [@ulloa_search_2023] or pages that restrict access such as logins [@dahlke_quantifying_2023]. Tag-Pag [^1] addresses this gap by allowing broad-level annotations of entire web pages.
 
-Tag-Pag integrates the authors' previous experiences with webpage annotations into a single tool. It uses libraries to extract clean [@barbaresi_trafilatura_2021] and raw [@artem_golubin_selectolax_2023] content from HTML, enhancing the annotation process's efficiency. The tool parses URLs, which often contain relevant information about the page's content, adding another layer of contextual data for annotations. Users can easily open the scraped HTML, the live webpage, or the latest version stored in the Wayback Machine, facilitating a comprehensive examination of the content. For researchers creating training datasets, Tag-Pag allows easy text editing to retain only the relevant parts for classifiers, i.e., manually removing boilerplate that filters through the cleaned text, a valuable feature for refining datasets to improve machine learning models.
+[^1]: Tag-Pag. https://gitlab.inf.uni-konstanz.de/anton.pogrebnjak/tagpag
 
-Additionally, Tag-Pag includes functionality designed to speed up the annotation process: it is flexible and easy to configure, bind key to interfaces actions for rapid label assignment, supports automatic transitions for single-label annotations, and includes features to locate unannotated pages efficiently. The tool also supports multiple annotators, with the functionality to hide other's annotations and randomize the tasks' order to avoid priming effects [@flaxman_filter_2016; @shen; @mathur]. Comments and annotations can be easily exported to CSV, ensuring compatibility with further steps of the analysis pipeline.
+![Annotation interface for webpages classification tasks. The interface of Tag-Pag is divided into a left sidebar and a main panel. The sidebar provides task navigation, annotation selection labels, and additional tools such as key shortcut references and annotation downloads. The main panel displays webpage content in multiple views, including a cleaned text version, raw text, and URL decomposition. Annotators can label data using predefined categories and add comments. Tag-Pag automatically highlight relevant sections of the URL (at the top). \label{fig:interface}](fig1.png)
 
+Tag-Pag uses libraries to extract two versions of the content from the HTML (see Figure \ref{fig:interface}): (1) cleaned text [@barbaresi_trafilatura_2021], with removed boilerplate such as menus and advertisements, and (2) raw text [@artem_golubin_selectolax_2023], with only removed HTML elements. The tool also parses the URLs themselves, which often contain relevant information about the page's content, adding another layer of contextual data for annotations. For a comprehensive overview, users can open the scraped HTML, the live webpage, or the latest version stored in the Wayback Machine. For researchers creating or refining training datasets to improve machine learning models, Tag-Pag allows easy text editing to retain only the relevant parts for classifiers, e.g., manually removing boilerplate to further filter the cleaned text.
+
+Additionally, Tag-Pag includes functionality designed to speed up the annotation process: key bindings apoint interface actions for rapid label assignment, automatic transitions for single-label annotations are supported, and a feature to locate unannotated pages is included. Comments and annotations can be exported to CSV, ensuring compatibility with further steps of the analysis pipeline. 
+
+The tool also supports multiple annotators, with the functionality to hide one another's annotations and randomize the tasks' order to avoid priming effects [@shen_unintentional_2019; @mathur_sequence_2017].
+ 
 By integrating these features, Tag-Pag offers a systematic, efficient, and user-friendly approach to web page annotation, addressing the needs of researchers across various disciplines.
-
-
-# Citations
-
-Citations to entries in paper.bib should be in [rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html) format.
-
-If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for @fidgit.
-
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
-
-# Figures
-
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
-and referenced from text using \autoref{fig:example}.
-
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% }
 
 # Acknowledgements
 
