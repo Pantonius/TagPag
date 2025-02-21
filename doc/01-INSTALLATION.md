@@ -3,8 +3,8 @@
 ## Clone the Repository
 Start by cloning the repository to your desired location and navigating into the local repository:
 ```bash
-git clone https://gitlab.inf.uni-konstanz.de/anton.pogrebnjak/tagpag.git
-cd tagpag
+git clone https://github.com/Pantonius/.git
+cd 
 ```
 
 ## Virtual Environment
@@ -19,7 +19,7 @@ It is best practice to run python applications in their own environments such th
 
    ```bash
    pyenv install 3.12.7
-   pyenv virtualenv 3.12.7 tagpag-env
+   pyenv virtualenv 3.12.7 -env
    ```
 
 3. Activate the virtual environment:
@@ -42,13 +42,13 @@ It is best practice to run python applications in their own environments such th
 2. Create a virtual environment for this application using `conda`. Open your terminal and execute the following commands:
 
    ```bash
-   conda create --name tagpag-env python=3.12.7
+   conda create --name -env python=3.12.7
    ```
 
 3. Activate the virtual environment:
 
    ```bash
-   conda activate tagpag-env
+   conda activate -env
    ```
 
 4. Install the required dependencies:
@@ -64,12 +64,12 @@ It is best practice to run python applications in their own environments such th
 
    - If you are using `pyenv`, activate the virtual environment by running:
      ```bash
-     pyenv activate tagpag-env
+     pyenv activate -env
      ```
 
    - If you are using `conda`, activate the environment by running:
      ```bash
-     conda activate tagpag-env
+     conda activate -env
      ```
 
 
