@@ -3,7 +3,7 @@
 ## Clone the Repository
 Start by cloning the repository to your desired location and navigating into the local repository:
 ```bash
-git clone https://github.com/Pantonius/.git
+git clone https://github.com/Pantonius/TagPag.git
 cd 
 ```
 
