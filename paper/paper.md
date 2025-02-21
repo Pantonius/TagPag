@@ -4,24 +4,24 @@ tags:
   - Paper
 authors:
   - name: Anton Pogrebnjak
-    equal-contrib: true
+    equal-contrib: false
     orcid: 0009-0004-1219-337X
     affiliation: 1
   - name: Julian Schelb
-    equal-contrib: true
+    equal-contrib: false
     orcid: 0009-0002-8034-7364
     affiliation: 1
   - name: Andreas Spitz
-    equal-contrib: true
+    equal-contrib: false
     orcid: 0000-0002-5282-6133
     affiliation: 1
   - name: Celina Kacperski
-    equal-contrib: true
+    equal-contrib: false
     orcid: 0000-0002-8844-5164
     affiliation: 2
   - name: Roberto Ulloa
     orcid: 0000-0002-9870-5505
-    equal-contrib: true
+    equal-contrib: false
     affiliation: 2
 affiliations:
  - name: Department of Computer Science, University of Konstanz, Germany
@@ -33,8 +33,6 @@ bibliography: paper.bib
 ---
 
 # Summary
-
-<!-- possible names Tagweb|WebAnnotator|Tagpag|Tag-Pag  -->
 
 Tag-Pag is an application designed to simplify the categorization of web pages, a task increasingly common for researchers who scrape webpages to analyze individuals' browsing patterns or train machine learning classifiers. Unlike existing tools that focus on annotating sections of text, Tag-Pag systematizes broad-level annotations, allowing users to determine whether an entire document relates to one or multiple predefined topics. 
 

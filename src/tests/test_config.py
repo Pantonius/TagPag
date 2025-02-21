@@ -25,7 +25,6 @@ def cleanup(config_instance):
 
 # =================== MISSING VARIABLE ===================
 # Env gets corrupted by removing a variable. The Config class should handle missing variables gracefully.
-# TODO: env file gets loaded several times before my corroped env file is loaded. This is not ideal because this way there is always a valid env file loaded.
 
 def create_corrupted_env(original_env, corrupted_env, variable_to_remove):
     """
@@ -105,7 +104,6 @@ def test_missing_config_variable(setup_corrupted_env, variable):
 
 # =================== WRONG DATA TYPES ===================
 # This test checks if the Config class can handle wrong data types in the environment variables.
-# TODO: This created sqllite database file in the root directory.
 
 
 def create_invalid_env(original_env, invalid_env, variable_to_modify, invalid_value):
