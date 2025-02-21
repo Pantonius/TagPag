@@ -1,4 +1,4 @@
-# TagPag: Webpage Annotations
+# Tag-Pag: A Dedicated Tool for Systematic Web Page Annotations
 
 - [Description](#description)
 - [Quickstart](#quickstart)
@@ -15,13 +15,15 @@ This web application is designed to label scraped webpages. It allows users to a
 ## Quickstart
 For more information, see the next section "Further Documentation".
 
-### 1. Clone the Repository
+1. Clone the Repository
+
 ```bash
-git clone https://gitlab.inf.uni-konstanz.de/anton.pogrebnjak/tagpag.git
-cd tagpag
+git clone https://github.com/Pantonius/TagPag.git
+cd TagPag
 ```
 
-### 2. Setup a Virtual Environment
+2. Setup a Virtual Environment
+
 For example install `pyenv` as per [their instructions](https://github.com/pyenv/pyenv#installation) and setup a virtual environment for the project:
 ```bash
 pyenv install 3.12.7
@@ -34,7 +36,8 @@ conda create -n tagpag-env python=3.12.7
 conda activate tagpag-env
 ```
 
-### 3. Install the Requirements
+3. Install the Requirements
+
 ```bash
 pip install -r requirements.txt
 ``` 
@@ -45,7 +48,8 @@ or
 conda install --file requirements.txt
 ```
 
-### 4. Start the Project
+4. Start the Project
+
 ```bash
 streamlit run src/app.py
 ```
@@ -55,16 +59,20 @@ Notice that a new `.env` file has been created from the `.env-example` file, whi
 At this point you can take a look around. Maybe the [usage documentation](doc/03-USAGE.md) can be of service.
 
 ## Quick Configuration
-### 1. Open the `.env` with any text editor. If the file does not exist, create one copying the content of `.env-example` into `.env` (e.g., use `cp .env-example .env`).
+
+1. Open the `.env` with any text editor. If the file does not exist, create one copying the content of `.env-example` into `.env` (e.g., use `cp .env-example .
+env`).
 
 
-### 2. Set up a `WORKING_DIR` (i.e., a directory that will contain all the data of the project) and `LABELS` (i.e., the labels that will be used to tag the webpages).
+2. Set up a `WORKING_DIR` (i.e., a directory that will contain all the data of the project) and `LABELS` (i.e., the labels that will be used to tag the webpages).
+
 ```bash
 WORKING_DIR = '/PATH/TO/WORKING_DIRECTORY'
 LABELS = 'label_1,label_2,label_3'
 ```
 
-### 3. Make sure that the `TASKS_FILE` and `HTML_DIR` are in the `WORKING_DIRECTORY`
+3. Make sure that the `TASKS_FILE` and `HTML_DIR` are in the `WORKING_DIRECTORY`
+
 The `TASKS_FILE` should contain, at least, two columns which are defined by `TASKS_ID_COLUMN` (by default, `_id`) and `TASKS_URL_COLUMN` (by default, `url`).
 
 The `HTML_DIR` should contain the html files that are associated with the tasks. The following naming scheme should be used for the html files: `TASK_ID.html`, where `TASK_ID` is the value of the `TASKS_ID_COLUMN`.
@@ -89,7 +97,8 @@ example_workdir
     └── ...
 ```
 
-### 4. (Re)-start TagPag
+4. (Re)-start TagPag
+
 ```bash
 streamlit run src/app.py
 ```
