@@ -4,24 +4,24 @@ tags:
   - Paper
 authors:
   - name: Anton Pogrebnjak
-    equal-contrib: false
+    equal-contrib: true
     orcid: 0009-0004-1219-337X
     affiliation: 1
   - name: Julian Schelb
-    equal-contrib: false
+    equal-contrib: true
     orcid: 0009-0002-8034-7364
     affiliation: 1
   - name: Andreas Spitz
-    equal-contrib: false
+    equal-contrib: true
     orcid: 0000-0002-5282-6133
     affiliation: 1
   - name: Celina Kacperski
-    equal-contrib: false
+    equal-contrib: true
     orcid: 0000-0002-8844-5164
     affiliation: 2
   - name: Roberto Ulloa
     orcid: 0000-0002-9870-5505
-    equal-contrib: false
+    equal-contrib: true
     affiliation: 2
 affiliations:
  - name: Department of Computer Science, University of Konstanz, Germany
