@@ -19,7 +19,7 @@ For more information, see the next section "Further Documentation".
 
 ```bash
 git clone https://github.com/Pantonius/TagPag.git
-cd tagpag
+cd TagPag
 ```
 
 2. Setup a Virtual Environment
