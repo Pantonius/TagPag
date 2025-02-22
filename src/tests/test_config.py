@@ -151,7 +151,8 @@ def setup_invalid_env():
     "RANDOM_SEED",
 ])
 @pytest.mark.parametrize("invalid_value", [
-    "'INVALID_STRING'",  # String
+    "'INVALID_STRING'",
+    "-1"
 ])
 def test_invalid_random_seed(setup_invalid_env, variable, invalid_value):
     """
