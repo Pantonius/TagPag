@@ -20,6 +20,9 @@ def cleanup():
 
 
 def test_update_task_annotations():
+    """
+    Test that update_task_annotations does not raise an error.
+    """
 
     # 0. Clean the database
     cleanup()
@@ -38,7 +41,9 @@ def test_update_task_annotations():
 
 
 def test_download_annotations():
-
+    """
+    Test that download_annotations returns the expected CSV content.
+    """    
     # 0. Clean the database
     cleanup()
     initialize_db()
@@ -46,5 +51,58 @@ def test_download_annotations():
     # 1. Load tasks
     tasks = load_tasks()
 
+    # 2. Add annotations
+    task = {"_id": "1", "order": 1}
+    update_task_annotations("annotator_1", task, ["label1", "label2"], "comment")
+
+    # 3. Download CSV content
     csv_content = download_annotations()
-    assert "_id,url" in csv_content
+
+    # 4. Read existing CSV file and compare content
+    csv_filename = "tests_data/work_dir/tasks_exported.csv"
+    with open(csv_filename, "r", encoding="utf-8") as f:
+        saved_csv_content = f.read()
+
+    assert saved_csv_content.strip() == csv_content.strip(), f"CSV content mismatch:\n{saved_csv_content}"
+
+    # 5. Cleanup
+    cleanup()
+
+def test_download_annotations_columns():
+    """
+    Test that the downloaded CSV file contains the expected columns.
+    """
+    # 0. Clean the database
+    cleanup()
+    initialize_db()
+
+    # 1. Load tasks
+    tasks = load_tasks()
+
+    # 2. Add annotations
+    task = {"_id": "1", "order": 1}
+    update_task_annotations("annotator_1", task, ["label1", "label2"], "comment")
+
+    # 3. Download CSV content
+    csv_content = download_annotations()
+
+    # 4. Extract the header row
+    csv_lines = csv_content.strip().split("\n")
+    header = csv_lines[0].split(",")
+
+    # 5. Expected columns
+    expected_columns = [
+        "task_id",
+        "url",
+        "annotator_1_labels",
+        "annotator_1_comment",
+        "annotator_1_order",
+        "annotator_1_random_seed"
+    ]
+
+    # 6. Validate column names
+    missing_columns = [col for col in expected_columns if col not in header]
+    assert not missing_columns, f"Missing columns: {missing_columns}"
+
+    # 7. Cleanup
+    cleanup()
