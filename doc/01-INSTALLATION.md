@@ -4,7 +4,7 @@
 Start by cloning the repository to your desired location and navigating into the local repository:
 ```bash
 git clone https://github.com/Pantonius/TagPag.git
-cd 
+cd TagPag
 ```
 
 ## Virtual Environment
