@@ -1,0 +1,51 @@
+{
+  "@context": "https://raw.githubusercontent.com/codemeta/codemeta/master/codemeta.jsonld",
+  "@type": "Code",
+  "author": [
+    {
+      "@id": "http://orcid.org/0009-0004-1219-337X",
+      "@type": "Person",
+      "email": "anton.pogrebnjak@uni-konstanz.de",
+      "name": "Anton Pogrebnjak",
+      "affiliation": "Department of Computer Science, University of Konstanz, Germany"
+    },
+    {
+      "@id": "http://orcid.org/---",
+      "@type": "Person",
+      "email": "julian.schelb@uni-konstanz.de",
+      "name": "Julian Schelb",
+      "affiliation": "Department of Computer Science, University of Konstanz, Germany"
+    },
+    {
+      "@id": "http:://orcid.org/0000-0002-5282-6133",
+      "@type": "Person",
+      "email": "andreas.spitz@uni-konstanz.de",
+      "name": "Andreas Spitz",
+      "affiliation": "Department of Computer Science, University of Konstanz, Germany"
+    },
+    {
+      "@id": "http:://orcid.org/0000-0002-8844-5164",
+      "@type": "Person",
+      "email": "celina.kacperski@uni-konstanz.de",
+      "name": "Celina Kacperski",
+      "affiliation": "Cluster of Excellence \"The Politics of Inequalities\", University of Konstanz, Germany"
+    },
+    {
+      "@id": "http:://orcid.org/0000-0002-9870-5505",
+      "@type": "Person",
+      "email": "",
+      "name": "Roberto Ulloa",
+      "affiliation": "Cluster of Excellence \"The Politics of Inequalities\", University of Konstanz, Germany"
+    }
+  ],
+  "identifier": "",
+  "codeRepository": "https://github.com/Pantonius/TagPag",
+  "datePublished": "2025-02-24",
+  "dateModified": "2025-02-24",
+  "dateCreated": "2025-02-24",
+  "description": "A Dedicated Tool for Systematic Web Page Annotations",
+  "keywords": "web page annotation, systematic annotation, classification tools, web data, content-based analysis",
+  "license": "MIT",
+  "title": "TagPag",
+  "version": ""
+}
