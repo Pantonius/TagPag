@@ -20,6 +20,9 @@ def cleanup():
 
 
 def test_update_task_annotations():
+    """
+    Test that update_task_annotations does not raise an error.
+    """
 
     # 0. Clean the database
     cleanup()
@@ -38,6 +41,9 @@ def test_update_task_annotations():
 
 
 def test_download_annotations():
+    """
+    Test that download_annotations returns the expected CSV content.
+    """    
     # 0. Clean the database
     cleanup()
     initialize_db()
@@ -63,6 +69,9 @@ def test_download_annotations():
     cleanup()
 
 def test_download_annotations_columns():
+    """
+    Test that the downloaded CSV file contains the expected columns.
+    """
     # 0. Clean the database
     cleanup()
     initialize_db()
